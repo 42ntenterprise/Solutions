@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vista Previa Interactiva — DataBI Pro Landing Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --cyan:      #00BBFF;
+      --turquoise: #40E0DD;
+      --teal:      #008080;
+      --cerulean:  #007BA7;
+      --midnight:  #191970;
+      --deep-sea:  #005870;
+      --aqua:      #7FFFD4;
+      --sky:       #87CEEB;
+      --pale:      #AFEEEE;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0f2e;
+      color: #e8f4fd;
+      overflow-x: hidden;
+    }
+
+    /* ── Header ─────────────────────────────────────────── */
+    .pv-header {
+      background: linear-gradient(135deg, #0d1b4b 0%, #005870 60%, #007BA7 100%);
+      padding: 60px 24px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pv-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(0,187,255,0.18) 0%, transparent 70%);
+    }
+
+    .pv-header h1 {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 800;
+      color: #fff;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 12px;
+    }
+
+    .pv-header h1 span {
+      background: linear-gradient(135deg, var(--cyan), var(--turquoise), var(--aqua));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .pv-header p {
+      color: rgba(255,255,255,0.72);
+      font-size: 1.05rem;
+      max-width: 640px;
+      margin: 0 auto 28px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .pv-header-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-view-landing {
+      background: linear-gradient(135deg, var(--cerulean), var(--cyan));
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 12px 28px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-view-landing:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,187,255,0.4);
+      color: #fff;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid rgba(0,187,255,0.45);
+      color: var(--pale);
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 12px 28px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, border-color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-outline:hover {
+      background: rgba(0,187,255,0.1);
+      border-color: var(--cyan);
+      color: var(--pale);
+    }
+
+    /* ── Nav tabs ────────────────────────────────────────── */
+    .pv-nav {
+      background: rgba(10, 20, 60, 0.95);
+      border-bottom: 1px solid rgba(0,187,255,0.15);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 0 24px;
+      overflow-x: auto;
+    }
+
+    .pv-nav-inner {
+      display: flex;
+      gap: 4px;
+      max-width: 1100px;
+      margin: 0 auto;
+      white-space: nowrap;
+    }
+
+    .pv-tab {
+      padding: 14px 20px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.55);
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      white-space: nowrap;
+    }
+
+    .pv-tab:hover { color: var(--cyan); }
+    .pv-tab.active {
+      color: var(--cyan);
+      border-bottom-color: var(--cyan);
+    }
+
+    /* ── Main container ──────────────────────────────────── */
+    .pv-main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* ── Section panels ──────────────────────────────────── */
+    .pv-panel {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .pv-panel.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Cards ───────────────────────────────────────────── */
+    .pv-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(0,187,255,0.15);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 24px;
+      transition: border-color 0.25s;
+    }
+
+    .pv-card:hover { border-color: rgba(0,187,255,0.35); }
+
+    .pv-card-title {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--pale);
+      margin-bottom: 6px;
+    }
+
+    .pv-card-sub {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 20px;
+    }
+
+    /* ── Grid ────────────────────────────────────────────── */
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+    .grid-5 { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
+
+    /* ── KPI tiles ───────────────────────────────────────── */
+    .kpi-tile {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(0,187,255,0.15);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .kpi-tile:hover {
+      transform: translateY(-3px);
+      border-color: var(--cyan);
+    }
+
+    .kpi-icon {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+
+    .kpi-value {
+      font-family: 'Sora', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--cyan);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .kpi-label {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── Section heading ─────────────────────────────────── */
+    .pv-section-heading {
+      margin-bottom: 28px;
+    }
+
+    .pv-section-heading h2 {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .pv-section-heading p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* ── Chart wrapper ───────────────────────────────────── */
+    .chart-wrapper {
+      position: relative;
+      height: 280px;
+    }
+
+    .chart-wrapper-tall {
+      position: relative;
+      height: 340px;
+    }
+
+    /* ── Color palette display ───────────────────────────── */
+    .palette-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 10px;
+    }
+
+    .palette-swatch {
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .palette-swatch:hover { transform: scale(1.04); }
+
+    .swatch-color {
+      height: 60px;
+    }
+
+    .swatch-info {
+      background: rgba(10,20,60,0.85);
+      padding: 8px 10px;
+    }
+
+    .swatch-name {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .swatch-hex {
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.45);
+      font-family: monospace;
+    }
+
+    /* ── Service cards ───────────────────────────────────── */
+    .service-mini {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(0,187,255,0.15);
+      border-radius: 12px;
+      padding: 20px;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .service-mini:hover {
+      transform: translateY(-3px);
+      border-color: var(--cyan);
+    }
+
+    .service-mini-num {
+      font-family: 'Sora', sans-serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: rgba(0,187,255,0.2);
+      line-height: 1;
+      margin-bottom: -4px;
+    }
+
+    .service-mini-title {
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .service-mini-desc {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.5;
+    }
+
+    .service-mini-badge {
+      display: inline-block;
+      background: rgba(0,187,255,0.12);
+      border: 1px solid rgba(0,187,255,0.25);
+      color: var(--cyan);
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 50px;
+      margin-top: 10px;
+    }
+
+    /* ── Timeline ────────────────────────────────────────── */
+    .timeline {
+      position: relative;
+      padding-left: 32px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 11px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--cyan), transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 28px;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -28px;
+      top: 4px;
+      width: 24px;
+      height: 24px;
+      background: linear-gradient(135deg, var(--cerulean), var(--cyan));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .timeline-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .timeline-desc {
+      font-size: 0.84rem;
+      color: rgba(255,255,255,0.55);
+    }
+
+    .timeline-badge {
+      display: inline-block;
+      background: rgba(64,224,221,0.12);
+      color: var(--turquoise);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 2px 10px;
+      border-radius: 50px;
+      margin-left: 8px;
+    }
+
+    /* ── Comparison table ────────────────────────────────── */
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    .compare-table th {
+      padding: 12px 16px;
+      text-align: left;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.45);
+      border-bottom: 1px solid rgba(0,187,255,0.15);
+    }
+
+    .compare-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      color: rgba(255,255,255,0.8);
+      vertical-align: middle;
+    }
+
+    .compare-table tr:hover td {
+      background: rgba(0,187,255,0.04);
+    }
+
+    .check-yes { color: #40E0DD; font-size: 1.1rem; }
+    .check-no  { color: rgba(255,100,100,0.7); font-size: 1.1rem; }
+
+    /* ── Progress bars ───────────────────────────────────── */
+    .prog-item { margin-bottom: 16px; }
+
+    .prog-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      font-size: 0.85rem;
+    }
+
+    .prog-label span:first-child { color: rgba(255,255,255,0.8); font-weight: 500; }
+    .prog-label span:last-child  { color: var(--cyan); font-weight: 700; }
+
+    .prog-bar-bg {
+      height: 8px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 50px;
+      overflow: hidden;
+    }
+
+    .prog-bar-fill {
+      height: 100%;
+      border-radius: 50px;
+      background: linear-gradient(90deg, var(--cerulean), var(--cyan));
+      width: 0%;
+      transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ── Image gallery ───────────────────────────────────── */
+    .img-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .img-gallery-item {
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(0,187,255,0.15);
+      cursor: pointer;
+      transition: transform 0.2s, border-color 0.2s;
+      position: relative;
+    }
+
+    .img-gallery-item:hover {
+      transform: scale(1.02);
+      border-color: var(--cyan);
+    }
+
+    .img-gallery-item img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .img-gallery-caption {
+      padding: 8px 10px;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.6);
+      background: rgba(10,20,60,0.85);
+    }
+
+    /* ── Lightbox ────────────────────────────────────────── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .lightbox.open { display: flex; }
+
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 85vh;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      font-size: 2rem;
+      color: #fff;
+      cursor: pointer;
+      background: none;
+      border: none;
+      line-height: 1;
+    }
+
+    /* ── Tooltip ─────────────────────────────────────────── */
+    .tooltip-copy {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--cerulean);
+      color: #fff;
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+      z-index: 9998;
+    }
+
+    .tooltip-copy.show { opacity: 1; }
+
+    /* ── Footer ──────────────────────────────────────────── */
+    .pv-footer {
+      background: rgba(10,20,60,0.8);
+      border-top: 1px solid rgba(0,187,255,0.1);
+      padding: 24px;
+      text-align: center;
+    }
+
+    .pv-footer p {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.35);
+    }
+
+    .pv-footer a {
+      color: var(--cyan);
+      text-decoration: none;
+    }
+
+    /* ── Responsive ──────────────────────────────────────── */
+    @media (max-width: 600px) {
+      .pv-header { padding: 40px 16px 60px; }
+      .pv-main { padding: 24px 16px 60px; }
+      .grid-2, .grid-3, .grid-5 { grid-template-columns: 1fr; }
+      .chart-wrapper { height: 220px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Header ────────────────────────────────────────────── -->
+<div class="pv-header">
+  <h1>Vista Interactiva — <span>DataBI Pro</span></h1>
+  <p>Explora los resultados del diseño, la paleta de colores, los servicios y las métricas de la landing page de forma más intuitiva.</p>
+  <div class="pv-header-btns">
+    <a href="index.html" target="_blank" class="btn-view-landing">
+      🚀 Abrir Landing Page
+    </a>
+    <button class="btn-outline" onclick="window.print()">
+      🖨️ Guardar / Imprimir
+    </button>
+  </div>
+</div>
+
+<!-- ── Navigation tabs ───────────────────────────────────── -->
+<nav class="pv-nav">
+  <div class="pv-nav-inner">
+    <button class="pv-tab active" onclick="showPanel('overview')">📊 Resumen</button>
+    <button class="pv-tab" onclick="showPanel('services')">🛠️ Servicios</button>
+    <button class="pv-tab" onclick="showPanel('metrics')">📈 Métricas</button>
+    <button class="pv-tab" onclick="showPanel('palette')">🎨 Paleta</button>
+    <button class="pv-tab" onclick="showPanel('images')">🖼️ Imágenes</button>
+    <button class="pv-tab" onclick="showPanel('process')">⚙️ Proceso</button>
+    <button class="pv-tab" onclick="showPanel('compare')">⚖️ Comparativa</button>
+  </div>
+</nav>
+
+<!-- ── Main content ──────────────────────────────────────── -->
+<main class="pv-main">
+
+  <!-- ===== OVERVIEW ===== -->
+  <div id="panel-overview" class="pv-panel active">
+    <div class="pv-section-heading">
+      <h2>Resumen de la Landing Page</h2>
+      <p>Vista general de las secciones, KPIs de diseño y estructura de la página</p>
+    </div>
+
+    <!-- KPIs -->
+    <div class="grid-5" style="margin-bottom:24px;">
+      <div class="kpi-tile">
+        <div class="kpi-icon">📄</div>
+        <div class="kpi-value" data-count="10">0</div>
+        <div class="kpi-label">Secciones</div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-icon">🛠️</div>
+        <div class="kpi-value" data-count="5">0</div>
+        <div class="kpi-label">Servicios</div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-icon">🖼️</div>
+        <div class="kpi-value" data-count="8">0</div>
+        <div class="kpi-label">Imágenes</div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-icon">🎨</div>
+        <div class="kpi-value" data-count="21">0</div>
+        <div class="kpi-label">Colores</div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-icon">📱</div>
+        <div class="kpi-value">100%</div>
+        <div class="kpi-label">Responsivo</div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Secciones chart -->
+      <div class="pv-card">
+        <div class="pv-card-title">Distribución de secciones</div>
+        <div class="pv-card-sub">Peso visual estimado por sección</div>
+        <div class="chart-wrapper">
+          <canvas id="sectionsChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Tech stack -->
+      <div class="pv-card">
+        <div class="pv-card-title">Stack tecnológico</div>
+        <div class="pv-card-sub">Tecnologías utilizadas en la landing</div>
+        <div style="margin-top:8px;">
+          <div class="prog-item">
+            <div class="prog-label"><span>HTML5 semántico</span><span>100%</span></div>
+            <div class="prog-bar-bg"><div class="prog-bar-fill" data-width="100"></div></div>
+          </div>
+          <div class="prog-item">
+            <div class="prog-label"><span>CSS3 + Variables</span><span>100%</span></div>
+            <div class="prog-bar-bg"><div class="prog-bar-fill" data-width="100"></div></div>
+          </div>
+          <div class="prog-item">
+            <div class="prog-label"><span>Bootstrap 5.3</span><span>95%</span></div>
+            <div class="prog-bar-bg"><div class="prog-bar-fill" data-width="95"></div></div>
+          </div>
+          <div class="prog-item">
+            <div class="prog-label"><span>JavaScript ES6+</span><span>85%</span></div>
+            <div class="prog-bar-bg"><div class="prog-bar-fill" data-width="85"></div></div>
+          </div>
+          <div class="prog-item">
+            <div class="prog-label"><span>AOS Animations</span><span>80%</span></div>
+            <div class="prog-bar-bg"><div class="prog-bar-fill" data-width="80"></div></div>
+          </div>
+          <div class="prog-item">
+            <div class="prog-label"><span>Bootstrap Icons</span><span>75%</span></div>
+            <div class="prog-bar-bg"><div class="prog-bar-fill" data-width="75"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sections list -->
+    <div class="pv-card">
+      <div class="pv-card-title">Estructura de secciones</div>
+      <div class="pv-card-sub">Todas las secciones incluidas en la landing page</div>
+      <div class="grid-3" style="margin-top:8px;">
+        <div style="padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.06);">
+          <span style="color:var(--cyan);font-weight:700;font-size:0.78rem;">00</span>
+          <span style="color:#fff;font-size:0.9rem;margin-left:10px;">Navbar sticky + CTA</span>
+        </div>
+        <div style="padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.06);">
+          <span style="color:var(--cyan);font-weight:700;font-size:0.78rem;">01</span>
+          <span style="color:#fff;font-size:0.9rem;margin-left:10px;">Hero + beneficios + micro-trust</span>
+        </div>
+        <div style="padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.06);">
+          <span style="color:var(--cyan);font-weight:700;font-size:0.78rem;">02</span>
+          <span style="color:#fff;font-size:0.9rem;margin-left:10px;">¿Dónde te duele? (selector)</span>
+        </div>
+        <div style="padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.06);">
+          <span style="color:var(--cyan);font-weight:700;font-size:0.78rem;">03</span>
+          <span style="color:#fff;font-size:0.9rem;margin-left:10px;">5 Servicios / Productos</span>
+        </div>
+        <div style="padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.06);">
+          <span style="color:var(--cyan);font-weight:700;font-size:0.78rem;">04</span>
+          <span style="color:#fff;font-size:0.9rem;margin-left:10px;">Diferenciadores (6 cards)</span>
+        </div>
+        <div style="padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.06);">
+          <span style="color:var(--cyan);font-weight:700;font-size:0.78rem;">05</span>
+          <span style="color:#fff;font-size:0.9rem;margin-left:10px;">Evidencia / Casos (3)</span>
+        </div>
+        <div style="padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.06);">
+          <span style="color:var(--cyan);font-weight:700;font-size:0.78rem;">06</span>
+          <span style="color:#fff;font-size:0.9rem;margin-left:10px;">Proceso (4 pasos)</span>
+        </div>
+        <div style="padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.06);">
+          <span style="color:var(--cyan);font-weight:700;font-size:0.78rem;">07</span>
+          <span style="color:#fff;font-size:0.9rem;margin-left:10px;">Precios (5 paquetes)</span>
+        </div>
+        <div style="padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.06);">
+          <span style="color:var(--cyan);font-weight:700;font-size:0.78rem;">08</span>
+          <span style="color:#fff;font-size:0.9rem;margin-left:10px;">Formulario de cotización</span>
+        </div>
+        <div style="padding:10px 0;">
+          <span style="color:var(--cyan);font-weight:700;font-size:0.78rem;">09</span>
+          <span style="color:#fff;font-size:0.9rem;margin-left:10px;">FAQ (5 preguntas)</span>
+        </div>
+        <div style="padding:10px 0;">
+          <span style="color:var(--cyan);font-weight:700;font-size:0.78rem;">10</span>
+          <span style="color:#fff;font-size:0.9rem;margin-left:10px;">CTA final + Footer</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SERVICES ===== -->
+  <div id="panel-services" class="pv-panel">
+    <div class="pv-section-heading">
+      <h2>Los 5 Servicios</h2>
+      <p>Detalle interactivo de cada producto ofrecido</p>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:24px;">
+      <div class="pv-card">
+        <div class="pv-card-title">Distribución de servicios por tipo</div>
+        <div class="pv-card-sub">Clasificación por área de especialización</div>
+        <div class="chart-wrapper">
+          <canvas id="servicesChart"></canvas>
+        </div>
+      </div>
+      <div class="pv-card">
+        <div class="pv-card-title">Complejidad estimada por servicio</div>
+        <div class="pv-card-sub">Escala 1–10 según alcance técnico</div>
+        <div class="chart-wrapper">
+          <canvas id="complexityChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-3">
+      <div class="service-mini">
+        <div class="service-mini-num">01</div>
+        <div class="service-mini-title">Auditoría BI + Plan de Acción</div>
+        <div class="service-mini-desc">Gobernanza + Performance. Revisión de modelo, DAX, seguridad y UX.</div>
+        <div class="service-mini-badge">Gobernanza</div>
+      </div>
+      <div class="service-mini">
+        <div class="service-mini-num">02</div>
+        <div class="service-mini-title">Dashboard Power BI + Modelo</div>
+        <div class="service-mini-desc">End-to-end. KPI definition, modelo estrella, DAX, publicación.</div>
+        <div class="service-mini-badge">Visualización</div>
+      </div>
+      <div class="service-mini">
+        <div class="service-mini-num">03</div>
+        <div class="service-mini-title">Ingeniería y Arquitectura de Datos</div>
+        <div class="service-mini-desc">ETL/ELT + Estructura. Pipeline, diccionario, automatización.</div>
+        <div class="service-mini-badge">Data Eng.</div>
+      </div>
+      <div class="service-mini">
+        <div class="service-mini-num">04</div>
+        <div class="service-mini-title">Predicción y Analítica</div>
+        <div class="service-mini-desc">Forecast + Modelos. Feature engineering, evaluación, insights.</div>
+        <div class="service-mini-badge">ML / IA</div>
+      </div>
+      <div class="service-mini">
+        <div class="service-mini-num">05</div>
+        <div class="service-mini-title">Plan de Negocios</div>
+        <div class="service-mini-desc">Para startups y expansión. Financiero, estrategia, KPIs, roadmap.</div>
+        <div class="service-mini-badge">Estrategia</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== METRICS ===== -->
+  <div id="panel-metrics" class="pv-panel">
+    <div class="pv-section-heading">
+      <h2>Métricas de Impacto</h2>
+      <p>Resultados estimados que la landing page comunica a los prospectos</p>
+    </div>
+
+    <div class="grid-3" style="margin-bottom:24px;">
+      <div class="kpi-tile">
+        <div class="kpi-icon">⏱️</div>
+        <div class="kpi-value">–40%</div>
+        <div class="kpi-label">Horas de reporte</div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-icon">🎯</div>
+        <div class="kpi-value">+25%</div>
+        <div class="kpi-label">Precisión forecast</div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-icon">📅</div>
+        <div class="kpi-value">–50%</div>
+        <div class="kpi-label">Tiempo de cierre</div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="pv-card">
+        <div class="pv-card-title">Antes vs. Después — Horas de reporte</div>
+        <div class="pv-card-sub">Comparación mensual estimada</div>
+        <div class="chart-wrapper">
+          <canvas id="hoursChart"></canvas>
+        </div>
+      </div>
+      <div class="pv-card">
+        <div class="pv-card-title">Precisión de Forecast</div>
+        <div class="pv-card-sub">Mejora progresiva con el modelo predictivo</div>
+        <div class="chart-wrapper">
+          <canvas id="forecastChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="pv-card">
+      <div class="pv-card-title">Radar de capacidades — DataBI Pro vs. Consultora típica</div>
+      <div class="pv-card-sub">Comparación multidimensional de valor entregado</div>
+      <div class="chart-wrapper-tall">
+        <canvas id="radarChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PALETTE ===== -->
+  <div id="panel-palette" class="pv-panel">
+    <div class="pv-section-heading">
+      <h2>Paleta de Colores</h2>
+      <p>Los 21 colores base utilizados en el diseño. Haz clic en un color para copiar el HEX.</p>
+    </div>
+
+    <div class="palette-grid" id="paletteGrid"></div>
+
+    <div class="pv-card" style="margin-top:24px;">
+      <div class="pv-card-title">Tipografías sugeridas</div>
+      <div class="pv-card-sub">Fuentes modernas y legibles seleccionadas para la landing</div>
+      <div class="grid-2" style="margin-top:12px;">
+        <div style="padding:20px;background:rgba(255,255,255,0.04);border-radius:10px;border:1px solid rgba(0,187,255,0.15);">
+          <p style="font-family:'Sora',sans-serif;font-size:1.8rem;font-weight:800;color:#fff;margin-bottom:8px;">Sora</p>
+          <p style="font-size:0.82rem;color:rgba(255,255,255,0.5);">Titulares y encabezados — Peso 600, 700, 800</p>
+          <p style="font-family:'Sora',sans-serif;font-size:1rem;color:var(--cyan);margin-top:8px;">AaBbCcDd 0123456789</p>
+        </div>
+        <div style="padding:20px;background:rgba(255,255,255,0.04);border-radius:10px;border:1px solid rgba(0,187,255,0.15);">
+          <p style="font-family:'Inter',sans-serif;font-size:1.8rem;font-weight:700;color:#fff;margin-bottom:8px;">Inter</p>
+          <p style="font-size:0.82rem;color:rgba(255,255,255,0.5);">Cuerpo y UI — Peso 300, 400, 500, 600, 700</p>
+          <p style="font-family:'Inter',sans-serif;font-size:1rem;color:var(--turquoise);margin-top:8px;">AaBbCcDd 0123456789</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== IMAGES ===== -->
+  <div id="panel-images" class="pv-panel">
+    <div class="pv-section-heading">
+      <h2>Imágenes Generadas</h2>
+      <p>Las 8 imágenes fotorrealistas creadas para la landing page. Haz clic para ampliar.</p>
+    </div>
+
+    <div class="img-gallery" id="imgGallery"></div>
+  </div>
+
+  <!-- ===== PROCESS ===== -->
+  <div id="panel-process" class="pv-panel">
+    <div class="pv-section-heading">
+      <h2>Proceso de Trabajo</h2>
+      <p>Los 4 pasos del proceso de entrega de DataBI Pro</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="pv-card">
+        <div class="pv-card-title">Timeline del proceso</div>
+        <div class="pv-card-sub">Desde la cotización hasta el traspaso</div>
+        <div class="timeline" style="margin-top:16px;">
+          <div class="timeline-item">
+            <div class="timeline-dot">1</div>
+            <div class="timeline-title">Cotización <span class="timeline-badge">Hoy</span></div>
+            <div class="timeline-desc">Objetivo, fuentes de datos, urgencia y alcance. Sin compromiso.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot">2</div>
+            <div class="timeline-title">Demo personalizada <span class="timeline-badge">Máx. 24h</span></div>
+            <div class="timeline-desc">Demo funcional o propuesta visual ajustada a tu industria.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot">3</div>
+            <div class="timeline-title">Implementación por sprints <span class="timeline-badge">Semanal</span></div>
+            <div class="timeline-desc">Entregas medibles con avances visibles en cada iteración.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot">4</div>
+            <div class="timeline-title">Traspaso + soporte <span class="timeline-badge">Final</span></div>
+            <div class="timeline-desc">Documentación, handover completo y continuidad garantizada.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pv-card">
+        <div class="pv-card-title">Tiempo estimado por fase</div>
+        <div class="pv-card-sub">Duración típica según tipo de proyecto</div>
+        <div class="chart-wrapper">
+          <canvas id="processChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="pv-card" style="margin-top:0;">
+      <div class="pv-card-title">Metodología aplicada</div>
+      <div class="pv-card-sub">Combinación de marcos ágiles y gestión formal</div>
+      <div class="grid-3" style="margin-top:12px;">
+        <div style="text-align:center;padding:16px;background:rgba(0,187,255,0.06);border-radius:10px;">
+          <div style="font-size:2rem;margin-bottom:8px;">🏃</div>
+          <div style="font-weight:700;color:#fff;margin-bottom:4px;">Scrum / Agile</div>
+          <div style="font-size:0.8rem;color:rgba(255,255,255,0.5);">Sprints semanales / quincenales</div>
+        </div>
+        <div style="text-align:center;padding:16px;background:rgba(0,187,255,0.06);border-radius:10px;">
+          <div style="font-size:2rem;margin-bottom:8px;">📋</div>
+          <div style="font-weight:700;color:#fff;margin-bottom:4px;">PMI / IPMA</div>
+          <div style="font-size:0.8rem;color:rgba(255,255,255,0.5);">Marco formal de gestión de proyectos</div>
+        </div>
+        <div style="text-align:center;padding:16px;background:rgba(0,187,255,0.06);border-radius:10px;">
+          <div style="font-size:2rem;margin-bottom:8px;">🔒</div>
+          <div style="font-weight:700;color:#fff;margin-bottom:4px;">Seguridad</div>
+          <div style="font-size:0.8rem;color:rgba(255,255,255,0.5);">NDA + datos anonimizados disponibles</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== COMPARE ===== -->
+  <div id="panel-compare" class="pv-panel">
+    <div class="pv-section-heading">
+      <h2>Comparativa</h2>
+      <p>DataBI Pro vs. consultoras típicas del mercado</p>
+    </div>
+
+    <div class="pv-card">
+      <div class="pv-card-title">Tabla comparativa de diferenciadores</div>
+      <div class="pv-card-sub">Características clave evaluadas</div>
+      <div style="overflow-x:auto;margin-top:12px;">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Característica</th>
+              <th>DataBI Pro</th>
+              <th>Consultora típica</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>KPIs verificables antes/después</td>
+              <td><span class="check-yes">✓</span> Siempre</td>
+              <td><span class="check-no">✗</span> Raramente</td>
+            </tr>
+            <tr>
+              <td>Precios transparentes desde el inicio</td>
+              <td><span class="check-yes">✓</span> Rangos claros</td>
+              <td><span class="check-no">✗</span> Cotización opaca</td>
+            </tr>
+            <tr>
+              <td>Demo personalizada en 24h</td>
+              <td><span class="check-yes">✓</span> Garantizado</td>
+              <td><span class="check-no">✗</span> 1–2 semanas</td>
+            </tr>
+            <tr>
+              <td>Metodología ágil + formal (PMI/IPMA)</td>
+              <td><span class="check-yes">✓</span> Combinada</td>
+              <td>⚠️ Solo una</td>
+            </tr>
+            <tr>
+              <td>Stack Microsoft end-to-end</td>
+              <td><span class="check-yes">✓</span> Nativo</td>
+              <td>⚠️ Parcial</td>
+            </tr>
+            <tr>
+              <td>NDA antes de revisar datos</td>
+              <td><span class="check-yes">✓</span> Disponible</td>
+              <td>⚠️ Opcional</td>
+            </tr>
+            <tr>
+              <td>Entregables definidos por contrato</td>
+              <td><span class="check-yes">✓</span> Siempre</td>
+              <td>⚠️ A veces</td>
+            </tr>
+            <tr>
+              <td>Capacidad limitada (calidad garantizada)</td>
+              <td><span class="check-yes">✓</span> 3 proyectos/mes</td>
+              <td><span class="check-no">✗</span> Sin límite</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="pv-card">
+      <div class="pv-card-title">Paquetes disponibles</div>
+      <div class="pv-card-sub">Resumen de los 5 paquetes con su perfil ideal</div>
+      <div style="overflow-x:auto;margin-top:12px;">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Paquete</th>
+              <th>Nombre</th>
+              <th>Ideal para</th>
+              <th>Entregables clave</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span style="color:var(--cyan);font-weight:700;">A</span></td>
+              <td>Auditoría BI</td>
+              <td>BI lento / sin gobierno</td>
+              <td>Informe + Quick wins + Plan</td>
+            </tr>
+            <tr>
+              <td><span style="color:var(--cyan);font-weight:700;">B</span></td>
+              <td>Dashboard + Modelo</td>
+              <td>Tablero corporativo</td>
+              <td>Dataset + Reporte + Guía</td>
+            </tr>
+            <tr>
+              <td><span style="color:var(--cyan);font-weight:700;">C</span></td>
+              <td>Data Engineering</td>
+              <td>Múltiples fuentes</td>
+              <td>Pipeline + Diccionario</td>
+            </tr>
+            <tr>
+              <td><span style="color:var(--cyan);font-weight:700;">D</span></td>
+              <td>Forecast / Predicción</td>
+              <td>Proyección con control</td>
+              <td>Modelo + Métricas + Insights</td>
+            </tr>
+            <tr>
+              <td><span style="color:var(--cyan);font-weight:700;">E</span></td>
+              <td>Plan de Negocios</td>
+              <td>Startup o expansión</td>
+              <td>Documento + Financiero + KPIs</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ── Footer ─────────────────────────────────────────────── -->
+<div class="pv-footer">
+  <p>Vista interactiva generada para <strong style="color:var(--cyan);">DataBI Pro</strong> — <a href="index.html" target="_blank">Ver landing page completa</a></p>
+</div>
+
+<!-- ── Lightbox ───────────────────────────────────────────── -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightboxImg" src="" alt="" />
+</div>
+
+<!-- ── Tooltip ────────────────────────────────────────────── -->
+<div class="tooltip-copy" id="tooltipCopy">¡HEX copiado al portapapeles!</div>
+
+<script>
+/* ── Tab navigation ─────────────────────────────────────── */
+function showPanel(id) {
+  document.querySelectorAll('.pv-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.pv-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  // Animate progress bars when tech panel shown
+  if (id === 'overview') animateBars();
+  if (id === 'metrics') initMetricCharts();
+}
+
+/* ── Counter animation ──────────────────────────────────── */
+function animateCounters() {
+  document.querySelectorAll('[data-count]').forEach(el => {
+    const target = parseInt(el.dataset.count);
+    let current = 0;
+    const step = Math.ceil(target / 30);
+    const timer = setInterval(() => {
+      current = Math.min(current + step, target);
+      el.textContent = current;
+      if (current >= target) clearInterval(timer);
+    }, 40);
+  });
+}
+
+/* ── Progress bars ──────────────────────────────────────── */
+function animateBars() {
+  setTimeout(() => {
+    document.querySelectorAll('.prog-bar-fill').forEach(bar => {
+      bar.style.width = bar.dataset.width + '%';
+    });
+  }, 200);
+}
+
+/* ── Color palette ──────────────────────────────────────── */
+const palette = [
+  { name: 'Pale Blue',       hex: '#AFEEEE' },
+  { name: 'Sky Blue',        hex: '#87CEEB' },
+  { name: 'Aquamarine',      hex: '#7FFFD4' },
+  { name: 'Aqua Blue',       hex: '#00FFFF' },
+  { name: 'Cyan',            hex: '#00BBFF' },
+  { name: 'Azure',           hex: '#007FFF' },
+  { name: 'Deep Blue',       hex: '#0000FF' },
+  { name: 'Turquoise',       hex: '#40E0DD' },
+  { name: 'Deep Turquoise',  hex: '#00CED1' },
+  { name: 'Teal',            hex: '#008080' },
+  { name: 'Dark Cyan',       hex: '#008888' },
+  { name: 'Cerulean',        hex: '#007BA7' },
+  { name: 'Sea Green',       hex: '#2E8B57' },
+  { name: 'Deep Sea Blue',   hex: '#005870' },
+  { name: 'Steel Blue',      hex: '#4682B4' },
+  { name: 'Royal Blue',      hex: '#4169E1' },
+  { name: 'Cobalt Blue',     hex: '#0047AB' },
+  { name: 'Ocean Blue',      hex: '#4F4285' },
+  { name: 'Indigo',          hex: '#4B0082' },
+  { name: 'Navy Blue',       hex: '#000080' },
+  { name: 'Midnight Blue',   hex: '#191970' },
+];
+
+function buildPalette() {
+  const grid = document.getElementById('paletteGrid');
+  palette.forEach(c => {
+    const sw = document.createElement('div');
+    sw.className = 'palette-swatch';
+    sw.innerHTML = `
+      <div class="swatch-color" style="background:${c.hex}"></div>
+      <div class="swatch-info">
+        <span class="swatch-name">${c.name}</span>
+        <span class="swatch-hex">${c.hex}</span>
+      </div>
+    `;
+    sw.addEventListener('click', () => copyHex(c.hex));
+    grid.appendChild(sw);
+  });
+}
+
+function copyHex(hex) {
+  navigator.clipboard.writeText(hex).catch(() => {});
+  const tip = document.getElementById('tooltipCopy');
+  tip.textContent = `¡${hex} copiado!`;
+  tip.classList.add('show');
+  setTimeout(() => tip.classList.remove('show'), 2200);
+}
+
+/* ── Image gallery ──────────────────────────────────────── */
+const images = [
+  { src: 'images/hero-bg.jpg',           caption: 'Hero — Analista con dashboards' },
+  { src: 'images/dashboard-powerbi.jpg', caption: 'Dashboard Power BI' },
+  { src: 'images/data-engineering.jpg',  caption: 'Ingeniería de datos / ETL' },
+  { src: 'images/bi-audit.jpg',          caption: 'Auditoría BI y gobernanza' },
+  { src: 'images/forecast-prediction.jpg', caption: 'Predicción y analítica' },
+  { src: 'images/business-plan.jpg',     caption: 'Plan de negocios' },
+  { src: 'images/process-steps.jpg',     caption: 'Proceso ágil / sprints' },
+  { src: 'images/profile-fortunato.jpg', caption: 'Fortunato Bravo Núñez' },
+];
+
+function buildGallery() {
+  const gallery = document.getElementById('imgGallery');
+  images.forEach(img => {
+    const item = document.createElement('div');
+    item.className = 'img-gallery-item';
+    item.innerHTML = `
+      <img src="${img.src}" alt="${img.caption}" loading="lazy" />
+      <div class="img-gallery-caption">${img.caption}</div>
+    `;
+    item.addEventListener('click', () => openLightbox(img.src, img.caption));
+    gallery.appendChild(item);
+  });
+}
+
+function openLightbox(src, alt) {
+  document.getElementById('lightboxImg').src = src;
+  document.getElementById('lightboxImg').alt = alt;
+  document.getElementById('lightbox').classList.add('open');
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+}
+
+/* ── Charts ─────────────────────────────────────────────── */
+const chartDefaults = {
+  plugins: {
+    legend: { labels: { color: 'rgba(255,255,255,0.7)', font: { family: 'Inter', size: 12 } } },
+    tooltip: { backgroundColor: 'rgba(10,20,60,0.95)', titleColor: '#00BBFF', bodyColor: 'rgba(255,255,255,0.8)', borderColor: 'rgba(0,187,255,0.3)', borderWidth: 1 }
+  },
+  scales: {
+    x: { ticks: { color: 'rgba(255,255,255,0.55)' }, grid: { color: 'rgba(255,255,255,0.06)' } },
+    y: { ticks: { color: 'rgba(255,255,255,0.55)' }, grid: { color: 'rgba(255,255,255,0.06)' } }
+  }
+};
+
+function initOverviewCharts() {
+  // Sections donut
+  new Chart(document.getElementById('sectionsChart'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Hero', 'Servicios', 'Precios', 'Formulario', 'Proceso', 'Diferenciadores', 'Evidencia', 'FAQ', 'Otros'],
+      datasets: [{
+        data: [18, 25, 15, 12, 10, 8, 7, 3, 2],
+        backgroundColor: ['#007BA7','#00BBFF','#40E0DD','#7FFFD4','#4682B4','#008080','#005870','#4169E1','#191970'],
+        borderWidth: 0,
+        hoverOffset: 6
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { ...chartDefaults.plugins, legend: { position: 'right', labels: { color: 'rgba(255,255,255,0.7)', font: { size: 11 }, boxWidth: 12 } } },
+      cutout: '60%'
+    }
+  });
+}
+
+function initServiceCharts() {
+  new Chart(document.getElementById('servicesChart'), {
+    type: 'pie',
+    data: {
+      labels: ['Auditoría BI', 'Dashboard Power BI', 'Data Engineering', 'Predicción', 'Plan de Negocios'],
+      datasets: [{
+        data: [20, 25, 20, 20, 15],
+        backgroundColor: ['#007BA7','#00BBFF','#40E0DD','#4682B4','#2E8B57'],
+        borderWidth: 0
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { ...chartDefaults.plugins, legend: { position: 'bottom', labels: { color: 'rgba(255,255,255,0.7)', font: { size: 11 }, boxWidth: 12 } } }
+    }
+  });
+
+  new Chart(document.getElementById('complexityChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Auditoría BI', 'Dashboard PBI', 'Data Eng.', 'Predicción', 'Plan Negocio'],
+      datasets: [{
+        label: 'Complejidad (1–10)',
+        data: [6, 7, 8, 9, 5],
+        backgroundColor: ['rgba(0,123,167,0.7)','rgba(0,187,255,0.7)','rgba(64,224,221,0.7)','rgba(70,130,180,0.7)','rgba(46,139,87,0.7)'],
+        borderColor: ['#007BA7','#00BBFF','#40E0DD','#4682B4','#2E8B57'],
+        borderWidth: 2,
+        borderRadius: 6
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { ...chartDefaults.plugins, legend: { display: false } },
+      scales: { ...chartDefaults.scales, y: { ...chartDefaults.scales.y, min: 0, max: 10 } }
+    }
+  });
+}
+
+function initMetricCharts() {
+  if (document.getElementById('hoursChart').chart) return;
+
+  const hc = new Chart(document.getElementById('hoursChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
+      datasets: [
+        { label: 'Antes (hrs)', data: [80, 78, 82, 80, 79, 81], backgroundColor: 'rgba(255,100,100,0.5)', borderColor: '#ff6464', borderWidth: 2, borderRadius: 4 },
+        { label: 'Después (hrs)', data: [48, 46, 44, 43, 42, 41], backgroundColor: 'rgba(0,187,255,0.5)', borderColor: '#00BBFF', borderWidth: 2, borderRadius: 4 }
+      ]
+    },
+    options: { responsive: true, maintainAspectRatio: false, plugins: chartDefaults.plugins, scales: chartDefaults.scales }
+  });
+  document.getElementById('hoursChart').chart = hc;
+
+  const fc = new Chart(document.getElementById('forecastChart'), {
+    type: 'line',
+    data: {
+      labels: ['Mes 1', 'Mes 2', 'Mes 3', 'Mes 4', 'Mes 5', 'Mes 6'],
+      datasets: [
+        { label: 'Sin modelo (%)', data: [62, 64, 63, 65, 64, 66], borderColor: 'rgba(255,100,100,0.8)', backgroundColor: 'rgba(255,100,100,0.1)', tension: 0.4, fill: true, pointRadius: 4 },
+        { label: 'Con modelo (%)', data: [62, 70, 76, 82, 87, 91], borderColor: '#40E0DD', backgroundColor: 'rgba(64,224,221,0.1)', tension: 0.4, fill: true, pointRadius: 4 }
+      ]
+    },
+    options: { responsive: true, maintainAspectRatio: false, plugins: chartDefaults.plugins, scales: { ...chartDefaults.scales, y: { ...chartDefaults.scales.y, min: 50, max: 100 } } }
+  });
+  document.getElementById('forecastChart').chart = fc;
+
+  const rc = new Chart(document.getElementById('radarChart'), {
+    type: 'radar',
+    data: {
+      labels: ['KPIs verificables', 'Transparencia precio', 'Velocidad entrega', 'Seguridad datos', 'Metodología', 'Stack técnico', 'Documentación'],
+      datasets: [
+        { label: 'DataBI Pro', data: [9, 9, 9, 8, 9, 9, 8], borderColor: '#00BBFF', backgroundColor: 'rgba(0,187,255,0.15)', pointBackgroundColor: '#00BBFF', pointRadius: 5 },
+        { label: 'Consultora típica', data: [5, 4, 5, 6, 6, 6, 5], borderColor: 'rgba(255,100,100,0.7)', backgroundColor: 'rgba(255,100,100,0.08)', pointBackgroundColor: 'rgba(255,100,100,0.7)', pointRadius: 5 }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: chartDefaults.plugins,
+      scales: {
+        r: {
+          min: 0, max: 10,
+          ticks: { color: 'rgba(255,255,255,0.4)', stepSize: 2, backdropColor: 'transparent' },
+          grid: { color: 'rgba(255,255,255,0.08)' },
+          pointLabels: { color: 'rgba(255,255,255,0.7)', font: { size: 11 } },
+          angleLines: { color: 'rgba(255,255,255,0.08)' }
+        }
+      }
+    }
+  });
+  document.getElementById('radarChart').chart = rc;
+}
+
+function initProcessChart() {
+  new Chart(document.getElementById('processChart'), {
+    type: 'horizontalBar',
+    ...(() => {
+      return {
+        type: 'bar',
+        data: {
+          labels: ['Cotización', 'Demo', 'Sprint 1', 'Sprint 2', 'Sprint 3', 'Traspaso'],
+          datasets: [{
+            label: 'Días estimados',
+            data: [1, 1, 7, 7, 7, 3],
+            backgroundColor: ['rgba(0,123,167,0.7)','rgba(0,187,255,0.7)','rgba(64,224,221,0.7)','rgba(64,224,221,0.6)','rgba(64,224,221,0.5)','rgba(46,139,87,0.7)'],
+            borderColor: ['#007BA7','#00BBFF','#40E0DD','#40E0DD','#40E0DD','#2E8B57'],
+            borderWidth: 2,
+            borderRadius: 6
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true, maintainAspectRatio: false,
+          plugins: { ...chartDefaults.plugins, legend: { display: false } },
+          scales: { x: { ...chartDefaults.scales.x, title: { display: true, text: 'Días', color: 'rgba(255,255,255,0.4)' } }, y: chartDefaults.scales.y }
+        }
+      };
+    })()
+  });
+}
+
+/* ── Init ────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  buildPalette();
+  buildGallery();
+  animateCounters();
+  animateBars();
+  initOverviewCharts();
+  initServiceCharts();
+  initProcessChart();
+});
+
+// ESC to close lightbox
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeLightbox();
+});
+</script>
+</body>
+</html>

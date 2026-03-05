@@ -83,66 +83,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ── EmailJS init (desde emailjs-config.js) ──────────── */
-  if (typeof emailjs !== 'undefined' && typeof EMAILJS_CONFIG !== 'undefined') {
-    emailjs.init({ publicKey: EMAILJS_CONFIG.publicKey });
-  }
-
   /* ── Form submission ──────────────────────────────────── */
   const form = document.getElementById('quoteForm');
   if (form) {
-    form.addEventListener('submit', async e => {
+    form.addEventListener('submit', e => {
       e.preventDefault();
       if (!form.checkValidity()) {
         form.classList.add('was-validated');
         return;
       }
-
-      // Deshabilitar botón mientras envía
-      const btn = form.querySelector('button[type="submit"]');
-      const btnOriginal = btn.innerHTML;
-      btn.disabled = true;
-      btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Enviando…';
-
-      // Recopilar datos del formulario
-      const urgencySelected = form.querySelector('.urgency-option.selected span');
-      const selects = form.querySelectorAll('select');
-      const templateParams = {
-        to_email:       '42ntenterprise@gmail.com',
-        nombre_cargo:   form.querySelector('input[placeholder*="Juan"]')?.value    || '',
-        empresa:        form.querySelector('input[placeholder*="empresa"]')?.value  || '',
-        industria:      selects[0]?.value || '',
-        tamano_empresa: selects[1]?.value || '',
-        necesidad:      selects[2]?.value || '',
-        fuente_datos:   selects[3]?.value || '',
-        urgencia:       urgencySelected ? urgencySelected.textContent : 'No especificada',
-        email:          form.querySelector('input[type="email"]')?.value || '',
-        whatsapp:       form.querySelector('input[type="tel"]')?.value   || '',
-      };
-
-      try {
-        await emailjs.send(
-          EMAILJS_CONFIG.serviceId,
-          EMAILJS_CONFIG.templateId,
-          templateParams
-        );
-
-        // Éxito
-        const toastEl = document.getElementById('formToast');
-        new bootstrap.Toast(toastEl, { delay: 5000 }).show();
-        form.reset();
-        form.classList.remove('was-validated');
-        document.querySelectorAll('.urgency-option').forEach(o => o.classList.remove('selected'));
-
-      } catch (err) {
-        console.error('EmailJS error:', err);
-        const toastErrorEl = document.getElementById('formToastError');
-        if (toastErrorEl) new bootstrap.Toast(toastErrorEl, { delay: 6000 }).show();
-
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = btnOriginal;
-      }
+      // Show toast
+      const toastEl = document.getElementById('formToast');
+      const toast = new bootstrap.Toast(toastEl, { delay: 5000 });
+      toast.show();
+      form.reset();
+      form.classList.remove('was-validated');
+      document.querySelectorAll('.urgency-option').forEach(o => o.classList.remove('selected'));
     });
   }
 
@@ -243,6 +199,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
     progressBar.style.width = progress + '%';
   }, { passive: true });
+
+  /* ── Contador de caracteres textarea descripción ──────── */
+  const textarea = document.getElementById('descripcion');
+  const counter  = document.querySelector('.char-counter');
+  if (textarea && counter) {
+    textarea.addEventListener('input' , () => {
+      const len = textarea.value.length;
+      counter.textContent = len + ' / 500';
+      counter.style.color = len >= 480 ? '#dc3545' : len >= 400 ? '#fd7e14' : '';
+    });
+  }
 
   /* ── Back to top on logo click ────────────────────────── */
   document.querySelector('.navbar-brand')?.addEventListener('click', e => {

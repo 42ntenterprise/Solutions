@@ -1,5 +1,6 @@
 /* ============================================================
-   DataBI Pro — Landing Page JavaScript
+   42NT Solutions — Landing Page JavaScript
+   Formulario: Formspree (sin credenciales expuestas)
 ============================================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -47,7 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const offset = nav.offsetHeight + 8;
       const top = target.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({ top, behavior: 'smooth' });
-      // Close mobile menu
       const bsCollapse = bootstrap.Collapse.getInstance(document.getElementById('navMenu'));
       if (bsCollapse) bsCollapse.hide();
     });
@@ -83,22 +83,49 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ── Form submission ──────────────────────────────────── */
+  /* ── Form submission (Formspree) ──────────────────────── */
   const form = document.getElementById('quoteForm');
   if (form) {
-    form.addEventListener('submit', e => {
+    form.addEventListener('submit', async e => {
       e.preventDefault();
       if (!form.checkValidity()) {
         form.classList.add('was-validated');
         return;
       }
-      // Show toast
-      const toastEl = document.getElementById('formToast');
-      const toast = new bootstrap.Toast(toastEl, { delay: 5000 });
-      toast.show();
-      form.reset();
-      form.classList.remove('was-validated');
-      document.querySelectorAll('.urgency-option').forEach(o => o.classList.remove('selected'));
+
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalText = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Enviando…';
+
+      const data = new FormData(form);
+
+      try {
+        const response = await fetch('https://formspree.io/f/xdawnkgn', {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          // Mostrar toast de éxito
+          const toastEl = document.getElementById('formToast');
+          const toast = new bootstrap.Toast(toastEl, { delay: 5000 });
+          toast.show();
+          form.reset();
+          form.classList.remove('was-validated');
+          document.querySelectorAll('.urgency-option').forEach(o => o.classList.remove('selected'));
+        } else {
+          const json = await response.json();
+          const msg = json?.errors?.map(err => err.message).join(', ') || 'Error al enviar. Intenta por WhatsApp.';
+          alert('⚠️ ' + msg);
+        }
+      } catch (err) {
+        alert('⚠️ No se pudo conectar. Verifica tu conexión o contáctanos por WhatsApp.');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+      }
     });
   }
 
@@ -130,7 +157,6 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(step);
   };
 
-  // Observe hero section to trigger counters
   const heroSection = document.getElementById('hero');
   if (heroSection) {
     const heroObserver = new IntersectionObserver(entries => {
@@ -168,8 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ── Typed text effect in hero H1 ────────────────────── */
-  // Subtle shimmer on the gradient text
+  /* ── Shimmer en gradient text hero ───────────────────── */
   const gradientText = document.querySelector('.text-gradient');
   if (gradientText) {
     let angle = 135;
@@ -200,11 +225,11 @@ document.addEventListener('DOMContentLoaded', () => {
     progressBar.style.width = progress + '%';
   }, { passive: true });
 
-  /* ── Contador de caracteres textarea descripción ──────── */
+  /* ── Contador de caracteres textarea ──────────────────── */
   const textarea = document.getElementById('descripcion');
   const counter  = document.querySelector('.char-counter');
   if (textarea && counter) {
-    textarea.addEventListener('input' , () => {
+    textarea.addEventListener('input', () => {
       const len = textarea.value.length;
       counter.textContent = len + ' / 500';
       counter.style.color = len >= 480 ? '#dc3545' : len >= 400 ? '#fd7e14' : '';

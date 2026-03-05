@@ -7,7 +7,7 @@
 ============================================================ */
 
 const EMAILJS_CONFIG = {
-  publicKey:  '4BKHqRN2JCONvBUbP',    // Account → API Keys
+  publicKey:  'cdej0FIF2WAeqUyjV',    // Account → API Keys
   serviceId:  'service_a7p7zf9',    // Email Services → Service ID
   templateId: 'template_o16ygqv',   // Email Templates → Template ID
 };

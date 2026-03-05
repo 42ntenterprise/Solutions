@@ -699,6 +699,13 @@
                   </label>
                 </div>
               </div>
+              <div class="col-12">
+                <label class="form-label">Descripción / Contexto adicional</label>
+                <textarea class="form-control" id="descripcion" name="descripcion" rows="4" maxlength="500" placeholder="Cuéntanos más sobre tu situación actual, qué datos manejas, qué problema quieres resolver…"></textarea>
+                <div class="d-flex justify-content-end mt-1">
+                  <small class="text-muted char-counter">0 / 500</small>
+                </div>
+              </div>
               <div class="col-md-6">
                 <label class="form-label">Email <span class="text-danger">*</span></label>
                 <input type="email" class="form-control" placeholder="tu@empresa.com" required />
@@ -862,20 +869,12 @@
   <i class="bi bi-whatsapp"></i>
 </a>
 
-<!-- Toast notificaciones -->
+<!-- Toast notification -->
 <div class="toast-container position-fixed bottom-0 end-0 p-3">
   <div id="formToast" class="toast align-items-center text-bg-success border-0" role="alert">
     <div class="d-flex">
       <div class="toast-body">
         <i class="bi bi-check-circle-fill me-2"></i>¡Cotización enviada! Te contactamos en máx. 24h.
-      </div>
-      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-    </div>
-  </div>
-  <div id="formToastError" class="toast align-items-center text-bg-danger border-0 mt-2" role="alert">
-    <div class="d-flex">
-      <div class="toast-body">
-        <i class="bi bi-exclamation-triangle-fill me-2"></i>Error al enviar. Escríbenos por WhatsApp.
       </div>
       <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
     </div>
@@ -886,10 +885,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- AOS -->
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-<!-- EmailJS SDK -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<!-- EmailJS Config — edita este archivo con tus credenciales -->
-<script src="emailjs-config.js"></script>
 <!-- Custom JS -->
 <script src="script.js"></script>
 </body>

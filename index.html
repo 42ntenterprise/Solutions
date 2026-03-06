@@ -157,9 +157,11 @@
           </a>
         </div>
         <div class="micro-trust">
-          <img src="images/profile-fortunato.jpg" alt="Fortunato Bravo N" class="micro-avatar" />
+          <a href="https://www.linkedin.com/in/fortunato-bravo/" target="_blank" rel="noopener" class="micro-avatar-link">
+            <img src="images/profile-fortunato.jpg" alt="Fortunato Bravo N — LinkedIn" class="micro-avatar" />
+          </a>
           <div class="micro-text">
-            <span>Atiende <strong>Fortunato Bravo N</strong></span>
+            <span>Atiende <a href="https://www.linkedin.com/in/fortunato-bravo/" target="_blank" rel="noopener" class="micro-linkedin"><strong>Fortunato Bravo N</strong> <i class="bi bi-linkedin ms-1"></i></a></span>
             <span class="micro-items">
               <i class="bi bi-clock me-1"></i>Reunión 30 min
               <i class="bi bi-lock ms-2 me-1"></i>Confidencialidad
@@ -413,6 +415,39 @@
   </div>
 </section>
 
+<!-- STACK / LOGOS TECNOLOGÍAS -->
+<section class="stack-section py-4">
+  <div class="container">
+    <p class="stack-label text-center mb-4" data-aos="fade-up">Stack tecnológico utilizado</p>
+    <div class="stack-logos" data-aos="fade-up" data-aos-delay="80">
+      <div class="stack-logo-item">
+        <img src="https://img.icons8.com/color/96/power-bi.png" alt="Power BI" />
+        <span>Power BI</span>
+      </div>
+      <div class="stack-logo-item">
+        <img src="https://img.icons8.com/color/96/azure-1.png" alt="Microsoft Azure" />
+        <span>Azure</span>
+      </div>
+      <div class="stack-logo-item">
+        <img src="https://img.icons8.com/color/96/microsoft-sql-server.png" alt="SQL Server" />
+        <span>SQL Server</span>
+      </div>
+      <div class="stack-logo-item">
+        <img src="https://img.icons8.com/color/96/python--v1.png" alt="Python" />
+        <span>Python</span>
+      </div>
+      <div class="stack-logo-item">
+        <img src="https://img.icons8.com/color/96/microsoft-excel-2019--v1.png" alt="Excel" />
+        <span>Excel</span>
+      </div>
+      <div class="stack-logo-item">
+        <img src="https://img.icons8.com/color/96/microsoft-fabric.png" alt="Microsoft Fabric" onerror="this.src='https://img.icons8.com/color/96/microsoft.png'" />
+        <span>Fabric</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- EVIDENCIA / CASOS -->
 <section id="casos" class="evidence-section py-5">
   <div class="container">
@@ -425,39 +460,42 @@
       <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
         <div class="case-card">
           <div class="case-icon"><i class="bi bi-graph-up-arrow"></i></div>
-          <h5>Caso 1 — Forecast</h5>
+          <span class="case-industry">Industria: Retail</span>
+          <h5>Forecast de demanda</h5>
           <div class="case-metrics">
             <div class="metric-row"><span class="metric-label">Antes</span><span class="metric-value before">Precisión baja</span></div>
             <div class="metric-arrow"><i class="bi bi-arrow-down-circle-fill"></i></div>
             <div class="metric-row"><span class="metric-label">Después</span><span class="metric-value after">+20–30% precisión</span></div>
           </div>
-          <p class="case-impact">Mejor decisión, menor desviación y mejor control en el período proyectado.</p>
+          <p class="case-impact">Mejor decisión de compra, menor desviación de stock y mejor control en el período proyectado.</p>
           <a href="#cotizar" class="case-link">Ver en demo <i class="bi bi-arrow-right"></i></a>
         </div>
       </div>
       <div class="col-md-4" data-aos="fade-up" data-aos-delay="120">
         <div class="case-card case-card-featured">
           <div class="case-icon"><i class="bi bi-clock-history"></i></div>
-          <h5>Caso 2 — Horas ahorradas</h5>
+          <span class="case-industry">Industria: Finanzas</span>
+          <h5>Automatización de reportes</h5>
           <div class="case-metrics">
             <div class="metric-row"><span class="metric-label">Antes</span><span class="metric-value before">Reportes manuales</span></div>
             <div class="metric-arrow"><i class="bi bi-arrow-down-circle-fill"></i></div>
             <div class="metric-row"><span class="metric-label">Después</span><span class="metric-value after">–40% horas/mes</span></div>
           </div>
-          <p class="case-impact">Reducción significativa de errores y ahorro estimado en horas de trabajo manual.</p>
+          <p class="case-impact">Reducción significativa de errores y ahorro estimado en horas de trabajo manual mensual.</p>
           <a href="#cotizar" class="case-link">Ver en demo <i class="bi bi-arrow-right"></i></a>
         </div>
       </div>
       <div class="col-md-4" data-aos="fade-up" data-aos-delay="240">
         <div class="case-card">
           <div class="case-icon"><i class="bi bi-calendar-check"></i></div>
-          <h5>Caso 3 — Tiempo de cierre</h5>
+          <span class="case-industry">Industria: Logística</span>
+          <h5>Cierre de período</h5>
           <div class="case-metrics">
             <div class="metric-row"><span class="metric-label">Antes</span><span class="metric-value before">Cierre en días</span></div>
             <div class="metric-arrow"><i class="bi bi-arrow-down-circle-fill"></i></div>
             <div class="metric-row"><span class="metric-label">Después</span><span class="metric-value after">–50% tiempo cierre</span></div>
           </div>
-          <p class="case-impact">KPIs disponibles con días de anticipación para tomar mejores decisiones.</p>
+          <p class="case-impact">KPIs disponibles con días de anticipación para tomar mejores decisiones operacionales.</p>
           <a href="#cotizar" class="case-link">Ver en demo <i class="bi bi-arrow-right"></i></a>
         </div>
       </div>
@@ -773,6 +811,16 @@
             </h2>
             <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
               <div class="accordion-body">Sí. Para un alcance acotado, entrego una demo funcional o propuesta visual según tu caso específico en máximo 24 horas hábiles desde el primer contacto.</div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6">
+                ¿Los tableros y entregables son míos?
+              </button>
+            </h2>
+            <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">Sí, 100%. Todo lo entregado — dashboards, modelos de datos, pipelines, documentación y código — es propiedad del cliente desde el momento del traspaso. Sin licencias adicionales ni dependencia futura.</div>
             </div>
           </div>
         </div>

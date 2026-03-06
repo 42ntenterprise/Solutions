@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Bloquear archivo de preview de trabajo (no indexar)
+Disallow: /preview.html
+
+# Sitemap
+Sitemap: https://42ntenterprise.github.io/Solutions/sitemap.xml

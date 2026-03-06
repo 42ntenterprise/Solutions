@@ -3,19 +3,198 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>42NT Solutions — Inteligencia de Negocios y Datos</title>
-  <meta name="description" content="BI integrado, dashboards rápidos, gobernanza y predicción con KPIs verificables. Demo personalizada en 24 horas." />
 
-  <!-- Bootstrap 5 -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <!-- Bootstrap Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet" />
-  <!-- AOS animations -->
-  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
-  <!-- Custom CSS -->
+  <!-- ── TITLE & META DESCRIPTION ─────────────────────────── -->
+  <title>42NT Solutions — Business Intelligence y Datos | Power BI · Forecast · Data Engineering</title>
+  <meta name="description"
+    content="Consultoría BI en Chile: auditoría Power BI, dashboards, ingeniería de datos, modelos predictivos y plan de negocios. KPIs verificables, demo personalizada en 24 horas. Teleco, retail, finanzas, logística, minería." />
+
+  <!-- ── CANONICAL ─────────────────────────────────────────── -->
+  <link rel="canonical" href="https://42ntenterprise.github.io/Solutions/" />
+
+  <!-- ── OPEN GRAPH (Facebook, LinkedIn, WhatsApp) ─────────── -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://42ntenterprise.github.io/Solutions/" />
+  <meta property="og:title"       content="42NT Solutions — Business Intelligence y Datos que sí mueven el negocio" />
+  <meta property="og:description" content="Auditoría BI, dashboards Power BI, ingeniería de datos y modelos predictivos. KPIs verificables, entregables claros, demo en 24 horas." />
+  <meta property="og:image"       content="https://42ntenterprise.github.io/Solutions/images/og-cover.jpg" />
+  <!-- 👆 Sube una imagen de 1200×630 px con el nombre og-cover.jpg a la carpeta /images -->
+  <meta property="og:locale"      content="es_CL" />
+  <meta property="og:site_name"   content="42NT Solutions" />
+
+  <!-- ── TWITTER CARD ──────────────────────────────────────── -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="42NT Solutions — BI y Datos con método" />
+  <meta name="twitter:description" content="Auditoría BI, Power BI, forecast y data engineering. Demo en 24h. Chile." />
+  <meta name="twitter:image"       content="https://42ntenterprise.github.io/Solutions/images/og-cover.jpg" />
+
+  <!-- ── INDEXACIÓN ────────────────────────────────────────── -->
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Fortunato Bravo N — 42NT Enterprise" />
+
+  <!-- ── GEO (señal local para Chile) ─────────────────────── -->
+  <meta name="geo.region"   content="CL" />
+  <meta name="geo.placename" content="Chile" />
+
+  <!-- ── SCHEMA.ORG: Professional Service (JSON-LD) ─────────── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "42NT Solutions",
+    "description": "Consultoría de Business Intelligence y Datos: auditoría Power BI, dashboards, ingeniería de datos, modelos predictivos y planes de negocios con KPIs verificables.",
+    "url": "https://42ntenterprise.github.io/Solutions/",
+    "telephone": "+56948827168",
+    "areaServed": "CL",
+    "availableLanguage": "es",
+    "priceRange": "$$$",
+    "founder": {
+      "@type": "Person",
+      "name": "Fortunato Bravo N"
+    },
+    "knowsAbout": [
+      "Business Intelligence",
+      "Power BI",
+      "Data Engineering",
+      "Machine Learning",
+      "Forecast",
+      "Gobernanza de datos",
+      "DAX",
+      "Azure"
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Servicios de BI y Datos",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Auditoría BI + Plan de Acción",
+            "description": "Diagnóstico completo de BI: modelo de datos, DAX, performance, seguridad y gobernanza."
+          },
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "minPrice": "590000",
+            "priceCurrency": "CLP"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Dashboard Power BI + Modelo de Datos",
+            "description": "Tablero corporativo end-to-end: KPI definition, modelo estrella, DAX, publicación."
+          },
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "minPrice": "1190000",
+            "priceCurrency": "CLP"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Ingeniería y Arquitectura de Datos",
+            "description": "ETL/ELT, integración de fuentes, pipeline automatizado y base sólida para BI."
+          },
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "minPrice": "1790000",
+            "priceCurrency": "CLP"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Predicción y Analítica",
+            "description": "Modelos de forecast, feature engineering, evaluación y tablero de insights."
+          },
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "minPrice": "1490000",
+            "priceCurrency": "CLP"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Plan de Negocios",
+            "description": "Documento completo con propuesta de valor, plan financiero, roadmap y KPIs."
+          },
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "minPrice": "490000",
+            "priceCurrency": "CLP"
+          }
+        }
+      ]
+    },
+    "sameAs": [
+      "https://github.com/42ntenterprise"
+    ]
+  }
+  </script>
+
+  <!-- ── FAQ SCHEMA (aparece en Google como rich result) ──── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Por qué cuesta lo que cuesta la consultoría BI?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No vendemos pantallas: entregamos modelo de datos, KPIs definidos, performance optimizado y trazabilidad completa. El precio refleja el valor real del resultado."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Pueden trabajar sin acceso a datos sensibles?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí. Podemos iniciar con datos anonimizados, muestras o en un entorno controlado. La confidencialidad es parte del proceso, no un extra."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Qué pasa si ya tengo equipo interno de datos?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Hacemos la auditoría, construimos el roadmap y dejamos al equipo con una guía concreta y accionable. El objetivo es potenciar lo que ya tienes."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿La demo en 24 horas es real?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí. Para un alcance acotado, entregamos una demo funcional o propuesta visual en máximo 24 horas hábiles desde el primer contacto."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Qué garantías ofrecen?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Entregables definidos por contrato y KPIs de performance acordados antes de comenzar. Si no se cumplen, se conversa y ajusta."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- ── FAVICON (si no tienes uno, créalo en https://favicon.io) -->
+  <link rel="icon" type="image/png" href="images/favicon.png" />
+
+  <!-- ── TUS ESTILOS (sin cambios) ─────────────────────────── -->
   <link rel="stylesheet" href="style.css" />
+
 </head>
 <body>
 

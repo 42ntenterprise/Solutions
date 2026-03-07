@@ -353,32 +353,48 @@ document.addEventListener('DOMContentLoaded', () => {
   const optionalBlock = document.getElementById('optionalFields');
   if (!toggleBtn || !optionalBlock) return;
 
+  // Aseguramos estado inicial correcto
+  optionalBlock.style.display = 'none';
+
   toggleBtn.addEventListener('click', () => {
-    const isOpen = optionalBlock.style.display !== 'none';
-    optionalBlock.style.display = isOpen ? 'none' : 'block';
-    toggleBtn.setAttribute('aria-expanded', String(!isOpen));
-    toggleBtn.querySelector('i').className = isOpen
-      ? 'bi bi-plus-circle me-1'
-      : 'bi bi-dash-circle me-1';
+    const isOpen = optionalBlock.style.display === 'block';
+
+    if (isOpen) {
+      optionalBlock.style.display = 'none';
+      toggleBtn.setAttribute('aria-expanded', 'false');
+      toggleBtn.querySelector('i').className = 'bi bi-plus-circle me-1';
+    } else {
+      // Bootstrap col-12 necesita display:block explícito
+      optionalBlock.style.display = 'block';
+      optionalBlock.style.padding = '0';  // evitar doble padding de col
+      toggleBtn.setAttribute('aria-expanded', 'true');
+      toggleBtn.querySelector('i').className = 'bi bi-dash-circle me-1';
+    }
   });
 });
+
+/* ─────────────────────────────────────────────────────────
+   SMOOTH SCROLL para links internos (#)
 ───────────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', (e) => {
-      const target = document.querySelector(anchor.getAttribute('href'));
+      const href = anchor.getAttribute('href');
+      if (!href || href === '#') return;
+
+      const target = document.querySelector(href);
       if (!target) return;
+
       e.preventDefault();
 
-      // Cerrar navbar mobile si está abierto
       const collapse = document.getElementById('navMenu');
-      if (collapse && collapse.classList.contains('show')) {
-        const bsCollapse = bootstrap.Collapse.getInstance(collapse);
-        if (bsCollapse) bsCollapse.hide();
+      if (collapse && collapse.classList.contains('show') && typeof bootstrap !== 'undefined') {
+        const bsCollapse = bootstrap.Collapse.getOrCreateInstance(collapse);
+        bsCollapse.hide();
       }
 
       const navHeight = document.getElementById('mainNav')?.offsetHeight || 70;
-      const top       = target.getBoundingClientRect().top + window.scrollY - navHeight - 8;
+      const top = target.getBoundingClientRect().top + window.scrollY - navHeight - 8;
       window.scrollTo({ top, behavior: 'smooth' });
     });
   });

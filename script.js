@@ -346,7 +346,22 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ─────────────────────────────────────────────────────────
-   SMOOTH SCROLL para links internos (#)
+   OPTIONAL FIELDS TOGGLE
+───────────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  const toggleBtn     = document.getElementById('toggleOptional');
+  const optionalBlock = document.getElementById('optionalFields');
+  if (!toggleBtn || !optionalBlock) return;
+
+  toggleBtn.addEventListener('click', () => {
+    const isOpen = optionalBlock.style.display !== 'none';
+    optionalBlock.style.display = isOpen ? 'none' : 'block';
+    toggleBtn.setAttribute('aria-expanded', String(!isOpen));
+    toggleBtn.querySelector('i').className = isOpen
+      ? 'bi bi-plus-circle me-1'
+      : 'bi bi-dash-circle me-1';
+  });
+});
 ───────────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {

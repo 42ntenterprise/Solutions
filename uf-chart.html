@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Gráfico UF — 42NT Solutions</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+<style>
+  :root {
+    --bg:      #0d1b2e;
+    --cyan:    #00BBFF;
+    --teal:    #40E0DD;
+    --red:     #FF6464;
+    --pink:    #FF9090;
+    --border:  rgba(0,187,255,0.15);
+    --font:    'DejaVu Sans', 'Inter', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); font-family: var(--font); }
+
+  /* ── Sección completa (para incrustar en index.html) ── */
+  .uf-section {
+    background: var(--bg);
+    padding: 4rem 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .uf-section .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+
+  /* Encabezado */
+  .uf-header { margin-bottom: 1.5rem; }
+  .uf-badge {
+    display: inline-block;
+    background: rgba(0,187,255,0.1);
+    border: 1px solid rgba(0,187,255,0.25);
+    color: #7ecbff;
+    padding: 3px 14px;
+    border-radius: 50px;
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: .6rem;
+  }
+  .uf-title {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 800;
+    color: #40E0DD;
+    line-height: 1.2;
+  }
+  .uf-subtitle {
+    font-size: .88rem;
+    color: rgba(179,210,255,0.6);
+    margin-top: .3rem;
+  }
+
+  /* Leyenda custom */
+  .uf-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .6rem 1.4rem;
+    margin: .8rem 0 1rem;
+    align-items: center;
+    justify-content: center;
+  }
+  .uf-legend .uf-legend-item:first-child { order: 2; }
+  .uf-legend .uf-legend-item:last-child { order: 1; }
+  .uf-legend-item {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: .88rem;
+    color: rgba(255,255,255,0.85);
+  }
+  .uf-legend-box {
+    width: 28px; height: 14px;
+    border-radius: 4px;
+    border-width: 1.5px;
+    border-style: solid;
+    flex-shrink: 0;
+  }
+  .uf-legend-box.ant { background: rgba(255,100,100,0.17); border-color: rgba(255,100,100,0.55); }
+  .uf-legend-box.act { background: rgba(0,187,255,0.18);  border-color: rgba(0,187,255,0.55); }
+
+  /* Wrapper del canvas */
+  .uf-chart-wrap {
+    position: relative;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1rem 1rem 1.5rem;
+    overflow: visible;
+  }
+  .uf-chart-wrap canvas { display: block; width: 100% !important; }
+
+  /* Skeleton loader */
+  .uf-skeleton {
+    height: 320px;
+    background: linear-gradient(90deg,
+      rgba(0,187,255,0.04) 25%,
+      rgba(0,187,255,0.09) 50%,
+      rgba(0,187,255,0.04) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.6s infinite;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.25);
+    font-size: .85rem;
+  }
+  @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+  /* Nota de fuente */
+  .uf-source {
+    font-size: .72rem;
+    color: rgba(100,150,200,0.45);
+    text-align: right;
+    margin-top: .5rem;
+  }
+
+  /* Tooltip custom (inyectado por Chart.js external plugin) */
+  #uf-tooltip {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    pointer-events: none;
+    background: rgba(8,18,40,0.92);
+    border: 1px solid rgba(0,187,255,0.3);
+    border-radius: 10px;
+    padding: .55rem .85rem;
+    font-size: .82rem;
+    color: #fff;
+    backdrop-filter: blur(8px);
+    min-width: 160px;
+    transition: opacity .15s;
+    z-index: 10;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  }
+  #uf-tooltip .tt-date {
+    font-weight: 700;
+    color: var(--teal);
+    margin-bottom: .3rem;
+    font-size: .8rem;
+    order: 0;
+  }
+  #uf-tooltip .tt-row {
+    display: flex; align-items: center; gap: .45rem;
+    padding: 2px 0;
+  }
+  #uf-tooltip .tt-row:nth-of-type(2) { order: 2; }
+  #uf-tooltip .tt-row:nth-of-type(3) { order: 1; }
+  #uf-tooltip .tt-dot {
+    width: 9px; height: 9px;
+    border-radius: 3px; flex-shrink: 0;
+  }
+  #uf-tooltip .tt-label { color: rgba(255,255,255,0.6); }
+  #uf-tooltip .tt-val   { font-weight: 700; margin-left: auto; }
+  #uf-tooltip .tt-diff  {
+    font-size: .76rem;
+    margin-top: .3rem;
+    padding-top: .3rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.5);
+    order: 3;
+  }
+  #uf-tooltip .tt-diff span { font-weight: 700; }
+  #uf-tooltip .tt-diff .up   { color: #4ade80; }
+  #uf-tooltip .tt-diff .down { color: #f87171; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════
+     SECCIÓN GRÁFICO UF — copiar este bloque en index.html
+     justo después de la sección #casos (evidencia)
+══════════════════════════════════════════════════════ -->
+<section class="uf-section" id="indicador-uf">
+  <div class="container">
+
+    <div class="uf-header" data-aos="fade-up">
+      <span class="uf-badge">Indicador en tiempo real</span>
+      <h2 class="uf-title">Evolución del Valor de la UF en Pesos Chilenos (CLP)</h2>
+      <p class="uf-subtitle" id="uf-subtitle-text">Cargando datos…</p>
+    </div>
+
+    <!-- Leyenda -->
+    <div class="uf-legend" data-aos="fade-up">
+      <div class="uf-legend-item">
+        <div class="uf-legend-box ant"></div>
+        <span id="lbl-ant">Año anterior</span>
+      </div>
+      <div class="uf-legend-item">
+        <div class="uf-legend-box act"></div>
+        <span id="lbl-act">Año actual</span>
+      </div>
+    </div>
+
+    <!-- Canvas -->
+    <div class="uf-chart-wrap" data-aos="fade-up" data-aos-delay="80">
+      <div class="uf-skeleton" id="uf-skeleton">Cargando datos de mindicador.cl…</div>
+      <canvas id="uf-canvas" height="320" style="display:none"></canvas>
+      <div id="uf-tooltip" style="opacity:0"></div>
+    </div>
+
+    <p class="uf-source">Fuente: mindicador.cl · Banco Central de Chile · Actualizado al día</p>
+
+  </div>
+</section>
+<!-- ════════════════════════════════════════════════════ -->
+
+<script>
+(async function() {
+  const HOY        = new Date();
+  const AÑO_ACT    = HOY.getFullYear();
+  const AÑO_ANT    = AÑO_ACT - 1;
+  const MES_MAX    = HOY.getMonth() + 1;   // 1-based
+
+  const MESES_ES   = ["Enero","Febrero","Marzo","Abril","Mayo","Junio",
+                       "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+
+  const COLOR_ACT  = "#00BBFF";
+  const COLOR_ANT  = "#FF6464";
+  const FILL_ACT   = "rgba(0,187,255,0.08)";
+  const FILL_ANT   = "rgba(255,100,100,0.07)";
+
+  // ── Fetch ────────────────────────────────────────────────
+  async function fetchUF(año) {
+    const url = `https://mindicador.cl/api/uf/${año}`;
+    try {
+      const r = await fetch(url);
+      const j = await r.json();
+      return j.serie || [];
+    } catch(e) { console.warn("UF fetch error", año, e); return []; }
+  }
+
+  const [rawAct, rawAnt] = await Promise.all([fetchUF(AÑO_ACT), fetchUF(AÑO_ANT)]);
+
+  // ── Parseo ───────────────────────────────────────────────
+  function parseData(raw, maxMes) {
+    return raw
+      .map(d => ({ fecha: new Date(d.fecha), valor: parseFloat(d.valor) }))
+      .filter(d => {
+        if (isNaN(d.valor)) return false;
+        const m = d.fecha.getMonth() + 1;
+        const day = d.fecha.getDate();
+        if (m < MES_MAX) return true;
+        if (m === MES_MAX) return day <= HOY.getDate();
+        return false;
+      })
+      .sort((a, b) => a.fecha - b.fecha);
+  }
+
+  const dataAct = parseData(rawAct, MES_MAX);
+  const dataAnt = parseData(rawAnt, MES_MAX);
+
+  // Normalizar año anterior al año de referencia para alinear en X
+  const REF_YEAR = AÑO_ACT;
+  function normalizeYear(arr, year) {
+    return arr.map(d => {
+      const nd = new Date(d.fecha);
+      nd.setFullYear(year);
+      return { x: nd, y: d.valor, orig: d.fecha };
+    });
+  }
+
+  const dsAct = normalizeYear(dataAct, REF_YEAR);
+  const dsAnt = normalizeYear(dataAnt, REF_YEAR);
+
+  // ── Separadores de mes ───────────────────────────────────
+  const mesAnnotations = {};
+  for (let m = 1; m <= MES_MAX; m++) {
+    const xSep = new Date(REF_YEAR, m - 1, 1);
+    mesAnnotations[`sep_${m}`] = {
+      type: "line",
+      xMin: xSep, xMax: xSep,
+      borderColor: "rgba(255,255,255,0.10)",
+      borderWidth: 1,
+    };
+  }
+
+  // ── Actualizar UI ────────────────────────────────────────
+  const mesActNombre = MESES_ES[MES_MAX - 1];
+  const DIA = String(HOY.getDate()).padStart(2, '0');
+  const MES = String(HOY.getMonth() + 1).padStart(2, '0');
+  const AÑO = HOY.getFullYear();
+  document.getElementById("uf-subtitle-text").textContent =
+    `Enero - ${mesActNombre} de ${AÑO_ANT} y ${AÑO_ACT} (hasta fecha hoy ${DIA}-${MES}-${AÑO})`;
+  document.getElementById("lbl-ant").textContent = `Año anterior (${AÑO_ANT})`;
+  document.getElementById("lbl-act").textContent = `Año actual (${AÑO_ACT})`;
+
+  // ── Tooltip externo ─────────────────────────────────────
+  const ttEl = document.getElementById("uf-tooltip");
+
+  function fmtClp(v) {
+    return "$" + v.toLocaleString("es-CL", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  function externalTooltip(context) {
+    const { chart, tooltip } = context;
+    if (tooltip.opacity === 0) { ttEl.style.opacity = 0; return; }
+
+    const wrap = chart.canvas.parentNode;
+    const wRect = wrap.getBoundingClientRect();
+
+    // Reconstruir contenido
+    const title = tooltip.title?.[0] || "";
+    // title es la fecha del punto normalizado — extraer día/mes
+    const pts = tooltip.dataPoints || [];
+
+    let actVal = null, antVal = null, actOrig = null, antOrig = null;
+    pts.forEach(p => {
+      if (p.datasetIndex === 0) { antVal = p.raw.y; antOrig = p.raw.orig; }
+      if (p.datasetIndex === 1) { actVal = p.raw.y; actOrig = p.raw.orig; }
+    });
+
+    // Fecha de display: usar fecha original del año actual
+    const displayDate = actOrig || antOrig;
+    const dateStr = displayDate
+      ? `${displayDate.getDate()} ${MESES_ES[displayDate.getMonth()]}`
+      : title;
+
+    let diffHTML = "";
+    if (actVal !== null && antVal !== null) {
+      const diff = actVal - antVal;
+      const pct  = ((diff / antVal) * 100).toFixed(2);
+      const cls  = diff >= 0 ? "up" : "down";
+      const sign = diff >= 0 ? "+" : "";
+      diffHTML = `<div class="tt-diff">
+        Variación interanual: <span class="${cls}">${sign}${fmtClp(diff)} (${sign}${pct}%)</span>
+      </div>`;
+    }
+
+    ttEl.innerHTML = `
+      <div class="tt-date">${dateStr}</div>
+      ${antVal !== null ? `<div class="tt-row">
+        <div class="tt-dot" style="background:rgba(255,100,100,0.4);border:1.5px solid #FF6464"></div>
+        <span class="tt-label">${AÑO_ANT}</span>
+        <span class="tt-val">${fmtClp(antVal)}</span>
+      </div>` : ""}
+      ${actVal !== null ? `<div class="tt-row">
+        <div class="tt-dot" style="background:rgba(0,187,255,0.3);border:1.5px solid #00BBFF"></div>
+        <span class="tt-label">${AÑO_ACT}</span>
+        <span class="tt-val">${fmtClp(actVal)}</span>
+      </div>` : ""}
+      ${diffHTML}
+    `;
+
+    // Posicionamiento
+    const canvRect = chart.canvas.getBoundingClientRect();
+    let left = tooltip.caretX + 14;
+    let top  = tooltip.caretY - 20;
+
+    // Evitar que se salga por la derecha
+    const ttW = 175;
+    if (tooltip.caretX + ttW + 20 > canvRect.width) left = tooltip.caretX - ttW - 10;
+    if (top < 0) top = 8;
+
+    ttEl.style.left    = left + "px";
+    ttEl.style.top     = top  + "px";
+    ttEl.style.opacity = 1;
+  }
+
+  // ── Render ───────────────────────────────────────────────
+  document.getElementById("uf-skeleton").style.display = "none";
+  const canvas = document.getElementById("uf-canvas");
+  canvas.style.display = "block";
+
+  const allY = [...dsAct.map(d=>d.y), ...dsAnt.map(d=>d.y)];
+  const yMin = Math.min(...allY);
+  const yMax = Math.max(...allY);
+  const pad  = (yMax - yMin) * 0.30;
+
+  new Chart(canvas, {
+    type: "line",
+    data: {
+      datasets: [
+        {
+          label: `Año anterior (${AÑO_ANT})`,
+          data: dsAnt,
+          borderColor: COLOR_ANT,
+          borderWidth: 1.8,
+          backgroundColor: FILL_ANT,
+          fill: true,
+          pointRadius: 1.8,
+          pointHitRadius: 8,
+          pointBackgroundColor: COLOR_ANT,
+          pointBorderColor: "#ffffff",
+          pointBorderWidth: 0.5,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: "rgba(255,100,100,0.3)",
+          pointHoverBorderColor: COLOR_ANT,
+          pointHoverBorderWidth: 1.5,
+          tension: 0.3,
+        },
+        {
+          label: `Año actual (${AÑO_ACT})`,
+          data: dsAct,
+          borderColor: COLOR_ACT,
+          borderWidth: 2.2,
+          backgroundColor: FILL_ACT,
+          fill: true,
+          pointRadius: 1.8,
+          pointHitRadius: 8,
+          pointBackgroundColor: COLOR_ACT,
+          pointBorderColor: "#ffffff",
+          pointBorderWidth: 0.5,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: "rgba(0,187,255,0.25)",
+          pointHoverBorderColor: COLOR_ACT,
+          pointHoverBorderWidth: 1.5,
+          tension: 0.3,
+        },
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      interaction: { mode: "index", intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          enabled: false,
+          external: externalTooltip,
+        },
+      },
+      scales: {
+        x: {
+          type: "time",
+          time: {
+            unit: "week",
+            displayFormats: { week: "d" },
+            tooltipFormat: "d MMM",
+          },
+          grid: {
+            color: "rgba(255,255,255,0.06)",
+            drawTicks: true,
+          },
+          ticks: {
+            color: "rgba(180,210,255,0.65)",
+            font: { size: 11 },
+            maxTicksLimit: 14,
+          },
+          border: { color: "rgba(255,255,255,0.08)" },
+        },
+        y: {
+          min: yMin - pad,
+          max: yMax + pad,
+          grid: { color: "rgba(255,255,255,0.06)" },
+          ticks: {
+            color: "rgba(180,210,255,0.65)",
+            font: { size: 11 },
+            callback: v => "$" + v.toLocaleString("es-CL", { minimumFractionDigits: 0 }),
+          },
+          border: { color: "rgba(255,255,255,0.08)" },
+        },
+      },
+      animation: { duration: 800, easing: "easeInOutQuart" },
+      layout: { padding: { bottom: 50 } },
+    },
+    plugins: [
+      // Plugin: líneas separadoras de mes + etiquetas
+      {
+        id: "monthLines",
+        afterDraw(chart) {
+          const { ctx, chartArea: ca, scales: { x, y } } = chart;
+          ctx.save();
+
+          for (let m = 1; m <= MES_MAX; m++) {
+            const xDate = new Date(REF_YEAR, m - 1, 1);
+            const xPx   = x.getPixelForValue(xDate);
+            if (xPx < ca.left || xPx > ca.right) continue;
+
+            // Línea separadora
+            ctx.beginPath();
+            ctx.strokeStyle = "rgba(255,255,255,0.10)";
+            ctx.lineWidth   = 1;
+            ctx.setLineDash([]);
+            ctx.moveTo(xPx, ca.top);
+            ctx.lineTo(xPx, ca.bottom);
+            ctx.stroke();
+
+            // Banda alterna
+            if (m % 2 === 0) {
+              const xEnd = m < 12
+                ? x.getPixelForValue(new Date(REF_YEAR, m, 1))
+                : ca.right;
+              ctx.fillStyle = "rgba(255,255,255,0.018)";
+              ctx.fillRect(xPx, ca.top, xEnd - xPx, ca.bottom - ca.top);
+            }
+
+            // Etiqueta del mes
+            const xEnd2 = m <= MES_MAX
+              ? (m < 12
+                  ? x.getPixelForValue(new Date(REF_YEAR, m, 1))
+                  : ca.right)
+              : ca.right;
+            const xCenter = (xPx + Math.min(xEnd2, ca.right)) / 2;
+
+            ctx.fillStyle   = "rgba(100,200,255,0.95)";
+            ctx.font        = "bold 14px DejaVu Sans, Inter, sans-serif";
+            ctx.textAlign   = "center";
+            ctx.textBaseline = "top";
+            ctx.shadowColor = "rgba(0,0,0,0.5)";
+            ctx.shadowBlur = 3;
+            ctx.fillText(MESES_ES[m - 1], xCenter, ca.bottom + 6);
+            ctx.shadowColor = "transparent";
+          }
+
+          ctx.restore();
+        }
+      }
+    ]
+  });
+
+  // Ocultar tooltip al salir del canvas
+  canvas.addEventListener("mouseleave", () => { ttEl.style.opacity = 0; });
+
+})();
+</script>
+</body>
+</html>

@@ -136,9 +136,9 @@ function calcLeadScore(formData) {
 
 /** Clasifica el score como texto */
 function scoreLabel(score) {
-  if (score >= 70) return 'CALIENTE 🔥';
-  if (score >= 40) return 'TIBIO 🟡';
-  return 'FRÍO 🔵';
+  if (score >= 70) return 'CALIENTE';
+  if (score >= 40) return 'TIBIO';
+  return 'FRÍO';
 }
 
 /** Lee el utm_source (u otro parámetro) de la URL */
@@ -209,7 +209,7 @@ function setSubmitLoading(btn, loading) {
   if (loading) {
     btn.disabled = true;
     btn.dataset.originalHtml = btn.innerHTML;
-    btn.innerHTML = `<span class="spinner-border spinner-border-sm me-2" role="status"></span>Enviando…`;
+    btn.innerHTML = `<span class="spinner-border spinner-border-sm me-2" role="status"></span>Enviando...`;
   } else {
     btn.disabled = false;
     btn.innerHTML = btn.dataset.originalHtml || btn.innerHTML;
@@ -322,7 +322,7 @@ document.addEventListener('DOMContentLoaded', () => {
         successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
 
-      showToast('¡Cotización enviada! Te contactamos en máx. 24h. 🚀', 'success');
+      showToast('¡Cotización enviada! Te contactamos en un máximo de 24 horas hábiles.', 'success');
 
     } catch (err) {
       console.error('Error al enviar formulario:', err);
@@ -336,7 +336,7 @@ document.addEventListener('DOMContentLoaded', () => {
       );
 
       showToast(
-        `Ocurrió un problema al enviar. <a href="https://wa.me/56948827168?text=${waMsg}" target="_blank" class="text-white fw-bold">Escríbenos por WhatsApp</a> y te atendemos de inmediato.`,
+        `Ocurrió un problema al enviar el formulario. <a href="https://wa.me/56948827168?text=${waMsg}" target="_blank" class="text-white fw-bold">Escríbenos por WhatsApp</a> y te atenderemos de inmediato.`,
         'danger'
       );
     } finally {

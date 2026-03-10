@@ -3,1459 +3,1404 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>42NT Solutions — Business Intelligence y Datos | Power BI · Forecast · Data Engineering</title>
-  <meta name="description" content="Consultoría BI en Chile: auditoría Power BI, dashboards, ingeniería de datos, modelos predictivos y plan de negocios. KPIs verificables, demo personalizada en 24 horas. Teleco, retail, finanzas, logística, minería." />
-  <link rel="canonical" href="https://42ntenterprise.github.io/Solutions/" />
-
-  <!-- Open Graph -->
-  <meta property="og:type"        content="website" />
-  <meta property="og:url"         content="https://42ntenterprise.github.io/Solutions/" />
-  <meta property="og:title"       content="42NT Solutions — Business Intelligence y Datos que sí mueven el negocio" />
-  <meta property="og:description" content="Auditoría BI, dashboards Power BI, ingeniería de datos y modelos predictivos. KPIs verificables, entregables claros, demo en 24 horas." />
-  <meta property="og:image"       content="https://42ntenterprise.github.io/Solutions/images/og-cover.jpg" />
-  <meta property="og:locale"      content="es_CL" />
-  <meta property="og:site_name"   content="42NT Solutions" />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card"        content="summary_large_image" />
-  <meta name="twitter:title"       content="42NT Solutions — BI y Datos con método" />
-  <meta name="twitter:description" content="Auditoría BI, Power BI, forecast y data engineering. Demo en 24h. Chile." />
-  <meta name="twitter:image"       content="https://42ntenterprise.github.io/Solutions/images/og-cover.jpg" />
-
-  <meta name="robots"  content="index, follow" />
-  <meta name="author"  content="Fortunato Bravo N — 42NT Enterprise" />
-  <meta name="geo.region"    content="CL" />
-  <meta name="geo.placename" content="Chile" />
-
-  <!-- Schema.org: Professional Service -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": "42NT Solutions",
-    "description": "Consultoría de Business Intelligence y Datos: auditoría Power BI, dashboards, ingeniería de datos, modelos predictivos y planes de negocios con KPIs verificables.",
-    "url": "https://42ntenterprise.github.io/Solutions/",
-    "telephone": "+56948827168",
-    "areaServed": "CL",
-    "availableLanguage": "es",
-    "priceRange": "$$$",
-    "founder": { "@type": "Person", "name": "Fortunato Bravo N" },
-    "knowsAbout": ["Business Intelligence","Power BI","Data Engineering","Machine Learning","Forecast","Gobernanza de datos","DAX","Azure"],
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Servicios de BI y Datos",
-      "itemListElement": [
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Auditoría BI + Plan de Acción" }, "priceSpecification": { "@type": "PriceSpecification", "minPrice": "590000", "priceCurrency": "CLP" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Dashboard Power BI + Modelo de Datos" }, "priceSpecification": { "@type": "PriceSpecification", "minPrice": "1190000", "priceCurrency": "CLP" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Ingeniería y Arquitectura de Datos" }, "priceSpecification": { "@type": "PriceSpecification", "minPrice": "1790000", "priceCurrency": "CLP" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Predicción y Analítica" }, "priceSpecification": { "@type": "PriceSpecification", "minPrice": "1490000", "priceCurrency": "CLP" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Plan de Negocios" }, "priceSpecification": { "@type": "PriceSpecification", "minPrice": "490000", "priceCurrency": "CLP" } }
-      ]
-    },
-    "sameAs": ["https://github.com/42ntenterprise"]
-  }
-  </script>
-
-  <!-- Schema.org: FAQ -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      { "@type": "Question", "name": "¿Por qué cuesta lo que cuesta la consultoría BI?", "acceptedAnswer": { "@type": "Answer", "text": "No vendemos pantallas: entregamos modelo de datos, KPIs definidos, performance optimizado y trazabilidad completa." } },
-      { "@type": "Question", "name": "¿Pueden trabajar sin acceso a datos sensibles?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Podemos iniciar con datos anonimizados, muestras o en un entorno controlado." } },
-      { "@type": "Question", "name": "¿Qué pasa si ya tengo equipo interno de datos?", "acceptedAnswer": { "@type": "Answer", "text": "Hacemos la auditoría, construimos el roadmap y dejamos al equipo con una guía concreta y accionable." } },
-      { "@type": "Question", "name": "¿La demo en 24 horas es real?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Entregamos una demo funcional o propuesta visual en máximo 24 horas hábiles desde el primer contacto." } },
-      { "@type": "Question", "name": "¿Qué garantías ofrecen?", "acceptedAnswer": { "@type": "Answer", "text": "Entregables definidos por contrato y KPIs de performance acordados antes de comenzar." } }
-    ]
-  }
-  </script>
-
-  <!-- CSS: Bootstrap + Bootstrap Icons + AOS + Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    /* ── OUTCOME PILLS (hero) ─────────────────────────────── */
-    .hero-outcomes { max-width: 540px; }
-    .outcome-pill {
-      background: rgba(0,200,224,.1);
-      border: 1px solid rgba(0,200,224,.25);
-      border-radius: 10px;
-      padding: .55rem .7rem;
-      display: flex; flex-direction: column; align-items: center;
-      text-align: center;
-      transition: background .25s;
-    }
-    .outcome-pill:hover { background: rgba(0,200,224,.18); }
-    .outcome-num {
-      font-family: var(--font-head);
-      font-size: 1.3rem; font-weight: 800;
-      color: var(--cyan); line-height: 1.1;
-    }
-    .outcome-txt {
-      font-size: .72rem; color: rgba(255,255,255,.6);
-      line-height: 1.3; margin-top: .15rem;
-    }
-
-    /* ── SOCIAL PROOF STRIP ───────────────────────────────── */
-    .social-proof-strip {
-      background: var(--white);
-      border-bottom: 1px solid var(--border);
-    }
-    .sp-grid {
-      display: flex; align-items: center; justify-content: center;
-      flex-wrap: wrap; gap: 1.2rem 0;
-    }
-    .sp-item {
-      display: flex; align-items: center; gap: .75rem;
-      padding: .5rem 2rem;
-      flex: 1 1 200px; min-width: 180px;
-    }
-    .sp-item i {
-      font-size: 1.6rem; color: var(--cyan-soft); flex-shrink: 0;
-    }
-    .sp-item strong {
-      display: block; font-family: var(--font-head);
-      font-size: 1rem; color: var(--navy);
-    }
-    .sp-item span {
-      display: block; font-size: .78rem; color: var(--text-muted); line-height: 1.3;
-    }
-    .sp-divider {
-      width: 1px; height: 48px;
-      background: var(--border); flex-shrink: 0;
-    }
-    .sp-disclaimer {
-      font-size: .72rem; color: var(--text-muted);
-      font-style: italic; margin: 0;
-    }
-
-    /* ── URGENCY BANNER (form) ────────────────────────────── */
-    .urgency-banner {
-      display: inline-flex; align-items: center; flex-wrap: wrap;
-      justify-content: center; gap: .2rem;
-      background: #fff7ed;
-      border: 1px solid #fed7aa;
-      color: #c2410c;
-      font-size: .82rem; border-radius: 8px;
-      padding: .5rem 1rem;
-    }
-
-    /* ── EXPAND OPTIONAL BUTTON ───────────────────────────── */
-    .btn-expand-optional {
-      background: none; border: 1.5px dashed var(--border);
-      border-radius: 9px; color: var(--text-muted);
-      font-size: .88rem; padding: .55rem 1rem;
-      width: 100%; text-align: left; cursor: pointer;
-      transition: border-color .2s, color .2s;
-    }
-    .btn-expand-optional:hover {
-      border-color: var(--cyan-soft); color: var(--navy);
-    }
-  </style>
-  <link rel="icon" type="image/png" href="images/favicon.png" />
-
-  <!-- Chart.js + date adapter (Gráfico UF) -->
+  <title>Vista Previa Interactiva — DataBI Pro Landing Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-
   <style>
-  /* ── GRÁFICO UF ────────────────────────────────────────── */
-
-  /* Encabezado: fila única — título izq / leyenda der */
-  .uf-header-row {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: .9rem;
-    margin-bottom: 1rem;
-  }
-  .uf-header-left {
-    display: flex;
-    flex-direction: column;
-    gap: .28rem;
-    text-align: center;
-  }
-  .uf-title-chart {
-    font-size: clamp(1.1rem, 2.2vw, 1.5rem);
-    font-weight: 800;
-    color: #40E0DD;
-    line-height: 1.2;
-    margin: 0;
-  }
-  .uf-sub-chart {
-    font-size: .78rem;
-    color: rgba(179,210,255,0.52);
-    margin: 0;
-  }
-  /* Leyenda a la derecha */
-  .uf-legend-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: .35rem .9rem;
-    align-items: center;
-    justify-content: center;
-    padding-top: .15rem;     /* alinea ópticamente con baseline del título */
-  }
-  .uf-legend-item {
-    display: flex; align-items: center; gap: .4rem;
-    font-size: .8rem; color: rgba(255,255,255,0.78);
-    white-space: nowrap;
-  }
-  .uf-legend-box {
-    width: 26px; height: 13px;
-    border-radius: 4px;
-    border-width: 1.5px; border-style: solid;
-    flex-shrink: 0;
-  }
-  .uf-legend-box.ant { background:rgba(255,100,100,0.17); border-color:rgba(255,100,100,0.55); }
-  .uf-legend-box.act { background:rgba(0,187,255,0.18);   border-color:rgba(0,187,255,0.55);  }
-
-  /* Contenedor del canvas */
-  .uf-canvas-wrap {
-    position: relative;
-    background: #0d1b2e;
-    border: 1px solid rgba(0,187,255,0.14);
-    border-radius: 16px;
-    padding: 1.1rem 1.2rem 0.14rem;
-    overflow: visible;
-  }
-  .uf-canvas-wrap canvas { display: block; width: 100% !important; }
-
-  /* Skeleton loader */
-  .uf-skeleton {
-    height: 300px;
-    background: linear-gradient(90deg,
-      rgba(0,187,255,0.04) 25%,
-      rgba(0,187,255,0.09) 50%,
-      rgba(0,187,255,0.04) 75%);
-    background-size: 200% 100%;
-    animation: uf-shimmer 1.6s infinite;
-    border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    color: rgba(255,255,255,0.22); font-size: .82rem;
-  }
-  @keyframes uf-shimmer {
-    0%  { background-position: 200% 0 }
-    100%{ background-position: -200% 0 }
-  }
-
-  .uf-source-note {
-    font-size: .68rem;
-    color: rgba(100,150,200,0.38);
-    text-align: right;
-    margin-top: .4rem;
-  }
-
-  /* Responsive: en mobile leyenda va debajo del título */
-  @media (max-width: 575px) {
-    .uf-header-row   { flex-direction: column; }
-    .uf-legend-row   { justify-content: flex-start; }
-  }
-  /* Tooltip */
-  #uf-tooltip {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    pointer-events: none;
-    background: rgba(6,16,36,0.94);
-    border: 1px solid rgba(0,187,255,0.28);
-    border-radius: 10px;
-    padding: .55rem .85rem;
-    font-size: .8rem;
-    color: #fff;
-    backdrop-filter: blur(10px);
-    min-width: 155px;
-    transition: opacity .12s;
-    z-index: 20;
-    box-shadow: 0 6px 24px rgba(0,0,0,0.5);
-  }
-  #uf-tooltip .tt-date {
-    font-weight: 700; color: #40E0DD;
-    margin-bottom: .3rem; font-size: .78rem;
-    order: 0;
-  }
-  #uf-tooltip .tt-row {
-    display: flex; align-items: center; gap: .4rem; padding: 2px 0;
-  }
-  #uf-tooltip .tt-row:nth-of-type(2) { order: 2; }
-  #uf-tooltip .tt-row:nth-of-type(3) { order: 1; }
-  #uf-tooltip .tt-dot {
-    width: 9px; height: 9px; border-radius: 3px; flex-shrink: 0;
-  }
-  #uf-tooltip .tt-label { color: rgba(255,255,255,0.55); }
-  #uf-tooltip .tt-val   { font-weight: 700; margin-left: auto; }
-  #uf-tooltip .tt-diff  {
-    font-size: .74rem; margin-top: .28rem;
-    padding-top: .28rem;
-    border-top: 1px solid rgba(255,255,255,0.08);
-    color: rgba(255,255,255,0.45);
-    order: 3;
-  }
-  #uf-tooltip .tt-diff span        { font-weight: 700; }
-  #uf-tooltip .tt-diff .uf-up      { color: #4ade80; }
-  #uf-tooltip .tt-diff .uf-down    { color: #f87171; }
-  </style>
-  <style>
-    .uf-header-row {
-      gap: .9rem;
-      margin-bottom: 1rem;
+    :root {
+      --cyan:      #00BBFF;
+      --turquoise: #40E0DD;
+      --teal:      #008080;
+      --cerulean:  #007BA7;
+      --midnight:  #191970;
+      --deep-sea:  #005870;
+      --aqua:      #7FFFD4;
+      --sky:       #87CEEB;
+      --pale:      #AFEEEE;
     }
 
-    .uf-header-left {
-      gap: .28rem;
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0f2e;
+      color: #e8f4fd;
+      overflow-x: hidden;
+    }
+
+    /* ── Header ─────────────────────────────────────────── */
+    .pv-header {
+      background: linear-gradient(135deg, #0d1b4b 0%, #005870 60%, #007BA7 100%);
+      padding: 60px 24px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pv-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(0,187,255,0.18) 0%, transparent 70%);
+    }
+
+    .pv-header h1 {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 800;
+      color: #fff;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 12px;
+    }
+
+    .pv-header h1 span {
+      background: linear-gradient(135deg, var(--cyan), var(--turquoise), var(--aqua));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .pv-header p {
+      color: rgba(255,255,255,0.72);
+      font-size: 1.05rem;
+      max-width: 640px;
+      margin: 0 auto 28px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .pv-header-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-view-landing {
+      background: linear-gradient(135deg, var(--cerulean), var(--cyan));
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 12px 28px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-view-landing:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,187,255,0.4);
+      color: #fff;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid rgba(0,187,255,0.45);
+      color: var(--pale);
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 12px 28px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, border-color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-outline:hover {
+      background: rgba(0,187,255,0.1);
+      border-color: var(--cyan);
+      color: var(--pale);
+    }
+
+    /* ── Nav tabs ────────────────────────────────────────── */
+    .pv-nav {
+      background: rgba(10, 20, 60, 0.95);
+      border-bottom: 1px solid rgba(0,187,255,0.15);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 0 24px;
+      overflow-x: auto;
+    }
+
+    .pv-nav-inner {
+      display: flex;
+      gap: 4px;
+      max-width: 1100px;
+      margin: 0 auto;
+      white-space: nowrap;
+    }
+
+    .pv-tab {
+      padding: 14px 20px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.55);
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      white-space: nowrap;
+    }
+
+    .pv-tab:hover { color: var(--cyan); }
+    .pv-tab.active {
+      color: var(--cyan);
+      border-bottom-color: var(--cyan);
+    }
+
+    /* ── Main container ──────────────────────────────────── */
+    .pv-main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* ── Section panels ──────────────────────────────────── */
+    .pv-panel {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .pv-panel.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Cards ───────────────────────────────────────────── */
+    .pv-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(0,187,255,0.15);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 24px;
+      transition: border-color 0.25s;
+    }
+
+    .pv-card:hover { border-color: rgba(0,187,255,0.35); }
+
+    .pv-card-title {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--pale);
+      margin-bottom: 6px;
+    }
+
+    .pv-card-sub {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 20px;
+    }
+
+    /* ── Grid ────────────────────────────────────────────── */
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+    .grid-5 { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
+
+    /* ── KPI tiles ───────────────────────────────────────── */
+    .kpi-tile {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(0,187,255,0.15);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .kpi-tile:hover {
+      transform: translateY(-3px);
+      border-color: var(--cyan);
+    }
+
+    .kpi-icon {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+
+    .kpi-value {
+      font-family: 'Sora', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--cyan);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .kpi-label {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── Section heading ─────────────────────────────────── */
+    .pv-section-heading {
+      margin-bottom: 28px;
+    }
+
+    .pv-section-heading h2 {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .pv-section-heading p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* ── Chart wrapper ───────────────────────────────────── */
+    .chart-wrapper {
+      position: relative;
+      height: 280px;
+    }
+
+    .chart-wrapper-tall {
+      position: relative;
+      height: 340px;
+    }
+
+    /* ── Color palette display ───────────────────────────── */
+    .palette-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 10px;
+    }
+
+    .palette-swatch {
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .palette-swatch:hover { transform: scale(1.04); }
+
+    .swatch-color {
+      height: 60px;
+    }
+
+    .swatch-info {
+      background: rgba(10,20,60,0.85);
+      padding: 8px 10px;
+    }
+
+    .swatch-name {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .swatch-hex {
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.45);
+      font-family: monospace;
+    }
+
+    /* ── Service cards ───────────────────────────────────── */
+    .service-mini {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(0,187,255,0.15);
+      border-radius: 12px;
+      padding: 20px;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .service-mini:hover {
+      transform: translateY(-3px);
+      border-color: var(--cyan);
+    }
+
+    .service-mini-num {
+      font-family: 'Sora', sans-serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: rgba(0,187,255,0.2);
+      line-height: 1;
+      margin-bottom: -4px;
+    }
+
+    .service-mini-title {
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .service-mini-desc {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.5;
+    }
+
+    .service-mini-badge {
+      display: inline-block;
+      background: rgba(0,187,255,0.12);
+      border: 1px solid rgba(0,187,255,0.25);
+      color: var(--cyan);
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 50px;
+      margin-top: 10px;
+    }
+
+    /* ── Timeline ────────────────────────────────────────── */
+    .timeline {
+      position: relative;
+      padding-left: 32px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 11px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--cyan), transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 28px;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -28px;
+      top: 4px;
+      width: 24px;
+      height: 24px;
+      background: linear-gradient(135deg, var(--cerulean), var(--cyan));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .timeline-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .timeline-desc {
+      font-size: 0.84rem;
+      color: rgba(255,255,255,0.55);
+    }
+
+    .timeline-badge {
+      display: inline-block;
+      background: rgba(64,224,221,0.12);
+      color: var(--turquoise);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 2px 10px;
+      border-radius: 50px;
+      margin-left: 8px;
+    }
+
+    /* ── Comparison table ────────────────────────────────── */
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    .compare-table th {
+      padding: 12px 16px;
+      text-align: left;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.45);
+      border-bottom: 1px solid rgba(0,187,255,0.15);
+    }
+
+    .compare-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      color: rgba(255,255,255,0.8);
+      vertical-align: middle;
+    }
+
+    .compare-table tr:hover td {
+      background: rgba(0,187,255,0.04);
+    }
+
+    .check-yes { color: #40E0DD; font-size: 1.1rem; }
+    .check-no  { color: rgba(255,100,100,0.7); font-size: 1.1rem; }
+
+    /* ── Progress bars ───────────────────────────────────── */
+    .prog-item { margin-bottom: 16px; }
+
+    .prog-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      font-size: 0.85rem;
+    }
+
+    .prog-label span:first-child { color: rgba(255,255,255,0.8); font-weight: 500; }
+    .prog-label span:last-child  { color: var(--cyan); font-weight: 700; }
+
+    .prog-bar-bg {
+      height: 8px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 50px;
+      overflow: hidden;
+    }
+
+    .prog-bar-fill {
+      height: 100%;
+      border-radius: 50px;
+      background: linear-gradient(90deg, var(--cerulean), var(--cyan));
+      width: 0%;
+      transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ── Image gallery ───────────────────────────────────── */
+    .img-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .img-gallery-item {
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(0,187,255,0.15);
+      cursor: pointer;
+      transition: transform 0.2s, border-color 0.2s;
+      position: relative;
+    }
+
+    .img-gallery-item:hover {
+      transform: scale(1.02);
+      border-color: var(--cyan);
+    }
+
+    .img-gallery-item img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .img-gallery-caption {
+      padding: 8px 10px;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.6);
+      background: rgba(10,20,60,0.85);
+    }
+
+    /* ── Lightbox ────────────────────────────────────────── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .lightbox.open { display: flex; }
+
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 85vh;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      font-size: 2rem;
+      color: #fff;
+      cursor: pointer;
+      background: none;
+      border: none;
+      line-height: 1;
+    }
+
+    /* ── Tooltip ─────────────────────────────────────────── */
+    .tooltip-copy {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--cerulean);
+      color: #fff;
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+      z-index: 9998;
+    }
+
+    .tooltip-copy.show { opacity: 1; }
+
+    /* ── Footer ──────────────────────────────────────────── */
+    .pv-footer {
+      background: rgba(10,20,60,0.8);
+      border-top: 1px solid rgba(0,187,255,0.1);
+      padding: 24px;
       text-align: center;
     }
 
-    .uf-legend-row {
-      gap: .55rem 1.25rem;
-      padding-top: .1rem;
-      margin-bottom: .2rem;
+    .pv-footer p {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.35);
     }
 
-    .uf-legend-row .uf-legend-item:first-child { order: 2; }
-    .uf-legend-row .uf-legend-item:last-child { order: 1; }
+    .pv-footer a {
+      color: var(--cyan);
+      text-decoration: none;
+    }
 
-    .uf-canvas-wrap {
-      padding: 1.1rem 1.2rem .35rem;
+    /* ── Responsive ──────────────────────────────────────── */
+    @media (max-width: 600px) {
+      .pv-header { padding: 40px 16px 60px; }
+      .pv-main { padding: 24px 16px 60px; }
+      .grid-2, .grid-3, .grid-5 { grid-template-columns: 1fr; }
+      .chart-wrapper { height: 220px; }
     }
   </style>
 </head>
 <body>
 
-<!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-  <div class="container">
-    <a class="navbar-brand d-flex align-items-center gap-2" href="#">
-      <span class="brand-icon"><i class="bi bi-bar-chart-fill"></i></span>
-      <span class="brand-text">42NT<span class="brand-accent">Solutions</span></span>
+<!-- ── Header ────────────────────────────────────────────── -->
+<div class="pv-header">
+  <h1>Vista Interactiva — <span>DataBI Pro</span></h1>
+  <p>Explora los resultados del diseño, la paleta de colores, los servicios y las métricas de la landing page de forma más intuitiva.</p>
+  <div class="pv-header-btns">
+    <a href="index.html" target="_blank" class="btn-view-landing">
+      🚀 Abrir Landing Page
     </a>
-    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="Abrir menú">
-      <span class="navbar-toggler-icon"></span>
+    <button class="btn-outline" onclick="window.print()">
+      🖨️ Guardar / Imprimir
     </button>
-    <div class="collapse navbar-collapse" id="navMenu">
-      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
-        <li class="nav-item"><a class="nav-link" href="#servicios">Servicios</a></li>
-        <li class="nav-item"><a class="nav-link" href="#casos">Casos</a></li>
-        <li class="nav-item"><a class="nav-link" href="#precios">Precios</a></li>
-        <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
-        <li class="nav-item ms-lg-3">
-          <a class="btn btn-cta-nav" href="#cotizar">
-            <i class="bi bi-calendar2-check-fill me-1"></i>Demostración gratis — 15 min
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-<!-- HERO -->
-<section id="hero" class="hero-section">
-  <div class="hero-overlay"></div>
-  <div class="container position-relative z-1">
-    <div class="row align-items-center min-vh-100 py-5">
-      <div class="col-lg-7 pt-5" data-aos="fade-right" data-aos-duration="900">
-        <div class="hero-badge mb-3">
-          <i class="bi bi-calendar2-check-fill me-1"></i>
-          Diagnóstico BI gratuito · Solo 3 cupos disponibles este mes
-        </div>
-        <h1 class="hero-h1">
-          Automatiza reportes y dashboards empresariales<br>
-          <span class="text-gradient">sin depender de Excel</span>
-        </h1>
-        <p class="hero-subtitle">
-          Integramos tus datos (ERP, SQL, APIs, Excel) en un solo sistema de inteligencia empresarial con Power BI.<br>
-          <strong style="color:rgba(255,255,255,.9)">Resultado en semanas, no en meses.</strong>
-          Teleco · Retail · Finanzas · Logística · Minería.
-        </p>
-
-        <!-- Outcomes cuantificables -->
-        <div class="hero-outcomes row g-2 mb-4">
-          <div class="col-6 col-sm-3">
-            <div class="outcome-pill"><span class="outcome-num">– 80%</span><span class="outcome-txt">tiempo de reporting</span></div>
-          </div>
-          <div class="col-6 col-sm-3">
-            <div class="outcome-pill"><span class="outcome-num">– 50%</span><span class="outcome-txt">tiempo de cierre</span></div>
-          </div>
-          <div class="col-6 col-sm-3">
-            <div class="outcome-pill"><span class="outcome-num">+ 30%</span><span class="outcome-txt">precisión en forecast</span></div>
-          </div>
-          <div class="col-6 col-sm-3">
-            <div class="outcome-pill"><span class="outcome-num">KPIs</span><span class="outcome-txt">en tiempo real</span></div>
-          </div>
-        </div>
-
-        <div class="d-flex flex-wrap gap-3 mb-4">
-          <a href="#cotizar" class="btn btn-hero-primary">
-            <i class="bi bi-calendar2-check-fill me-2"></i>Demostración gratis — 15 min
-          </a>
-          <a href="https://wa.me/56948827168" target="_blank" rel="noopener" class="btn btn-hero-secondary">
-            <i class="bi bi-whatsapp me-2"></i>Hablar por WhatsApp
-          </a>
-        </div>
-        <div class="micro-trust">
-          <a href="https://www.linkedin.com/in/fortunato-bravo-n/" target="_blank" rel="noopener" class="micro-avatar-link">
-            <img src="https://media.licdn.com/dms/image/v2/C4E03AQGkbbVrjuNdzA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1607051073820?e=1774483200&v=beta&t=eX1Z22hStJhI2C9Lqpd0uDtfPztc2OpSqKoCg09MLAQ" alt="Fortunato Bravo N — LinkedIn" class="micro-avatar" />
-          </a>
-          <div class="micro-text">
-            <span>Atiende <a href="https://www.linkedin.com/in/fortunato-bravo-n/" target="_blank" rel="noopener" class="micro-linkedin"><strong>Fortunato Bravo N</strong> <i class="bi bi-linkedin ms-1"></i></a></span>
-            <span class="micro-items">
-              <i class="bi bi-clock me-1"></i>Reunión 30 min
-              <i class="bi bi-lock ms-2 me-1"></i>Confidencialidad
-              <i class="bi bi-file-earmark-check ms-2 me-1"></i>Entregables definidos
-            </span>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-5 d-none d-lg-block" data-aos="fade-left" data-aos-duration="900" data-aos-delay="200">
-        <div class="hero-image-wrapper">
-          <img src="images/hero-bg.jpg" alt="Business Intelligence Dashboards" class="hero-img" />
-          <div class="hero-float-card">
-            <i class="bi bi-bar-chart-fill text-cyan"></i>
-            <div><strong>– 80%</strong><span>Tiempo de reporte</span></div>
-          </div>
-          <div class="hero-float-card hero-float-card-2">
-            <i class="bi bi-check2-circle text-aqua"></i>
-            <div><strong>KPIs verificables</strong><span>Antes / Después medibles</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="hero-wave">
-    <svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="var(--bg-light)"/></svg>
-  </div>
-</section>
-
-<!-- PRUEBA SOCIAL / OUTCOMES STRIP -->
-<section class="social-proof-strip py-4">
-  <div class="container">
-    <div class="sp-grid" data-aos="fade-up">
-      <div class="sp-item">
-        <i class="bi bi-clock-history"></i>
-        <div><strong>– 40% horas/mes</strong><span>Automatización de reportes · Finanzas</span></div>
-      </div>
-      <div class="sp-divider d-none d-md-block"></div>
-      <div class="sp-item">
-        <i class="bi bi-graph-up-arrow"></i>
-        <div><strong>+ 20 – 30% precisión</strong><span>Forecast de demanda · Retail</span></div>
-      </div>
-      <div class="sp-divider d-none d-md-block"></div>
-      <div class="sp-item">
-        <i class="bi bi-calendar-check"></i>
-        <div><strong>– 50% tiempo cierre</strong><span>KPIs con días de anticipación · Logística</span></div>
-      </div>
-      <div class="sp-divider d-none d-md-block"></div>
-      <div class="sp-item">
-        <i class="bi bi-shield-check"></i>
-        <div><strong>Gobernanza real</strong><span>Datos unificados, definiciones consistentes</span></div>
-      </div>
-    </div>
-    <p class="sp-disclaimer text-center mt-2">Resultados verificables presentados en la demo · bajo confidencialidad</p>
-  </div>
-</section>
-
-<!-- DOLOR -->
-<section id="dolor" class="pain-section py-5">
-  <div class="container">
-    <div class="text-center mb-5" data-aos="fade-up">
-      <span class="section-badge">Diagnóstico rápido</span>
-      <h2 class="section-title">¿Dónde te duele hoy?</h2>
-      <p class="section-subtitle">Elige tu situación y te devolvemos la propuesta correcta</p>
-    </div>
-    <div class="row g-4 justify-content-center">
-      <div class="col-12 col-md-6 col-xl-3" data-aos="fade-up" data-aos-delay="0">
-        <a href="#producto1" class="pain-card text-decoration-none">
-          <div class="pain-icon"><i class="bi bi-database-x"></i></div>
-          <h5>"No tenemos gobernanza de datos"</h5>
-          <p>Datos dispersos, definiciones inconsistentes, nadie confía en el número.</p>
-          <span class="pain-cta">Ver solución <i class="bi bi-arrow-right"></i></span>
-        </a>
-      </div>
-      <div class="col-12 col-md-6 col-xl-3" data-aos="fade-up" data-aos-delay="100">
-        <a href="#producto2" class="pain-card text-decoration-none">
-          <div class="pain-icon"><i class="bi bi-hourglass-split"></i></div>
-          <h5>"Nuestro BI / Power BI está lento"</h5>
-          <p>Modelos pesados, refresh eterno, DAX ineficiente, UX confusa.</p>
-          <span class="pain-cta">Ver solución <i class="bi bi-arrow-right"></i></span>
-        </a>
-      </div>
-      <div class="col-12 col-md-6 col-xl-3" data-aos="fade-up" data-aos-delay="200">
-        <a href="#producto4" class="pain-card text-decoration-none">
-          <div class="pain-icon"><i class="bi bi-graph-down"></i></div>
-          <h5>"No tenemos análisis / predicción"</h5>
-          <p>Se reporta, pero no se interpreta ni se anticipa (forecast débil).</p>
-          <span class="pain-cta">Ver solución <i class="bi bi-arrow-right"></i></span>
-        </a>
-      </div>
-      <div class="col-12 col-md-6 col-xl-3" data-aos="fade-up" data-aos-delay="300">
-        <a href="#producto5" class="pain-card text-decoration-none">
-          <div class="pain-icon"><i class="bi bi-briefcase"></i></div>
-          <h5>"Necesitamos un plan de negocios sólido"</h5>
-          <p>Para levantar capital, entrar a licitaciones o crecer con orden.</p>
-          <span class="pain-cta">Ver solución <i class="bi bi-arrow-right"></i></span>
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SERVICIOS -->
-<section id="servicios" class="services-section py-5">
-  <div class="container">
-    <div class="text-center mb-5" data-aos="fade-up">
-      <span class="section-badge">Oferta de valor</span>
-      <h2 class="section-title">Qué hago — 5 productos claros</h2>
-      <p class="section-subtitle">Cada entregable está definido antes de empezar. Sin sorpresas.</p>
-    </div>
-
-    <!-- Servicio 01 -->
-    <div id="producto1" class="service-row row align-items-center g-5 mb-5 pb-5 border-bottom-subtle">
-      <div class="col-lg-6" data-aos="fade-right">
-        <img src="images/bi-audit.jpg" alt="Auditoría BI y Plan de Acción" class="service-img" />
-      </div>
-      <div class="col-lg-6" data-aos="fade-left">
-        <div class="service-number">01</div>
-        <h3 class="service-title">Auditoría BI + Plan de Acción</h3>
-        <p class="service-subtitle-tag">Gobernanza + Performance</p>
-        <p class="service-desc">Para BI lento, sin consistencia o sin reglas. Revisamos modelo, DAX, performance, seguridad, gobernanza y UX. No opinamos: medimos.</p>
-        <div class="deliverables">
-          <h6><i class="bi bi-box-seam me-2"></i>Entregables</h6>
-          <ul>
-            <li><i class="bi bi-check2 me-2"></i>Informe de diagnóstico</li>
-            <li><i class="bi bi-check2 me-2"></i>Quick wins priorizados</li>
-            <li><i class="bi bi-check2 me-2"></i>Backlog priorizado</li>
-            <li><i class="bi bi-check2 me-2"></i>Plan de implementación</li>
-          </ul>
-        </div>
-        <a href="#cotizar" class="btn btn-service mt-3">Cotizar este servicio</a>
-      </div>
-    </div>
-
-    <!-- Servicio 02 -->
-    <div id="producto2" class="service-row row align-items-center g-5 mb-5 pb-5 border-bottom-subtle flex-lg-row-reverse">
-      <div class="col-lg-6" data-aos="fade-left">
-        <img src="images/dashboard-powerbi.jpg" alt="Dashboard Power BI y Modelo de Datos" class="service-img" />
-      </div>
-      <div class="col-lg-6" data-aos="fade-right">
-        <div class="service-number">02</div>
-        <h3 class="service-title">Dashboard Power BI + Modelo de Datos</h3>
-        <p class="service-subtitle-tag">End-to-end</p>
-        <p class="service-desc">Para cuando necesitas un tablero serio, no solo "bonito". KPI definition, modelo estrella, medidas DAX, visual, publicación y traspaso.</p>
-        <div class="deliverables">
-          <h6><i class="bi bi-box-seam me-2"></i>Entregables</h6>
-          <ul>
-            <li><i class="bi bi-check2 me-2"></i>Dataset optimizado</li>
-            <li><i class="bi bi-check2 me-2"></i>Reporte publicado</li>
-            <li><i class="bi bi-check2 me-2"></i>Guía de uso</li>
-            <li><i class="bi bi-check2 me-2"></i>Documentación mínima</li>
-          </ul>
-        </div>
-        <a href="#cotizar" class="btn btn-service mt-3">Cotizar este servicio</a>
-      </div>
-    </div>
-
-    <!-- Servicio 03 -->
-    <div id="producto3" class="service-row row align-items-center g-5 mb-5 pb-5 border-bottom-subtle">
-      <div class="col-lg-6" data-aos="fade-right">
-        <img src="images/data-engineering.jpg" alt="Ingeniería y Arquitectura de Datos" class="service-img" />
-      </div>
-      <div class="col-lg-6" data-aos="fade-left">
-        <div class="service-number">03</div>
-        <h3 class="service-title">Ingeniería y Arquitectura de Datos</h3>
-        <p class="service-subtitle-tag">ETL/ELT + Estructura</p>
-        <p class="service-desc">Para fuentes dispersas (ERP/CRM/Excel/APIs) y necesidad de estabilidad. Ingesta, limpieza, modelado, automatización de refresh y base sólida para BI.</p>
-        <div class="deliverables">
-          <h6><i class="bi bi-box-seam me-2"></i>Entregables</h6>
-          <ul>
-            <li><i class="bi bi-check2 me-2"></i>Pipeline documentado</li>
-            <li><i class="bi bi-check2 me-2"></i>Diccionario de datos</li>
-            <li><i class="bi bi-check2 me-2"></i>Monitoreo básico</li>
-          </ul>
-        </div>
-        <a href="#cotizar" class="btn btn-service mt-3">Cotizar este servicio</a>
-      </div>
-    </div>
-
-    <!-- Servicio 04 -->
-    <div id="producto4" class="service-row row align-items-center g-5 mb-5 pb-5 border-bottom-subtle flex-lg-row-reverse">
-      <div class="col-lg-6" data-aos="fade-left">
-        <img src="images/forecast-prediction.jpg" alt="Predicción y Analítica" class="service-img" />
-      </div>
-      <div class="col-lg-6" data-aos="fade-right">
-        <div class="service-number">04</div>
-        <h3 class="service-title">Predicción y Analítica</h3>
-        <p class="service-subtitle-tag">Forecast + Modelos</p>
-        <p class="service-desc">Para forecast impreciso y decisiones tardías. Exploración, feature engineering, modelos predictivos, evaluación y reporte con métricas claras.</p>
-        <div class="deliverables">
-          <h6><i class="bi bi-box-seam me-2"></i>Entregables</h6>
-          <ul>
-            <li><i class="bi bi-check2 me-2"></i>Modelo predictivo</li>
-            <li><i class="bi bi-check2 me-2"></i>Métricas de evaluación</li>
-            <li><i class="bi bi-check2 me-2"></i>Tablero de insights</li>
-            <li><i class="bi bi-check2 me-2"></i>Plan de mantención</li>
-          </ul>
-        </div>
-        <a href="#cotizar" class="btn btn-service mt-3">Cotizar este servicio</a>
-      </div>
-    </div>
-
-    <!-- Servicio 05 -->
-    <div id="producto5" class="service-row row align-items-center g-5">
-      <div class="col-lg-6" data-aos="fade-right">
-        <img src="images/business-plan.jpg" alt="Plan de Negocios" class="service-img" />
-      </div>
-      <div class="col-lg-6" data-aos="fade-left">
-        <div class="service-number">05</div>
-        <h3 class="service-title">Plan de Negocios</h3>
-        <p class="service-subtitle-tag">Para nuevas empresas y expansión</p>
-        <p class="service-desc">Para fundadores y gerencias que necesitan claridad financiera y comercial. Propuesta de valor, mercado, estrategia, operaciones, plan financiero y KPIs.</p>
-        <div class="deliverables">
-          <h6><i class="bi bi-box-seam me-2"></i>Entregables</h6>
-          <ul>
-            <li><i class="bi bi-check2 me-2"></i>Documento completo</li>
-            <li><i class="bi bi-check2 me-2"></i>Plan financiero</li>
-            <li><i class="bi bi-check2 me-2"></i>Roadmap estratégico</li>
-            <li><i class="bi bi-check2 me-2"></i>Tablero base (si aplica)</li>
-          </ul>
-        </div>
-        <a href="#cotizar" class="btn btn-service mt-3">Cotizar este servicio</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- DIFERENCIADORES -->
-<section id="diferenciadores" class="diff-section py-5">
-  <div class="container">
-    <div class="text-center mb-5" data-aos="fade-up">
-      <span class="section-badge">Diferenciadores</span>
-      <h2 class="section-title">Por qué conmigo</h2>
-      <p class="section-subtitle">Diferencias reales vs. consultoras típicas</p>
-    </div>
-    <div class="row g-4">
-      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="0">
-        <div class="diff-card">
-          <div class="diff-icon"><i class="bi bi-bar-chart-steps"></i></div>
-          <h5>KPIs verificables</h5>
-          <p>No "opiniones", sino métricas antes/después documentadas y acordadas por contrato.</p>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="80">
-        <div class="diff-card">
-          <div class="diff-icon"><i class="bi bi-tag"></i></div>
-          <h5>Rangos de precio claros</h5>
-          <p>Sin misterio. Sabes dónde estás parado antes de comprometerte con cualquier proyecto.</p>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="160">
-        <div class="diff-card">
-          <div class="diff-icon"><i class="bi bi-kanban"></i></div>
-          <h5>Metodologías ágiles + gestión formal</h5>
-          <p>Trabajo por sprints con marco PMI/IPMA. Entregas medibles en cada iteración.</p>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="240">
-        <div class="diff-card">
-          <div class="diff-icon"><i class="bi bi-microsoft"></i></div>
-          <h5>Stack Microsoft end-to-end</h5>
-          <p>Integración sólida con Power BI, Azure, Fabric, SQL Server y todo el ecosistema Microsoft.</p>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="320">
-        <div class="diff-card">
-          <div class="diff-icon"><i class="bi bi-shield-lock"></i></div>
-          <h5>Seguridad de la información</h5>
-          <p>Enfoque de control, permisos y confidencialidad. NDA disponible antes de revisar datos.</p>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="400">
-        <div class="diff-card">
-          <div class="diff-icon"><i class="bi bi-award"></i></div>
-          <h5>Estándares y disciplina</h5>
-          <p>Trabajo alineado a buenas prácticas de ingeniería de datos, BI y gestión de proyectos.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- STACK / LOGOS TECNOLOGÍAS -->
-<section class="stack-section py-5">
-  <div class="container">
-    <div class="text-center mb-4" data-aos="fade-up">
-      <span class="section-badge">Tecnología</span>
-      <h2 class="stack-title">Stack tecnológico utilizado</h2>
-      <p class="stack-subtitle">Herramientas con las que integramos, automatizamos y escalamos soluciones de datos.</p>
-    </div>
-    <div class="stack-grid" data-aos="fade-up" data-aos-delay="80">
-      
-      <div class="stack-item"><img src="https://img.icons8.com/?size=100&id=VLKafOkk3sBX&format=png&color=000000" alt="Microsoft Azure" /><span>Azure</span></div>
-      <div class="stack-item"><img src="https://cdn.simpleicons.org/googlecloud/4285F4" alt="Google Cloud" /><span>Google Cloud</span></div>
-      <div class="stack-item"><img src="https://cdn.simpleicons.org/googlebigquery/4285F4" alt="BigQuery" /><span>BigQuery</span></div>
-      <div class="stack-item"><img src="https://img.icons8.com/?size=100&id=38561&format=png&color=000000" alt="Postgres SQL" /><span>Postgres SQL</span></div>
-      <div class="stack-item"><img src="https://img.icons8.com/color/96/microsoft-sql-server.png" alt="SQL Server" /><span>SQL Server</span></div>      
-      <div class="stack-item"><img src="https://img.icons8.com/color/96/microsoft-excel-2019--v1.png" alt="Excel" /><span>Excel</span></div>
-      <div class="stack-item"><img src="https://img.icons8.com/color/96/microsoft.png" alt="Microsoft Fabric" /><span>Fabric</span></div>
-      <div class="stack-item"><img src="https://img.icons8.com/color/96/python--v1.png" alt="Python" /><span>Python</span></div>
-      <div class="stack-item"><img src="https://img.icons8.com/fluency/48/microsoft-power-automate-2020.png" alt="Power Automate" width="48" height="48" /><span>Power Automate</span></div>
-      <div class="stack-item"><img src="https://img.icons8.com/?size=100&id=3sGOUDo9nJ4k&format=png&color=000000" alt="Power BI" /><span>Power BI</span></div>
-      <div class="stack-item"><img src="https://cdn.simpleicons.org/n8n/EA4B71" alt="n8n" /><span>n8n</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- EVIDENCIA / CASOS -->
-<section id="casos" class="evidence-section py-5">
-  <div class="container">
-    <div class="text-center mb-5" data-aos="fade-up">
-      <span class="section-badge">Evidencia</span>
-      <h2 class="section-title">Resultados reales</h2>
-      <p class="section-subtitle">Métricas antes/después. En la demo te mostramos el detalle.</p>
-    </div>
-    <div class="row g-4">
-      <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
-        <div class="case-card">
-          <div class="case-icon"><i class="bi bi-graph-up-arrow"></i></div>
-          <span class="case-industry">Industria: Retail</span>
-          <h5>Forecast de demanda</h5>
-          <div class="case-metrics">
-            <div class="metric-row"><span class="metric-label">Antes</span><span class="metric-value before">Precisión baja</span></div>
-            <div class="metric-arrow"><i class="bi bi-arrow-down-circle-fill"></i></div>
-            <div class="metric-row"><span class="metric-label">Después</span><span class="metric-value after">+20–30% precisión</span></div>
-          </div>
-          <p class="case-impact">Mejor decisión de compra, menor desviación de stock y mejor control en el período proyectado.</p>
-          <a href="#cotizar" class="case-link">Ver en demo <i class="bi bi-arrow-right"></i></a>
-        </div>
-      </div>
-      <div class="col-md-4" data-aos="fade-up" data-aos-delay="120">
-        <div class="case-card case-card-featured">
-          <div class="case-icon"><i class="bi bi-clock-history"></i></div>
-          <span class="case-industry">Industria: Finanzas</span>
-          <h5>Automatización de reportes</h5>
-          <div class="case-metrics">
-            <div class="metric-row"><span class="metric-label">Antes</span><span class="metric-value before">Reportes manuales</span></div>
-            <div class="metric-arrow"><i class="bi bi-arrow-down-circle-fill"></i></div>
-            <div class="metric-row"><span class="metric-label">Después</span><span class="metric-value after">–40% horas/mes</span></div>
-          </div>
-          <p class="case-impact">Reducción significativa de errores y ahorro estimado en horas de trabajo manual mensual.</p>
-          <a href="#cotizar" class="case-link">Ver en demo <i class="bi bi-arrow-right"></i></a>
-        </div>
-      </div>
-      <div class="col-md-4" data-aos="fade-up" data-aos-delay="240">
-        <div class="case-card">
-          <div class="case-icon"><i class="bi bi-calendar-check"></i></div>
-          <span class="case-industry">Industria: Logística</span>
-          <h5>Cierre de período</h5>
-          <div class="case-metrics">
-            <div class="metric-row"><span class="metric-label">Antes</span><span class="metric-value before">Cierre en días</span></div>
-            <div class="metric-arrow"><i class="bi bi-arrow-down-circle-fill"></i></div>
-            <div class="metric-row"><span class="metric-label">Después</span><span class="metric-value after">–50% tiempo cierre</span></div>
-          </div>
-          <p class="case-impact">KPIs disponibles con días de anticipación para tomar mejores decisiones operacionales.</p>
-          <a href="#cotizar" class="case-link">Ver en demo <i class="bi bi-arrow-right"></i></a>
-        </div>
-      </div>
-    </div>
-    <div class="text-center mt-4" data-aos="fade-up">
-      <p class="text-muted fst-italic small">Los números exactos se presentan en la demo personalizada, bajo confidencialidad.</p>
-    </div>
-
-    <!-- ── EJEMPLO EN VIVO: Gráfico UF ─────────────────────── -->
-    <div class="mt-5 pt-2" data-aos="fade-up">
-
-      <!-- Encabezado de sección (fuera del canvas) -->
-      <div class="text-center mb-3">
-        <span class="section-badge">Ejemplo en vivo</span>
-        <h3 class="section-title mt-1" style="font-size:1.5rem;color:#fff;">
-          Así se ve un indicador con datos reales
-        </h3>
-        <p class="section-subtitle" style="font-size:.88rem;">
-          Gráfico actualizado automáticamente desde el Banco Central de Chile —
-          el mismo tipo de visualización que construimos para tu negocio.
-        </p>
-      </div>
-
-      <!-- Canvas card -->
-      <div class="uf-canvas-wrap">
-
-        <!-- Fila: título izquierda · leyenda derecha -->
-        <div class="uf-header-row">
-          <div class="uf-header-left">
-            <div class="uf-title-chart">Evolución del Valor de la UF en Pesos Chilenos (CLP)</div>
-            <div class="uf-sub-chart" id="uf-subtitle-text">Cargando datos…</div>
-          </div>
-          <div class="uf-legend-row">
-            <div class="uf-legend-item">
-              <div class="uf-legend-box ant"></div>
-              <span id="lbl-ant">Año anterior</span>
-            </div>
-            <div class="uf-legend-item">
-              <div class="uf-legend-box act"></div>
-              <span id="lbl-act">Año actual</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Skeleton / Canvas -->
-        <div class="uf-skeleton" id="uf-skeleton">Cargando datos de mindicador.cl…</div>
-        <canvas id="uf-canvas" height="320" style="display:none"></canvas>
-        <div id="uf-tooltip" style="opacity:0"></div>
-
-        <p class="uf-source-note">Fuente: mindicador.cl · Banco Central de Chile · Datos en tiempo real</p>
-      </div>
-
-    </div>
-    <!-- ── /EJEMPLO EN VIVO ──────────────────────────────── -->
-
-  </div>
-</section>
-
-<!-- PROCESO -->
-<section id="proceso" class="process-section py-5">
-  <div class="container">
-    <div class="text-center mb-5" data-aos="fade-up">
-      <span class="section-badge">Proceso</span>
-      <h2 class="section-title">Cómo funciona</h2>
-      <p class="section-subtitle">4 pasos con control y entregables definidos en cada etapa</p>
-    </div>
-    <div class="row justify-content-center">
-      <div class="col-12 col-md-10 col-lg-7">
-        <div class="process-step" data-aos="fade-up" data-aos-delay="0">
-          <div class="step-number">1</div>
-          <div class="step-content">
-            <h5>Cotización <span class="step-time">(hoy)</span></h5>
-            <p>Nos dices tu objetivo, fuentes de datos, urgencia y alcance. Sin compromiso.</p>
-          </div>
-        </div>
-        <div class="process-step" data-aos="fade-up" data-aos-delay="100">
-          <div class="step-number">2</div>
-          <div class="step-content">
-            <h5>Demo personalizada <span class="step-time">(máx. 24h)</span></h5>
-            <p>Te mostramos una demo o propuesta visual del enfoque y entregables ajustada a tu industria.</p>
-          </div>
-        </div>
-        <div class="process-step" data-aos="fade-up" data-aos-delay="200">
-          <div class="step-number">3</div>
-          <div class="step-content">
-            <h5>Implementación por sprints</h5>
-            <p>Entregas semanales o quincenales con avances medibles. Tú ves el progreso en todo momento.</p>
-          </div>
-        </div>
-        <div class="process-step last" data-aos="fade-up" data-aos-delay="300">
-          <div class="step-number">4</div>
-          <div class="step-content">
-            <h5>Traspaso + soporte opcional</h5>
-            <p>Documentación mínima, handover completo y continuidad garantizada.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PRECIOS -->
-<section id="precios" class="pricing-section py-5">
-  <div class="container">
-    <div class="text-center mb-5" data-aos="fade-up">
-      <span class="section-badge">Precios transparentes</span>
-      <h2 class="section-title">Paquetes y precios</h2>
-      <p class="section-subtitle">Sin misterio. Sabes dónde estás parado desde el primer contacto.</p>
-    </div>
-    <div class="row g-4 justify-content-center">
-      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="0">
-        <div class="price-card">
-          <div class="price-header">
-            <span class="price-letter">A</span>
-            <h5>Auditoría BI</h5>
-            <div class="price-amount">Desde <strong>$590.000</strong></div>
-          </div>
-          <ul class="price-features">
-            <li><i class="bi bi-check2-circle"></i>Diagnóstico completo</li>
-            <li><i class="bi bi-check2-circle"></i>Informe detallado</li>
-            <li><i class="bi bi-check2-circle"></i>Quick wins priorizados</li>
-            <li><i class="bi bi-check2-circle"></i>Plan de implementación</li>
-          </ul>
-          <p class="price-ideal"><i class="bi bi-person-check me-1"></i>Ideal: BI lento / sin gobierno</p>
-          <a href="#cotizar" class="btn btn-price">Cotizar</a>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="80">
-        <div class="price-card price-card-featured">
-          <div class="price-badge-top">Más solicitado</div>
-          <div class="price-header">
-            <span class="price-letter">B</span>
-            <h5>Dashboard + Modelo</h5>
-            <div class="price-amount">Desde <strong>$1.190.000</strong></div>
-          </div>
-          <ul class="price-features">
-            <li><i class="bi bi-check2-circle"></i>KPI definition</li>
-            <li><i class="bi bi-check2-circle"></i>Modelo estrella + DAX</li>
-            <li><i class="bi bi-check2-circle"></i>Reporte publicado</li>
-            <li><i class="bi bi-check2-circle"></i>Guía de uso</li>
-          </ul>
-          <p class="price-ideal"><i class="bi bi-person-check me-1"></i>Ideal: tablero corporativo con trazabilidad</p>
-          <a href="#cotizar" class="btn btn-price-featured">Cotizar</a>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="160">
-        <div class="price-card">
-          <div class="price-header">
-            <span class="price-letter">C</span>
-            <h5>Data Engineering</h5>
-            <div class="price-amount">Desde <strong>$1.790.000</strong></div>
-          </div>
-          <ul class="price-features">
-            <li><i class="bi bi-check2-circle"></i>Integración de fuentes</li>
-            <li><i class="bi bi-check2-circle"></i>Pipeline automatizado</li>
-            <li><i class="bi bi-check2-circle"></i>Base estable para BI</li>
-          </ul>
-          <p class="price-ideal"><i class="bi bi-person-check me-1"></i>Ideal: múltiples fuentes / automatización</p>
-          <a href="#cotizar" class="btn btn-price">Cotizar</a>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="240">
-        <div class="price-card">
-          <div class="price-header">
-            <span class="price-letter">D</span>
-            <h5>Forecast / Predicción</h5>
-            <div class="price-amount">Desde <strong>$1.490.000</strong></div>
-          </div>
-          <ul class="price-features">
-            <li><i class="bi bi-check2-circle"></i>Análisis exploratorio</li>
-            <li><i class="bi bi-check2-circle"></i>Modelo predictivo</li>
-            <li><i class="bi bi-check2-circle"></i>Validación + insights</li>
-          </ul>
-          <p class="price-ideal"><i class="bi bi-person-check me-1"></i>Ideal: proyección con control y métricas</p>
-          <a href="#cotizar" class="btn btn-price">Cotizar</a>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="320">
-        <div class="price-card">
-          <div class="price-header">
-            <span class="price-letter">E</span>
-            <h5>Plan de Negocios</h5>
-            <div class="price-amount">Desde <strong>$490.000</strong></div>
-          </div>
-          <ul class="price-features">
-            <li><i class="bi bi-check2-circle"></i>Documento completo</li>
-            <li><i class="bi bi-check2-circle"></i>Plan financiero</li>
-            <li><i class="bi bi-check2-circle"></i>KPIs + roadmap</li>
-          </ul>
-          <p class="price-ideal"><i class="bi bi-person-check me-1"></i>Ideal: startup o expansión</p>
-          <a href="#cotizar" class="btn btn-price">Cotizar</a>
-        </div>
-      </div>
-    </div>
-    <div class="pricing-note" data-aos="fade-up">
-      <i class="bi bi-info-circle me-2"></i>
-      <span>El precio varía según: # fuentes, calidad de datos, # KPIs, usuarios, seguridad, SLA y urgencia.</span>
-      <span class="ms-3"><i class="bi bi-people-fill me-1"></i><strong>Capacidad mensual: solo 3 proyectos activos.</strong></span>
-    </div>
-  </div>
-</section>
-
-<!-- FORMULARIO DE COTIZACIÓN -->
-<section id="cotizar" class="form-section py-5">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-8">
-        <div class="form-card" data-aos="fade-up">
-          <div class="text-center mb-4">
-            <span class="section-badge">Demostración gratis</span>
-            <h2 class="section-title">Demostración gratuita de 15 minutos</h2>
-            <p class="section-subtitle mb-0">Te mostramos el enfoque y qué oportunidades concretas vemos en tu BI, sin compromiso.</p>
-            <!-- Urgencia -->
-            <div class="urgency-banner mt-3">
-              <i class="bi bi-hourglass-split me-2"></i>
-              <strong>Solo 3 cupos disponibles este mes.</strong> Capacidad intencionalmente limitada para garantizar calidad.
-            </div>
-          </div>
-          <form id="quoteForm" novalidate>
-            <div class="row g-3">
-
-              <!-- CAMPOS ESENCIALES (siempre visibles) -->
-              <div class="col-md-6">
-                <label class="form-label">Nombre y cargo <span class="text-danger">*</span></label>
-                <input type="text" name="nombre_cargo" class="form-control" placeholder="Ej: Juan Pérez, Gerente de TI" required />
-              </div>
-              <div class="col-md-6">
-                <label class="form-label">Empresa <span class="text-danger">*</span></label>
-                <input type="text" name="empresa" class="form-control" placeholder="Nombre de tu empresa" required />
-              </div>
-              <div class="col-md-6">
-                <label class="form-label">Email corporativo <span class="text-danger">*</span></label>
-                <input type="email" name="email" class="form-control" placeholder="tu@empresa.com" required />
-              </div>
-              <div class="col-md-6">
-                <label class="form-label">Necesidad principal <span class="text-danger">*</span></label>
-                <select name="necesidad" class="form-select" required>
-                  <option value="">¿Qué necesitas resolver?</option>
-                  <option>Automatizar reportes / dashboards</option>
-                  <option>Unificar fuentes de datos</option>
-                  <option>Auditoría y gobernanza BI</option>
-                  <option>Forecast / Predicción</option>
-                  <option>Plan de Negocios</option>
-                </select>
-              </div>
-
-              <!-- DATOS ADICIONALES (colapsables) -->
-              <div class="col-12 mt-1">
-                <button type="button" class="btn-expand-optional" id="toggleOptional" aria-expanded="false">
-                  <i class="bi bi-plus-circle me-1"></i>Agregar contexto adicional <span class="text-muted small">(opcional, ayuda a personalizar la demo)</span>
-                </button>
-              </div>
-            </div><!-- cierre row g-3 principal -->
-
-            <!-- BLOQUE OPCIONAL — fuera del row para evitar conflicto Bootstrap -->
-            <div id="optionalFields" style="display:none; margin-top:.75rem;">
-              <div class="row g-3">
-                  <div class="col-md-6">
-                    <label class="form-label">WhatsApp</label>
-                    <input type="tel" name="whatsapp" class="form-control" placeholder="+56 9 XXXX XXXX" />
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label">Industria</label>
-                    <select name="industria" class="form-select">
-                      <option value="">Selecciona tu industria</option>
-                      <option>Teleco</option><option>Retail</option><option>Finanzas</option>
-                      <option>Logística</option><option>Minería</option><option>Otra</option>
-                    </select>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label">Tamaño empresa</label>
-                    <select name="tamano_empresa" class="form-select">
-                      <option value="">Número de empleados</option>
-                      <option>1–10</option><option>11–50</option><option>51–200</option><option>200+</option>
-                    </select>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label">Fuente de datos</label>
-                    <select name="fuente_datos" class="form-select">
-                      <option value="">¿Dónde están tus datos?</option>
-                      <option>Excel</option><option>SQL / Base de datos</option><option>ERP</option>
-                      <option>CRM</option><option>APIs</option><option>Mixto</option>
-                    </select>
-                  </div>
-                  <div class="col-12">
-                    <label class="form-label">Urgencia</label>
-                    <div class="urgency-group">
-                      <label class="urgency-option">
-                        <input type="radio" name="urgency" value="esta-semana" />
-                        <span>Esta semana</span>
-                      </label>
-                      <label class="urgency-option">
-                        <input type="radio" name="urgency" value="2-4-semanas" />
-                        <span>2–4 semanas</span>
-                      </label>
-                      <label class="urgency-option">
-                        <input type="radio" name="urgency" value="1-3-meses" />
-                        <span>1–3 meses</span>
-                      </label>
-                    </div>
-                  </div>
-                  <div class="col-12">
-                    <label class="form-label">Descripción / Contexto adicional</label>
-                    <textarea class="form-control" id="descripcion" name="descripcion" rows="3" maxlength="500"
-                      placeholder="Cuéntanos más sobre tu situación actual, qué datos manejas, qué problema quieres resolver…"></textarea>
-                    <div class="d-flex justify-content-end mt-1">
-                      <small class="text-muted char-counter" id="charCounter">0 / 500</small>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            <div class="row g-3 mt-0">
-              <div class="col-12 mt-2">
-                <button type="submit" class="btn btn-form-submit w-100" id="submitBtn">
-                  <i class="bi bi-calendar2-check-fill me-2"></i>Solicitar demostración gratis — 15 min
-                </button>
-              </div>
-            </div>
-          </form>
-
-          <!-- Mensaje de confirmación (oculto hasta envío exitoso) -->
-          <div id="formSuccess" style="display:none;" class="text-center py-4">
-            <div class="mb-3" style="font-size:3rem;">🚀</div>
-            <h4 class="fw-bold" style="color:var(--navy)">¡Solicitud enviada con éxito!</h4>
-            <p class="text-muted mt-2 mb-3">Recibirás tu diagnóstico personalizado en <strong>máximo 24 horas hábiles</strong>.</p>
-            <a href="https://wa.me/56948827168" target="_blank" rel="noopener" class="btn btn-hero-secondary d-inline-flex align-items-center gap-2" style="border-color:var(--navy);color:var(--navy)">
-              <i class="bi bi-whatsapp"></i> Hablar por WhatsApp mientras tanto
-            </a>
-          </div>
-
-          <div class="form-trust mt-3">
-            <i class="bi bi-lock-fill me-2"></i>
-            Tratamos tu información como confidencial. Si lo necesitas, firmamos NDA antes de revisar datos.
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section id="faq" class="faq-section py-5">
-  <div class="container">
-    <div class="text-center mb-5" data-aos="fade-up">
-      <span class="section-badge">Preguntas frecuentes</span>
-      <h2 class="section-title">FAQ</h2>
-      <p class="section-subtitle">Respuestas directas a las preguntas más comunes</p>
-    </div>
-    <div class="row justify-content-center">
-      <div class="col-lg-8" data-aos="fade-up">
-        <div class="accordion faq-accordion" id="faqAccordion">
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
-                ¿Por qué cuesta lo que cuesta?
-              </button>
-            </h2>
-            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
-              <div class="accordion-body">Porque no vendemos "pantallas": entregamos modelo de datos, KPIs definidos, performance optimizado y trazabilidad completa. El precio refleja el valor real del resultado, no el tiempo frente a la pantalla.</div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
-                ¿Pueden trabajar sin acceso a datos sensibles?
-              </button>
-            </h2>
-            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-              <div class="accordion-body">Sí. Podemos iniciar con datos anonimizados, muestras o en un entorno controlado. La confidencialidad es parte del proceso, no un extra.</div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
-                ¿Qué pasa si ya tengo equipo interno?
-              </button>
-            </h2>
-            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-              <div class="accordion-body">Perfecto. Hago la auditoría, construyo el roadmap y dejo a tu equipo con una guía concreta y accionable. El objetivo es potenciar lo que ya tienes.</div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
-                ¿Qué garantizas?
-              </button>
-            </h2>
-            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-              <div class="accordion-body">Entregables definidos por contrato + KPIs de performance e impacto acordados antes de comenzar. Si no se cumplen, lo conversamos y ajustamos.</div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
-                ¿La demo en 24h es real?
-              </button>
-            </h2>
-            <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-              <div class="accordion-body">Sí. Para un alcance acotado, entrego una demo funcional o propuesta visual según tu caso específico en máximo 24 horas hábiles desde el primer contacto.</div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6">
-                ¿Los tableros y entregables son míos?
-              </button>
-            </h2>
-            <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-              <div class="accordion-body">Sí, 100%. Todo lo entregado — dashboards, modelos de datos, pipelines, documentación y código — es propiedad del cliente desde el momento del traspaso. Sin licencias adicionales ni dependencia futura.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA FINAL -->
-<section id="cta-final" class="cta-final-section py-5">
-  <div class="container">
-    <div class="cta-final-card text-center" data-aos="zoom-in">
-      <h2>Si tu BI está lento, sin gobierno o sin análisis,<br>lo resolvemos con método.</h2>
-      <p>Solo 3 cupos activos por mes — capacidad limitada para garantizar calidad de entrega.</p>
-      <div class="d-flex flex-wrap gap-3 justify-content-center mt-4">
-        <a href="#cotizar" class="btn btn-cta-final-primary">
-          <i class="bi bi-calendar2-check-fill me-2"></i>Demostración gratis — 15 min
-        </a>
-        <a href="https://wa.me/56948827168" target="_blank" rel="noopener" class="btn btn-cta-final-secondary">
-          <i class="bi bi-whatsapp me-2"></i>Hablar por WhatsApp
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="footer py-4">
-  <div class="container">
-    <div class="row align-items-center">
-      <div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
-        <span class="brand-text footer-brand">42NT<span class="brand-accent">Solutions</span></span>
-        <p class="footer-tagline mt-1">Inteligencia de Negocios con método.</p>
-      </div>
-      <div class="col-md-4 text-center mb-3 mb-md-0">
-        <div class="footer-links">
-          <a href="#servicios">Servicios</a>
-          <a href="#casos">Casos</a>
-          <a href="#precios">Precios</a>
-          <a href="#faq">FAQ</a>
-        </div>
-      </div>
-      <div class="col-md-4 text-center text-md-end">
-        <p class="footer-contact">Fortunato Bravo N</p>
-        <a href="https://wa.me/56948827168" class="footer-wa" target="_blank" rel="noopener">
-          <i class="bi bi-whatsapp me-1"></i>WhatsApp
-        </a>
-      </div>
-    </div>
-    <hr class="footer-hr" />
-    <p class="text-center footer-copy">© 2026 42NT Enterprise — Todos los derechos reservados.</p>
-  </div>
-</footer>
-
-<!-- Sticky WhatsApp (mobile) -->
-<a href="https://wa.me/56948827168" target="_blank" rel="noopener" class="sticky-wa d-lg-none" aria-label="Contactar por WhatsApp">
-  <i class="bi bi-whatsapp"></i>
-</a>
-
-<!-- Toast -->
-<div class="toast-container position-fixed bottom-0 end-0 p-3">
-  <div id="formToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive">
-    <div class="d-flex">
-      <div class="toast-body">
-        <i class="bi bi-check-circle-fill me-2"></i>¡Cotización enviada! Te contactamos en máx. 24h.
-      </div>
-      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Cerrar"></button>
-    </div>
   </div>
 </div>
 
-<!-- ── GRÁFICO UF — script ──────────────────────────────── -->
+<!-- ── Navigation tabs ───────────────────────────────────── -->
+<nav class="pv-nav">
+  <div class="pv-nav-inner">
+    <button class="pv-tab active" onclick="showPanel('overview')">📊 Resumen</button>
+    <button class="pv-tab" onclick="showPanel('services')">🛠️ Servicios</button>
+    <button class="pv-tab" onclick="showPanel('metrics')">📈 Métricas</button>
+    <button class="pv-tab" onclick="showPanel('palette')">🎨 Paleta</button>
+    <button class="pv-tab" onclick="showPanel('images')">🖼️ Imágenes</button>
+    <button class="pv-tab" onclick="showPanel('process')">⚙️ Proceso</button>
+    <button class="pv-tab" onclick="showPanel('compare')">⚖️ Comparativa</button>
+  </div>
+</nav>
+
+<!-- ── Main content ──────────────────────────────────────── -->
+<main class="pv-main">
+
+  <!-- ===== OVERVIEW ===== -->
+  <div id="panel-overview" class="pv-panel active">
+    <div class="pv-section-heading">
+      <h2>Resumen de la Landing Page</h2>
+      <p>Vista general de las secciones, KPIs de diseño y estructura de la página</p>
+    </div>
+
+    <!-- KPIs -->
+    <div class="grid-5" style="margin-bottom:24px;">
+      <div class="kpi-tile">
+        <div class="kpi-icon">📄</div>
+        <div class="kpi-value" data-count="10">0</div>
+        <div class="kpi-label">Secciones</div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-icon">🛠️</div>
+        <div class="kpi-value" data-count="5">0</div>
+        <div class="kpi-label">Servicios</div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-icon">🖼️</div>
+        <div class="kpi-value" data-count="8">0</div>
+        <div class="kpi-label">Imágenes</div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-icon">🎨</div>
+        <div class="kpi-value" data-count="21">0</div>
+        <div class="kpi-label">Colores</div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-icon">📱</div>
+        <div class="kpi-value">100%</div>
+        <div class="kpi-label">Responsivo</div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Secciones chart -->
+      <div class="pv-card">
+        <div class="pv-card-title">Distribución de secciones</div>
+        <div class="pv-card-sub">Peso visual estimado por sección</div>
+        <div class="chart-wrapper">
+          <canvas id="sectionsChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Tech stack -->
+      <div class="pv-card">
+        <div class="pv-card-title">Stack tecnológico</div>
+        <div class="pv-card-sub">Tecnologías utilizadas en la landing</div>
+        <div style="margin-top:8px;">
+          <div class="prog-item">
+            <div class="prog-label"><span>HTML5 semántico</span><span>100%</span></div>
+            <div class="prog-bar-bg"><div class="prog-bar-fill" data-width="100"></div></div>
+          </div>
+          <div class="prog-item">
+            <div class="prog-label"><span>CSS3 + Variables</span><span>100%</span></div>
+            <div class="prog-bar-bg"><div class="prog-bar-fill" data-width="100"></div></div>
+          </div>
+          <div class="prog-item">
+            <div class="prog-label"><span>Bootstrap 5.3</span><span>95%</span></div>
+            <div class="prog-bar-bg"><div class="prog-bar-fill" data-width="95"></div></div>
+          </div>
+          <div class="prog-item">
+            <div class="prog-label"><span>JavaScript ES6+</span><span>85%</span></div>
+            <div class="prog-bar-bg"><div class="prog-bar-fill" data-width="85"></div></div>
+          </div>
+          <div class="prog-item">
+            <div class="prog-label"><span>AOS Animations</span><span>80%</span></div>
+            <div class="prog-bar-bg"><div class="prog-bar-fill" data-width="80"></div></div>
+          </div>
+          <div class="prog-item">
+            <div class="prog-label"><span>Bootstrap Icons</span><span>75%</span></div>
+            <div class="prog-bar-bg"><div class="prog-bar-fill" data-width="75"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sections list -->
+    <div class="pv-card">
+      <div class="pv-card-title">Estructura de secciones</div>
+      <div class="pv-card-sub">Todas las secciones incluidas en la landing page</div>
+      <div class="grid-3" style="margin-top:8px;">
+        <div style="padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.06);">
+          <span style="color:var(--cyan);font-weight:700;font-size:0.78rem;">00</span>
+          <span style="color:#fff;font-size:0.9rem;margin-left:10px;">Navbar sticky + CTA</span>
+        </div>
+        <div style="padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.06);">
+          <span style="color:var(--cyan);font-weight:700;font-size:0.78rem;">01</span>
+          <span style="color:#fff;font-size:0.9rem;margin-left:10px;">Hero + beneficios + micro-trust</span>
+        </div>
+        <div style="padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.06);">
+          <span style="color:var(--cyan);font-weight:700;font-size:0.78rem;">02</span>
+          <span style="color:#fff;font-size:0.9rem;margin-left:10px;">¿Dónde te duele? (selector)</span>
+        </div>
+        <div style="padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.06);">
+          <span style="color:var(--cyan);font-weight:700;font-size:0.78rem;">03</span>
+          <span style="color:#fff;font-size:0.9rem;margin-left:10px;">5 Servicios / Productos</span>
+        </div>
+        <div style="padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.06);">
+          <span style="color:var(--cyan);font-weight:700;font-size:0.78rem;">04</span>
+          <span style="color:#fff;font-size:0.9rem;margin-left:10px;">Diferenciadores (6 cards)</span>
+        </div>
+        <div style="padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.06);">
+          <span style="color:var(--cyan);font-weight:700;font-size:0.78rem;">05</span>
+          <span style="color:#fff;font-size:0.9rem;margin-left:10px;">Evidencia / Casos (3)</span>
+        </div>
+        <div style="padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.06);">
+          <span style="color:var(--cyan);font-weight:700;font-size:0.78rem;">06</span>
+          <span style="color:#fff;font-size:0.9rem;margin-left:10px;">Proceso (4 pasos)</span>
+        </div>
+        <div style="padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.06);">
+          <span style="color:var(--cyan);font-weight:700;font-size:0.78rem;">07</span>
+          <span style="color:#fff;font-size:0.9rem;margin-left:10px;">Precios (5 paquetes)</span>
+        </div>
+        <div style="padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.06);">
+          <span style="color:var(--cyan);font-weight:700;font-size:0.78rem;">08</span>
+          <span style="color:#fff;font-size:0.9rem;margin-left:10px;">Formulario de cotización</span>
+        </div>
+        <div style="padding:10px 0;">
+          <span style="color:var(--cyan);font-weight:700;font-size:0.78rem;">09</span>
+          <span style="color:#fff;font-size:0.9rem;margin-left:10px;">FAQ (5 preguntas)</span>
+        </div>
+        <div style="padding:10px 0;">
+          <span style="color:var(--cyan);font-weight:700;font-size:0.78rem;">10</span>
+          <span style="color:#fff;font-size:0.9rem;margin-left:10px;">CTA final + Footer</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SERVICES ===== -->
+  <div id="panel-services" class="pv-panel">
+    <div class="pv-section-heading">
+      <h2>Los 5 Servicios</h2>
+      <p>Detalle interactivo de cada producto ofrecido</p>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:24px;">
+      <div class="pv-card">
+        <div class="pv-card-title">Distribución de servicios por tipo</div>
+        <div class="pv-card-sub">Clasificación por área de especialización</div>
+        <div class="chart-wrapper">
+          <canvas id="servicesChart"></canvas>
+        </div>
+      </div>
+      <div class="pv-card">
+        <div class="pv-card-title">Complejidad estimada por servicio</div>
+        <div class="pv-card-sub">Escala 1–10 según alcance técnico</div>
+        <div class="chart-wrapper">
+          <canvas id="complexityChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-3">
+      <div class="service-mini">
+        <div class="service-mini-num">01</div>
+        <div class="service-mini-title">Auditoría BI + Plan de Acción</div>
+        <div class="service-mini-desc">Gobernanza + Performance. Revisión de modelo, DAX, seguridad y UX.</div>
+        <div class="service-mini-badge">Gobernanza</div>
+      </div>
+      <div class="service-mini">
+        <div class="service-mini-num">02</div>
+        <div class="service-mini-title">Dashboard Power BI + Modelo</div>
+        <div class="service-mini-desc">End-to-end. KPI definition, modelo estrella, DAX, publicación.</div>
+        <div class="service-mini-badge">Visualización</div>
+      </div>
+      <div class="service-mini">
+        <div class="service-mini-num">03</div>
+        <div class="service-mini-title">Ingeniería y Arquitectura de Datos</div>
+        <div class="service-mini-desc">ETL/ELT + Estructura. Pipeline, diccionario, automatización.</div>
+        <div class="service-mini-badge">Data Eng.</div>
+      </div>
+      <div class="service-mini">
+        <div class="service-mini-num">04</div>
+        <div class="service-mini-title">Predicción y Analítica</div>
+        <div class="service-mini-desc">Forecast + Modelos. Feature engineering, evaluación, insights.</div>
+        <div class="service-mini-badge">ML / IA</div>
+      </div>
+      <div class="service-mini">
+        <div class="service-mini-num">05</div>
+        <div class="service-mini-title">Plan de Negocios</div>
+        <div class="service-mini-desc">Para startups y expansión. Financiero, estrategia, KPIs, roadmap.</div>
+        <div class="service-mini-badge">Estrategia</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== METRICS ===== -->
+  <div id="panel-metrics" class="pv-panel">
+    <div class="pv-section-heading">
+      <h2>Métricas de Impacto</h2>
+      <p>Resultados estimados que la landing page comunica a los prospectos</p>
+    </div>
+
+    <div class="grid-3" style="margin-bottom:24px;">
+      <div class="kpi-tile">
+        <div class="kpi-icon">⏱️</div>
+        <div class="kpi-value">–40%</div>
+        <div class="kpi-label">Horas de reporte</div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-icon">🎯</div>
+        <div class="kpi-value">+25%</div>
+        <div class="kpi-label">Precisión forecast</div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-icon">📅</div>
+        <div class="kpi-value">–50%</div>
+        <div class="kpi-label">Tiempo de cierre</div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="pv-card">
+        <div class="pv-card-title">Antes vs. Después — Horas de reporte</div>
+        <div class="pv-card-sub">Comparación mensual estimada</div>
+        <div class="chart-wrapper">
+          <canvas id="hoursChart"></canvas>
+        </div>
+      </div>
+      <div class="pv-card">
+        <div class="pv-card-title">Precisión de Forecast</div>
+        <div class="pv-card-sub">Mejora progresiva con el modelo predictivo</div>
+        <div class="chart-wrapper">
+          <canvas id="forecastChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="pv-card">
+      <div class="pv-card-title">Radar de capacidades — DataBI Pro vs. Consultora típica</div>
+      <div class="pv-card-sub">Comparación multidimensional de valor entregado</div>
+      <div class="chart-wrapper-tall">
+        <canvas id="radarChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PALETTE ===== -->
+  <div id="panel-palette" class="pv-panel">
+    <div class="pv-section-heading">
+      <h2>Paleta de Colores</h2>
+      <p>Los 21 colores base utilizados en el diseño. Haz clic en un color para copiar el HEX.</p>
+    </div>
+
+    <div class="palette-grid" id="paletteGrid"></div>
+
+    <div class="pv-card" style="margin-top:24px;">
+      <div class="pv-card-title">Tipografías sugeridas</div>
+      <div class="pv-card-sub">Fuentes modernas y legibles seleccionadas para la landing</div>
+      <div class="grid-2" style="margin-top:12px;">
+        <div style="padding:20px;background:rgba(255,255,255,0.04);border-radius:10px;border:1px solid rgba(0,187,255,0.15);">
+          <p style="font-family:'Sora',sans-serif;font-size:1.8rem;font-weight:800;color:#fff;margin-bottom:8px;">Sora</p>
+          <p style="font-size:0.82rem;color:rgba(255,255,255,0.5);">Titulares y encabezados — Peso 600, 700, 800</p>
+          <p style="font-family:'Sora',sans-serif;font-size:1rem;color:var(--cyan);margin-top:8px;">AaBbCcDd 0123456789</p>
+        </div>
+        <div style="padding:20px;background:rgba(255,255,255,0.04);border-radius:10px;border:1px solid rgba(0,187,255,0.15);">
+          <p style="font-family:'Inter',sans-serif;font-size:1.8rem;font-weight:700;color:#fff;margin-bottom:8px;">Inter</p>
+          <p style="font-size:0.82rem;color:rgba(255,255,255,0.5);">Cuerpo y UI — Peso 300, 400, 500, 600, 700</p>
+          <p style="font-family:'Inter',sans-serif;font-size:1rem;color:var(--turquoise);margin-top:8px;">AaBbCcDd 0123456789</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== IMAGES ===== -->
+  <div id="panel-images" class="pv-panel">
+    <div class="pv-section-heading">
+      <h2>Imágenes Generadas</h2>
+      <p>Las 8 imágenes fotorrealistas creadas para la landing page. Haz clic para ampliar.</p>
+    </div>
+
+    <div class="img-gallery" id="imgGallery"></div>
+  </div>
+
+  <!-- ===== PROCESS ===== -->
+  <div id="panel-process" class="pv-panel">
+    <div class="pv-section-heading">
+      <h2>Proceso de Trabajo</h2>
+      <p>Los 4 pasos del proceso de entrega de DataBI Pro</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="pv-card">
+        <div class="pv-card-title">Timeline del proceso</div>
+        <div class="pv-card-sub">Desde la cotización hasta el traspaso</div>
+        <div class="timeline" style="margin-top:16px;">
+          <div class="timeline-item">
+            <div class="timeline-dot">1</div>
+            <div class="timeline-title">Cotización <span class="timeline-badge">Hoy</span></div>
+            <div class="timeline-desc">Objetivo, fuentes de datos, urgencia y alcance. Sin compromiso.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot">2</div>
+            <div class="timeline-title">Demo personalizada <span class="timeline-badge">Máx. 24h</span></div>
+            <div class="timeline-desc">Demo funcional o propuesta visual ajustada a tu industria.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot">3</div>
+            <div class="timeline-title">Implementación por sprints <span class="timeline-badge">Semanal</span></div>
+            <div class="timeline-desc">Entregas medibles con avances visibles en cada iteración.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot">4</div>
+            <div class="timeline-title">Traspaso + soporte <span class="timeline-badge">Final</span></div>
+            <div class="timeline-desc">Documentación, handover completo y continuidad garantizada.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pv-card">
+        <div class="pv-card-title">Tiempo estimado por fase</div>
+        <div class="pv-card-sub">Duración típica según tipo de proyecto</div>
+        <div class="chart-wrapper">
+          <canvas id="processChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="pv-card" style="margin-top:0;">
+      <div class="pv-card-title">Metodología aplicada</div>
+      <div class="pv-card-sub">Combinación de marcos ágiles y gestión formal</div>
+      <div class="grid-3" style="margin-top:12px;">
+        <div style="text-align:center;padding:16px;background:rgba(0,187,255,0.06);border-radius:10px;">
+          <div style="font-size:2rem;margin-bottom:8px;">🏃</div>
+          <div style="font-weight:700;color:#fff;margin-bottom:4px;">Scrum / Agile</div>
+          <div style="font-size:0.8rem;color:rgba(255,255,255,0.5);">Sprints semanales / quincenales</div>
+        </div>
+        <div style="text-align:center;padding:16px;background:rgba(0,187,255,0.06);border-radius:10px;">
+          <div style="font-size:2rem;margin-bottom:8px;">📋</div>
+          <div style="font-weight:700;color:#fff;margin-bottom:4px;">PMI / IPMA</div>
+          <div style="font-size:0.8rem;color:rgba(255,255,255,0.5);">Marco formal de gestión de proyectos</div>
+        </div>
+        <div style="text-align:center;padding:16px;background:rgba(0,187,255,0.06);border-radius:10px;">
+          <div style="font-size:2rem;margin-bottom:8px;">🔒</div>
+          <div style="font-weight:700;color:#fff;margin-bottom:4px;">Seguridad</div>
+          <div style="font-size:0.8rem;color:rgba(255,255,255,0.5);">NDA + datos anonimizados disponibles</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== COMPARE ===== -->
+  <div id="panel-compare" class="pv-panel">
+    <div class="pv-section-heading">
+      <h2>Comparativa</h2>
+      <p>DataBI Pro vs. consultoras típicas del mercado</p>
+    </div>
+
+    <div class="pv-card">
+      <div class="pv-card-title">Tabla comparativa de diferenciadores</div>
+      <div class="pv-card-sub">Características clave evaluadas</div>
+      <div style="overflow-x:auto;margin-top:12px;">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Característica</th>
+              <th>DataBI Pro</th>
+              <th>Consultora típica</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>KPIs verificables antes/después</td>
+              <td><span class="check-yes">✓</span> Siempre</td>
+              <td><span class="check-no">✗</span> Raramente</td>
+            </tr>
+            <tr>
+              <td>Precios transparentes desde el inicio</td>
+              <td><span class="check-yes">✓</span> Rangos claros</td>
+              <td><span class="check-no">✗</span> Cotización opaca</td>
+            </tr>
+            <tr>
+              <td>Demo personalizada en 24h</td>
+              <td><span class="check-yes">✓</span> Garantizado</td>
+              <td><span class="check-no">✗</span> 1–2 semanas</td>
+            </tr>
+            <tr>
+              <td>Metodología ágil + formal (PMI/IPMA)</td>
+              <td><span class="check-yes">✓</span> Combinada</td>
+              <td>⚠️ Solo una</td>
+            </tr>
+            <tr>
+              <td>Stack Microsoft end-to-end</td>
+              <td><span class="check-yes">✓</span> Nativo</td>
+              <td>⚠️ Parcial</td>
+            </tr>
+            <tr>
+              <td>NDA antes de revisar datos</td>
+              <td><span class="check-yes">✓</span> Disponible</td>
+              <td>⚠️ Opcional</td>
+            </tr>
+            <tr>
+              <td>Entregables definidos por contrato</td>
+              <td><span class="check-yes">✓</span> Siempre</td>
+              <td>⚠️ A veces</td>
+            </tr>
+            <tr>
+              <td>Capacidad limitada (calidad garantizada)</td>
+              <td><span class="check-yes">✓</span> 3 proyectos/mes</td>
+              <td><span class="check-no">✗</span> Sin límite</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="pv-card">
+      <div class="pv-card-title">Paquetes disponibles</div>
+      <div class="pv-card-sub">Resumen de los 5 paquetes con su perfil ideal</div>
+      <div style="overflow-x:auto;margin-top:12px;">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Paquete</th>
+              <th>Nombre</th>
+              <th>Ideal para</th>
+              <th>Entregables clave</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span style="color:var(--cyan);font-weight:700;">A</span></td>
+              <td>Auditoría BI</td>
+              <td>BI lento / sin gobierno</td>
+              <td>Informe + Quick wins + Plan</td>
+            </tr>
+            <tr>
+              <td><span style="color:var(--cyan);font-weight:700;">B</span></td>
+              <td>Dashboard + Modelo</td>
+              <td>Tablero corporativo</td>
+              <td>Dataset + Reporte + Guía</td>
+            </tr>
+            <tr>
+              <td><span style="color:var(--cyan);font-weight:700;">C</span></td>
+              <td>Data Engineering</td>
+              <td>Múltiples fuentes</td>
+              <td>Pipeline + Diccionario</td>
+            </tr>
+            <tr>
+              <td><span style="color:var(--cyan);font-weight:700;">D</span></td>
+              <td>Forecast / Predicción</td>
+              <td>Proyección con control</td>
+              <td>Modelo + Métricas + Insights</td>
+            </tr>
+            <tr>
+              <td><span style="color:var(--cyan);font-weight:700;">E</span></td>
+              <td>Plan de Negocios</td>
+              <td>Startup o expansión</td>
+              <td>Documento + Financiero + KPIs</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ── Footer ─────────────────────────────────────────────── -->
+<div class="pv-footer">
+  <p>Vista interactiva generada para <strong style="color:var(--cyan);">DataBI Pro</strong> — <a href="index.html" target="_blank">Ver landing page completa</a></p>
+</div>
+
+<!-- ── Lightbox ───────────────────────────────────────────── -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightboxImg" src="" alt="" />
+</div>
+
+<!-- ── Tooltip ────────────────────────────────────────────── -->
+<div class="tooltip-copy" id="tooltipCopy">¡HEX copiado al portapapeles!</div>
+
 <script>
-(async function initUFChart() {
-  const HOY     = new Date();
-  const AÑO_ACT = HOY.getFullYear();
-  const AÑO_ANT = AÑO_ACT - 1;
-  const MES_MAX = HOY.getMonth() + 1;
+/* ── Tab navigation ─────────────────────────────────────── */
+function showPanel(id) {
+  document.querySelectorAll('.pv-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.pv-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  // Animate progress bars when tech panel shown
+  if (id === 'overview') animateBars();
+  if (id === 'metrics') initMetricCharts();
+}
 
-  const MESES_ES = ["Enero","Febrero","Marzo","Abril","Mayo","Junio",
-                    "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+/* ── Counter animation ──────────────────────────────────── */
+function animateCounters() {
+  document.querySelectorAll('[data-count]').forEach(el => {
+    const target = parseInt(el.dataset.count);
+    let current = 0;
+    const step = Math.ceil(target / 30);
+    const timer = setInterval(() => {
+      current = Math.min(current + step, target);
+      el.textContent = current;
+      if (current >= target) clearInterval(timer);
+    }, 40);
+  });
+}
 
-  const COLOR_ACT = "#00BBFF", COLOR_ANT = "#FF6464";
-  const FILL_ACT  = "rgba(0,187,255,0.08)", FILL_ANT = "rgba(255,100,100,0.07)";
-
-  async function fetchUF(año) {
-    try {
-      const r = await fetch(`https://mindicador.cl/api/uf/${año}`);
-      return (await r.json()).serie || [];
-    } catch(e) { return []; }
-  }
-
-  const [rawAct, rawAnt] = await Promise.all([fetchUF(AÑO_ACT), fetchUF(AÑO_ANT)]);
-
-  function parseData(raw, maxMes) {
-    return raw
-      .map(d => ({ fecha: new Date(d.fecha), valor: parseFloat(d.valor) }))
-      .filter(d => {
-        if (isNaN(d.valor)) return false;
-        const m = d.fecha.getMonth() + 1;
-        const day = d.fecha.getDate();
-        if (m < MES_MAX) return true;
-        if (m === MES_MAX) return day <= HOY.getDate();
-        return false;
-      })
-      .sort((a, b) => a.fecha - b.fecha);
-  }
-
-  const dataAct = parseData(rawAct, MES_MAX);
-  const dataAnt = parseData(rawAnt, MES_MAX);
-
-  if (!dataAct.length && !dataAnt.length) return;
-
-  /* Normalizar al año actual para alinear en X */
-  function normalize(arr) {
-    return arr.map(d => {
-      const nd = new Date(d.fecha); nd.setFullYear(AÑO_ACT);
-      return { x: nd, y: d.valor, orig: d.fecha };
+/* ── Progress bars ──────────────────────────────────────── */
+function animateBars() {
+  setTimeout(() => {
+    document.querySelectorAll('.prog-bar-fill').forEach(bar => {
+      bar.style.width = bar.dataset.width + '%';
     });
+  }, 200);
+}
+
+/* ── Color palette ──────────────────────────────────────── */
+const palette = [
+  { name: 'Pale Blue',       hex: '#AFEEEE' },
+  { name: 'Sky Blue',        hex: '#87CEEB' },
+  { name: 'Aquamarine',      hex: '#7FFFD4' },
+  { name: 'Aqua Blue',       hex: '#00FFFF' },
+  { name: 'Cyan',            hex: '#00BBFF' },
+  { name: 'Azure',           hex: '#007FFF' },
+  { name: 'Deep Blue',       hex: '#0000FF' },
+  { name: 'Turquoise',       hex: '#40E0DD' },
+  { name: 'Deep Turquoise',  hex: '#00CED1' },
+  { name: 'Teal',            hex: '#008080' },
+  { name: 'Dark Cyan',       hex: '#008888' },
+  { name: 'Cerulean',        hex: '#007BA7' },
+  { name: 'Sea Green',       hex: '#2E8B57' },
+  { name: 'Deep Sea Blue',   hex: '#005870' },
+  { name: 'Steel Blue',      hex: '#4682B4' },
+  { name: 'Royal Blue',      hex: '#4169E1' },
+  { name: 'Cobalt Blue',     hex: '#0047AB' },
+  { name: 'Ocean Blue',      hex: '#4F4285' },
+  { name: 'Indigo',          hex: '#4B0082' },
+  { name: 'Navy Blue',       hex: '#000080' },
+  { name: 'Midnight Blue',   hex: '#191970' },
+];
+
+function buildPalette() {
+  const grid = document.getElementById('paletteGrid');
+  palette.forEach(c => {
+    const sw = document.createElement('div');
+    sw.className = 'palette-swatch';
+    sw.innerHTML = `
+      <div class="swatch-color" style="background:${c.hex}"></div>
+      <div class="swatch-info">
+        <span class="swatch-name">${c.name}</span>
+        <span class="swatch-hex">${c.hex}</span>
+      </div>
+    `;
+    sw.addEventListener('click', () => copyHex(c.hex));
+    grid.appendChild(sw);
+  });
+}
+
+function copyHex(hex) {
+  navigator.clipboard.writeText(hex).catch(() => {});
+  const tip = document.getElementById('tooltipCopy');
+  tip.textContent = `¡${hex} copiado!`;
+  tip.classList.add('show');
+  setTimeout(() => tip.classList.remove('show'), 2200);
+}
+
+/* ── Image gallery ──────────────────────────────────────── */
+const images = [
+  { src: 'images/hero-bg.jpg',           caption: 'Hero — Analista con dashboards' },
+  { src: 'images/dashboard-powerbi.jpg', caption: 'Dashboard Power BI' },
+  { src: 'images/data-engineering.jpg',  caption: 'Ingeniería de datos / ETL' },
+  { src: 'images/bi-audit.jpg',          caption: 'Auditoría BI y gobernanza' },
+  { src: 'images/forecast-prediction.jpg', caption: 'Predicción y analítica' },
+  { src: 'images/business-plan.jpg',     caption: 'Plan de negocios' },
+  { src: 'images/process-steps.jpg',     caption: 'Proceso ágil / sprints' },
+  { src: 'images/profile-fortunato.jpg', caption: 'Fortunato Bravo Núñez' },
+];
+
+function buildGallery() {
+  const gallery = document.getElementById('imgGallery');
+  images.forEach(img => {
+    const item = document.createElement('div');
+    item.className = 'img-gallery-item';
+    item.innerHTML = `
+      <img src="${img.src}" alt="${img.caption}" loading="lazy" />
+      <div class="img-gallery-caption">${img.caption}</div>
+    `;
+    item.addEventListener('click', () => openLightbox(img.src, img.caption));
+    gallery.appendChild(item);
+  });
+}
+
+function openLightbox(src, alt) {
+  document.getElementById('lightboxImg').src = src;
+  document.getElementById('lightboxImg').alt = alt;
+  document.getElementById('lightbox').classList.add('open');
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+}
+
+/* ── Charts ─────────────────────────────────────────────── */
+const chartDefaults = {
+  plugins: {
+    legend: { labels: { color: 'rgba(255,255,255,0.7)', font: { family: 'Inter', size: 12 } } },
+    tooltip: { backgroundColor: 'rgba(10,20,60,0.95)', titleColor: '#00BBFF', bodyColor: 'rgba(255,255,255,0.8)', borderColor: 'rgba(0,187,255,0.3)', borderWidth: 1 }
+  },
+  scales: {
+    x: { ticks: { color: 'rgba(255,255,255,0.55)' }, grid: { color: 'rgba(255,255,255,0.06)' } },
+    y: { ticks: { color: 'rgba(255,255,255,0.55)' }, grid: { color: 'rgba(255,255,255,0.06)' } }
   }
-  const dsAct = normalize(dataAct);
-  const dsAnt = normalize(dataAnt);
+};
 
-  /* UI labels */
-  const mesNombre = MESES_ES[MES_MAX - 1];
-  const DIA = String(HOY.getDate()).padStart(2,'0');
-  const MES = String(HOY.getMonth()+1).padStart(2,'0');
-  const AÑO = HOY.getFullYear();
-  document.getElementById("uf-subtitle-text").textContent =
-    `Enero - ${mesNombre} de ${AÑO_ANT} y ${AÑO_ACT} (hasta ${DIA}-${MES}-${AÑO})`;
-  document.getElementById("lbl-ant").textContent = `Año anterior (${AÑO_ANT})`;
-  document.getElementById("lbl-act").textContent = `Año actual (${AÑO_ACT})`;
-
-  /* Tooltip externo */
-  const ttEl = document.getElementById("uf-tooltip");
-  function fmtClp(v) {
-    return "$" + v.toLocaleString("es-CL",{minimumFractionDigits:2,maximumFractionDigits:2});
-  }
-
-  function externalTooltip({ chart, tooltip }) {
-    if (tooltip.opacity === 0) { ttEl.style.opacity = 0; return; }
-    const pts = tooltip.dataPoints || [];
-    let actVal=null, antVal=null, actOrig=null, antOrig=null;
-    pts.forEach(p => {
-      if (p.datasetIndex === 0) { antVal = p.raw.y; antOrig = p.raw.orig; }
-      if (p.datasetIndex === 1) { actVal = p.raw.y; actOrig = p.raw.orig; }
-    });
-    const d = actOrig || antOrig;
-    const dateStr = d ? `${d.getDate()} ${MESES_ES[d.getMonth()]}` : "";
-    let diffHTML = "";
-    if (actVal !== null && antVal !== null) {
-      const diff = actVal - antVal;
-      const pct  = ((diff/antVal)*100).toFixed(2);
-      const cls  = diff >= 0 ? "uf-up" : "uf-down";
-      const sign = diff >= 0 ? "+" : "";
-      diffHTML = `<div class="tt-diff">Var. interanual: <span class="${cls}">${sign}${fmtClp(diff)} (${sign}${pct}%)</span></div>`;
-    }
-    ttEl.innerHTML = `
-      <div class="tt-date">${dateStr}</div>
-      ${antVal!==null?`<div class="tt-row">
-        <div class="tt-dot" style="background:rgba(255,100,100,0.35);border:1.5px solid #FF6464"></div>
-        <span class="tt-label">${AÑO_ANT}</span><span class="tt-val">${fmtClp(antVal)}</span></div>`:""}
-      ${actVal!==null?`<div class="tt-row">
-        <div class="tt-dot" style="background:rgba(0,187,255,0.3);border:1.5px solid #00BBFF"></div>
-        <span class="tt-label">${AÑO_ACT}</span><span class="tt-val">${fmtClp(actVal)}</span></div>`:""}
-      ${diffHTML}`;
-
-    const cw = chart.canvas.width;
-    const ttW = 162;
-    let left = tooltip.caretX + 14;
-    let top  = tooltip.caretY - 24;
-    if (tooltip.caretX + ttW + 20 > cw) left = tooltip.caretX - ttW - 10;
-    if (top < 0) top = 6;
-    ttEl.style.left = left + "px";
-    ttEl.style.top  = top  + "px";
-    ttEl.style.opacity = 1;
-  }
-
-  /* Render */
-  document.getElementById("uf-skeleton").style.display = "none";
-  const canvas = document.getElementById("uf-canvas");
-  canvas.style.display = "block";
-  canvas.addEventListener("mouseleave", () => { ttEl.style.opacity = 0; });
-
-  const allY = [...dsAct.map(d=>d.y), ...dsAnt.map(d=>d.y)];
-  const pad  = (Math.max(...allY) - Math.min(...allY)) * 0.35;
-  const yAxisStep = 100;
-  const yAxisMin = Math.floor((Math.min(...allY) - pad) / yAxisStep) * yAxisStep;
-  const yAxisMax = Math.ceil((Math.max(...allY) + pad) / yAxisStep) * yAxisStep;
-
-  new Chart(canvas, {
-    type: "line",
+function initOverviewCharts() {
+  // Sections donut
+  new Chart(document.getElementById('sectionsChart'), {
+    type: 'doughnut',
     data: {
+      labels: ['Hero', 'Servicios', 'Precios', 'Formulario', 'Proceso', 'Diferenciadores', 'Evidencia', 'FAQ', 'Otros'],
+      datasets: [{
+        data: [18, 25, 15, 12, 10, 8, 7, 3, 2],
+        backgroundColor: ['#007BA7','#00BBFF','#40E0DD','#7FFFD4','#4682B4','#008080','#005870','#4169E1','#191970'],
+        borderWidth: 0,
+        hoverOffset: 6
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { ...chartDefaults.plugins, legend: { position: 'right', labels: { color: 'rgba(255,255,255,0.7)', font: { size: 11 }, boxWidth: 12 } } },
+      cutout: '60%'
+    }
+  });
+}
+
+function initServiceCharts() {
+  new Chart(document.getElementById('servicesChart'), {
+    type: 'pie',
+    data: {
+      labels: ['Auditoría BI', 'Dashboard Power BI', 'Data Engineering', 'Predicción', 'Plan de Negocios'],
+      datasets: [{
+        data: [20, 25, 20, 20, 15],
+        backgroundColor: ['#007BA7','#00BBFF','#40E0DD','#4682B4','#2E8B57'],
+        borderWidth: 0
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { ...chartDefaults.plugins, legend: { position: 'bottom', labels: { color: 'rgba(255,255,255,0.7)', font: { size: 11 }, boxWidth: 12 } } }
+    }
+  });
+
+  new Chart(document.getElementById('complexityChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Auditoría BI', 'Dashboard PBI', 'Data Eng.', 'Predicción', 'Plan Negocio'],
+      datasets: [{
+        label: 'Complejidad (1–10)',
+        data: [6, 7, 8, 9, 5],
+        backgroundColor: ['rgba(0,123,167,0.7)','rgba(0,187,255,0.7)','rgba(64,224,221,0.7)','rgba(70,130,180,0.7)','rgba(46,139,87,0.7)'],
+        borderColor: ['#007BA7','#00BBFF','#40E0DD','#4682B4','#2E8B57'],
+        borderWidth: 2,
+        borderRadius: 6
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { ...chartDefaults.plugins, legend: { display: false } },
+      scales: { ...chartDefaults.scales, y: { ...chartDefaults.scales.y, min: 0, max: 10 } }
+    }
+  });
+}
+
+function initMetricCharts() {
+  if (document.getElementById('hoursChart').chart) return;
+
+  const hc = new Chart(document.getElementById('hoursChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
       datasets: [
-        { label:`${AÑO_ANT}`, data:dsAnt,
-          borderColor:COLOR_ANT, borderWidth:1.8,
-          backgroundColor:FILL_ANT, fill:true,
-          pointRadius:1.8, pointHitRadius:8, pointHoverRadius:5,
-          pointBackgroundColor:COLOR_ANT,
-          pointBorderColor:"#ffffff", pointBorderWidth:0.5,
-          pointHoverBackgroundColor:"rgba(255,100,100,0.3)",
-          pointHoverBorderColor:COLOR_ANT, pointHoverBorderWidth:1.5, tension:.3 },
-        { label:`${AÑO_ACT}`, data:dsAct,
-          borderColor:COLOR_ACT, borderWidth:2.2,
-          backgroundColor:FILL_ACT, fill:true,
-          pointRadius:1.8, pointHitRadius:8, pointHoverRadius:5,
-          pointBackgroundColor:COLOR_ACT,
-          pointBorderColor:"#ffffff", pointBorderWidth:0.5,
-          pointHoverBackgroundColor:"rgba(0,187,255,0.25)",
-          pointHoverBorderColor:COLOR_ACT, pointHoverBorderWidth:1.5, tension:.3 },
+        { label: 'Antes (hrs)', data: [80, 78, 82, 80, 79, 81], backgroundColor: 'rgba(255,100,100,0.5)', borderColor: '#ff6464', borderWidth: 2, borderRadius: 4 },
+        { label: 'Después (hrs)', data: [48, 46, 44, 43, 42, 41], backgroundColor: 'rgba(0,187,255,0.5)', borderColor: '#00BBFF', borderWidth: 2, borderRadius: 4 }
+      ]
+    },
+    options: { responsive: true, maintainAspectRatio: false, plugins: chartDefaults.plugins, scales: chartDefaults.scales }
+  });
+  document.getElementById('hoursChart').chart = hc;
+
+  const fc = new Chart(document.getElementById('forecastChart'), {
+    type: 'line',
+    data: {
+      labels: ['Mes 1', 'Mes 2', 'Mes 3', 'Mes 4', 'Mes 5', 'Mes 6'],
+      datasets: [
+        { label: 'Sin modelo (%)', data: [62, 64, 63, 65, 64, 66], borderColor: 'rgba(255,100,100,0.8)', backgroundColor: 'rgba(255,100,100,0.1)', tension: 0.4, fill: true, pointRadius: 4 },
+        { label: 'Con modelo (%)', data: [62, 70, 76, 82, 87, 91], borderColor: '#40E0DD', backgroundColor: 'rgba(64,224,221,0.1)', tension: 0.4, fill: true, pointRadius: 4 }
+      ]
+    },
+    options: { responsive: true, maintainAspectRatio: false, plugins: chartDefaults.plugins, scales: { ...chartDefaults.scales, y: { ...chartDefaults.scales.y, min: 50, max: 100 } } }
+  });
+  document.getElementById('forecastChart').chart = fc;
+
+  const rc = new Chart(document.getElementById('radarChart'), {
+    type: 'radar',
+    data: {
+      labels: ['KPIs verificables', 'Transparencia precio', 'Velocidad entrega', 'Seguridad datos', 'Metodología', 'Stack técnico', 'Documentación'],
+      datasets: [
+        { label: 'DataBI Pro', data: [9, 9, 9, 8, 9, 9, 8], borderColor: '#00BBFF', backgroundColor: 'rgba(0,187,255,0.15)', pointBackgroundColor: '#00BBFF', pointRadius: 5 },
+        { label: 'Consultora típica', data: [5, 4, 5, 6, 6, 6, 5], borderColor: 'rgba(255,100,100,0.7)', backgroundColor: 'rgba(255,100,100,0.08)', pointBackgroundColor: 'rgba(255,100,100,0.7)', pointRadius: 5 }
       ]
     },
     options: {
-      responsive:true, maintainAspectRatio:true,
-      interaction:{ mode:"index", intersect:false },
-      plugins:{
-        legend:{ display:false },
-        tooltip:{ enabled:false, external:externalTooltip }
-      },
-      scales:{
-        x:{ type:"time",
-            time:{ unit:"week", displayFormats:{week:"d"}, tooltipFormat:"d MMM" },
-            grid:{ color:"rgba(255,255,255,0.055)" },
-            ticks:{ color:"rgba(160,200,255,0.6)", font:{size:10}, maxTicksLimit:16 },
-            border:{ color:"rgba(255,255,255,0.07)" } },
-        y:{ min:yAxisMin, max:yAxisMax,
-            grid:{ color:"rgba(255,255,255,0.055)" },
-            ticks:{ color:"rgba(160,200,255,0.6)", font:{size:10},
-                    callback: v => "$"+v.toLocaleString("es-CL",{minimumFractionDigits:0}) },
-            border:{ color:"rgba(255,255,255,0.07)" } }
-      },
-      animation:{ duration:700, easing:"easeInOutQuart" },
-      layout:{ padding:{ top:34, bottom:0 } }
-    },
-    plugins:[{
-      id:"ufMonthLines",
-      afterDraw(chart) {
-        const { ctx, chartArea:ca, scales:{x} } = chart;
-        ctx.save();
-        for (let m = 1; m <= MES_MAX; m++) {
-          const xPx = x.getPixelForValue(new Date(AÑO_ACT, m-1, 1));
-          if (xPx < ca.left || xPx > ca.right) continue;
-
-          /* separador */
-          ctx.beginPath(); ctx.strokeStyle="rgba(255,255,255,0.7)";
-          ctx.lineWidth=1; ctx.setLineDash([]);
-          ctx.moveTo(xPx,ca.top); ctx.lineTo(xPx,ca.bottom); ctx.stroke();
-
-          /* banda alterna */
-          if (m%2===0) {
-            const xEnd = m<12 ? x.getPixelForValue(new Date(AÑO_ACT,m,1)) : ca.right;
-            ctx.fillStyle="rgba(255,255,255,0.016)";
-            ctx.fillRect(xPx,ca.top,xEnd-xPx,ca.bottom-ca.top);
-          }
-
-          /* etiqueta mes */
-          const xEnd2 = m<=MES_MAX
-            ? (m<12 ? x.getPixelForValue(new Date(AÑO_ACT,m,1)) : ca.right) : ca.right;
-          const xc = (xPx + Math.min(xEnd2, ca.right)) / 2;
-          ctx.fillStyle="rgba(100,200,255,0.95)";
-          ctx.font="bold 14px Inter,DejaVu Sans,sans-serif";
-          ctx.textAlign="center"; ctx.textBaseline="top";
-          ctx.shadowColor = "rgba(0,0,0,0.5)";
-          ctx.shadowBlur = 3;
-          ctx.fillText(MESES_ES[m-1], xc, ca.top - 24);
-          ctx.shadowColor = "transparent";
+      responsive: true, maintainAspectRatio: false,
+      plugins: chartDefaults.plugins,
+      scales: {
+        r: {
+          min: 0, max: 10,
+          ticks: { color: 'rgba(255,255,255,0.4)', stepSize: 2, backdropColor: 'transparent' },
+          grid: { color: 'rgba(255,255,255,0.08)' },
+          pointLabels: { color: 'rgba(255,255,255,0.7)', font: { size: 11 } },
+          angleLines: { color: 'rgba(255,255,255,0.08)' }
         }
-        ctx.restore();
       }
-    }]
+    }
   });
-})();
+  document.getElementById('radarChart').chart = rc;
+}
+
+function initProcessChart() {
+  new Chart(document.getElementById('processChart'), {
+    type: 'horizontalBar',
+    ...(() => {
+      return {
+        type: 'bar',
+        data: {
+          labels: ['Cotización', 'Demo', 'Sprint 1', 'Sprint 2', 'Sprint 3', 'Traspaso'],
+          datasets: [{
+            label: 'Días estimados',
+            data: [1, 1, 7, 7, 7, 3],
+            backgroundColor: ['rgba(0,123,167,0.7)','rgba(0,187,255,0.7)','rgba(64,224,221,0.7)','rgba(64,224,221,0.6)','rgba(64,224,221,0.5)','rgba(46,139,87,0.7)'],
+            borderColor: ['#007BA7','#00BBFF','#40E0DD','#40E0DD','#40E0DD','#2E8B57'],
+            borderWidth: 2,
+            borderRadius: 6
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true, maintainAspectRatio: false,
+          plugins: { ...chartDefaults.plugins, legend: { display: false } },
+          scales: { x: { ...chartDefaults.scales.x, title: { display: true, text: 'Días', color: 'rgba(255,255,255,0.4)' } }, y: chartDefaults.scales.y }
+        }
+      };
+    })()
+  });
+}
+
+/* ── Init ────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  buildPalette();
+  buildGallery();
+  animateCounters();
+  animateBars();
+  initOverviewCharts();
+  initServiceCharts();
+  initProcessChart();
+});
+
+// ESC to close lightbox
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeLightbox();
+});
 </script>
-<!-- ── /GRÁFICO UF ──────────────────────────────────────── -->
-
-<!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-<script src="script.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-<script> AOS.init({
-        duration: 800, // Duración de la animación en milisegundos
-        once: true     // La animación solo ocurre una vez al bajar
-      });
-    </script>
-
-  </body>
+</body>
 </html>

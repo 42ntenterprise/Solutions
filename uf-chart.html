@@ -94,6 +94,52 @@
   }
   .uf-chart-wrap canvas { display: block; width: 100% !important; }
 
+  .uf-summary-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: .7rem;
+  }
+  .uf-summary-card {
+    width: min(100%, 320px);
+    background: linear-gradient(180deg, rgba(8,20,44,0.96), rgba(6,16,36,0.92));
+    border: 1px solid rgba(0,187,255,0.2);
+    border-radius: 12px;
+    padding: .75rem .85rem;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.24);
+    backdrop-filter: blur(10px);
+  }
+  .uf-summary-card[hidden] { display: none !important; }
+  .uf-summary-item + .uf-summary-item {
+    margin-top: .55rem;
+    padding-top: .55rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .uf-summary-label {
+    display: block;
+    font-size: .64rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: rgba(170,205,255,0.68);
+    line-height: 1.35;
+  }
+  .uf-summary-value {
+    display: block;
+    margin-top: .16rem;
+    font-size: .82rem;
+    font-weight: 700;
+    color: #e7f6ff;
+    line-height: 1.35;
+  }
+  .uf-summary-value.up { color: #4ade80; }
+  .uf-summary-value.down { color: #f87171; }
+  .uf-summary-value.neutral { color: #e7f6ff; }
+
+  @media (max-width: 575px) {
+    .uf-summary-row { justify-content: stretch; }
+    .uf-summary-card { width: 100%; }
+  }
+
   /* Skeleton loader */
   .uf-skeleton {
     height: 320px;
@@ -170,10 +216,10 @@
 </head>
 <body>
 
-<!-- ══════════════════════════════════════════════════════
+<!-- ──────────────────────────────────────────────────────────────────────────────
      SECCIÓN GRÁFICO UF — copiar este bloque en index.html
      justo después de la sección #casos (evidencia)
-══════════════════════════════════════════════════════ -->
+────────────────────────────────────────────────────────────────────────────── -->
 <section class="uf-section" id="indicador-uf">
   <div class="container">
 
@@ -197,6 +243,9 @@
 
     <!-- Canvas -->
     <div class="uf-chart-wrap" data-aos="fade-up" data-aos-delay="80">
+      <div class="uf-summary-row">
+        <div class="uf-summary-card" id="uf-summary-card" hidden></div>
+      </div>
       <div class="uf-skeleton" id="uf-skeleton">Cargando datos de mindicador.cl…</div>
       <canvas id="uf-canvas" height="320" style="display:none"></canvas>
       <div id="uf-tooltip" style="opacity:0"></div>
@@ -206,7 +255,7 @@
 
   </div>
 </section>
-<!-- ════════════════════════════════════════════════════ -->
+<!-- ────────────────────────────────────────────────────────────────────────────── -->
 
 <script>
 (async function() {
@@ -214,6 +263,8 @@
   const AÑO_ACT    = HOY.getFullYear();
   const AÑO_ANT    = AÑO_ACT - 1;
   const MES_MAX    = HOY.getMonth() + 1;   // 1-based
+  const YEAR_5 = AÑO_ACT - 5;
+  const YEAR_10 = AÑO_ACT - 10;
 
   const MESES_ES   = ["Enero","Febrero","Marzo","Abril","Mayo","Junio",
                        "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
@@ -223,7 +274,7 @@
   const FILL_ACT   = "rgba(0,187,255,0.08)";
   const FILL_ANT   = "rgba(255,100,100,0.07)";
 
-  // ── Fetch ────────────────────────────────────────────────
+  // ── Fetch ────────────────────────────────────────────────────────────────────
   async function fetchUF(año) {
     const url = `https://mindicador.cl/api/uf/${año}`;
     try {
@@ -235,7 +286,8 @@
 
   const [rawAct, rawAnt] = await Promise.all([fetchUF(AÑO_ACT), fetchUF(AÑO_ANT)]);
 
-  // ── Parseo ───────────────────────────────────────────────
+  const [raw5, raw10] = await Promise.all([fetchUF(YEAR_5), fetchUF(YEAR_10)]);
+  // ── Parseo ───────────────────────────────────────────────────────────────────
   function parseData(raw, maxMes) {
     return raw
       .map(d => ({ fecha: new Date(d.fecha), valor: parseFloat(d.valor) }))
@@ -250,8 +302,19 @@
       .sort((a, b) => a.fecha - b.fecha);
   }
 
+  function parseSeries(raw) {
+    return raw
+      .map(d => ({ fecha: new Date(d.fecha), valor: parseFloat(d.valor) }))
+      .filter(d => !isNaN(d.valor))
+      .sort((a, b) => a.fecha - b.fecha);
+  }
+
   const dataAct = parseData(rawAct, MES_MAX);
   const dataAnt = parseData(rawAnt, MES_MAX);
+  const serieAct = parseSeries(rawAct);
+  const serieAnt = parseSeries(rawAnt);
+  const serie5 = parseSeries(raw5);
+  const serie10 = parseSeries(raw10);
 
   // Normalizar año anterior al año de referencia para alinear en X
   const REF_YEAR = AÑO_ACT;
@@ -266,7 +329,7 @@
   const dsAct = normalizeYear(dataAct, REF_YEAR);
   const dsAnt = normalizeYear(dataAnt, REF_YEAR);
 
-  // ── Separadores de mes ───────────────────────────────────
+  // ── Separadores de mes ────────────────────────────────────────────────────────
   const mesAnnotations = {};
   for (let m = 1; m <= MES_MAX; m++) {
     const xSep = new Date(REF_YEAR, m - 1, 1);
@@ -278,7 +341,7 @@
     };
   }
 
-  // ── Actualizar UI ────────────────────────────────────────
+  // ── Actualizar UI ──────────────────────────────────────────────────────────────
   const mesActNombre = MESES_ES[MES_MAX - 1];
   const DIA = String(HOY.getDate()).padStart(2, '0');
   const MES = String(HOY.getMonth() + 1).padStart(2, '0');
@@ -288,12 +351,93 @@
   document.getElementById("lbl-ant").textContent = `Año anterior (${AÑO_ANT})`;
   document.getElementById("lbl-act").textContent = `Año actual (${AÑO_ACT})`;
 
-  // ── Tooltip externo ─────────────────────────────────────
+  // ── Tooltip externo ────────────────────────────────────────────────────────────
+  const summaryCard = document.getElementById("uf-summary-card");
   const ttEl = document.getElementById("uf-tooltip");
 
   function fmtClp(v) {
     return "$" + v.toLocaleString("es-CL", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   }
+
+  function fmtDateKey(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
+
+  function buildLookup(series) {
+    return new Map(series.map(d => [fmtDateKey(d.fecha), d]));
+  }
+
+  const yearLookups = {
+    [AÑO_ACT]: buildLookup(serieAct),
+    [AÑO_ANT]: buildLookup(serieAnt),
+    [YEAR_5]: buildLookup(serie5),
+    [YEAR_10]: buildLookup(serie10),
+  };
+
+  function findRecordByDate(targetDate, maxOffsetDays = 3) {
+    const lookup = yearLookups[targetDate.getFullYear()];
+    if (!lookup) return null;
+
+    for (let offset = 0; offset <= maxOffsetDays; offset++) {
+      const offsets = offset === 0 ? [0] : [-offset, offset];
+      for (const signedOffset of offsets) {
+        const candidate = new Date(targetDate);
+        candidate.setDate(candidate.getDate() + signedOffset);
+        const record = lookup.get(fmtDateKey(candidate));
+        if (record) return record;
+      }
+    }
+
+    return null;
+  }
+
+  function formatVariation(currentValue, compareRecord) {
+    if (!compareRecord) return { text: "N/D", cls: "neutral" };
+
+    const diff = currentValue - compareRecord.valor;
+    const pct = compareRecord.valor ? (diff / compareRecord.valor) * 100 : 0;
+    const sign = diff > 0 ? "+" : diff < 0 ? "-" : "";
+    const cls = diff > 0 ? "up" : diff < 0 ? "down" : "neutral";
+
+    return {
+      text: `${sign}${fmtClp(Math.abs(diff))} (${sign}${Math.abs(pct).toFixed(2)}%)`,
+      cls,
+    };
+  }
+
+  function renderSummaryCard() {
+    if (!summaryCard || !dataAct.length) return;
+
+    const refRecord = dataAct[dataAct.length - 1];
+    const yesterdayDate = new Date(refRecord.fecha);
+    yesterdayDate.setDate(yesterdayDate.getDate() - 1);
+
+    const date5Years = new Date(refRecord.fecha);
+    date5Years.setFullYear(date5Years.getFullYear() - 5);
+
+    const date10Years = new Date(refRecord.fecha);
+    date10Years.setFullYear(date10Years.getFullYear() - 10);
+
+    const comparisons = [
+      { label: "Variación ayer", result: formatVariation(refRecord.valor, findRecordByDate(yesterdayDate)) },
+      { label: "Variación mismo día hace 5 años", result: formatVariation(refRecord.valor, findRecordByDate(date5Years)) },
+      { label: "Variación mismo día hace 10 años", result: formatVariation(refRecord.valor, findRecordByDate(date10Years)) },
+    ];
+
+    summaryCard.innerHTML = comparisons.map(item => `
+      <div class="uf-summary-item">
+        <span class="uf-summary-label">${item.label}</span>
+        <span class="uf-summary-value ${item.result.cls}">${item.result.text}</span>
+      </div>
+    `).join("");
+
+    summaryCard.hidden = false;
+  }
+
+  renderSummaryCard();
 
   function externalTooltip(context) {
     const { chart, tooltip } = context;
@@ -360,7 +504,7 @@
     ttEl.style.opacity = 1;
   }
 
-  // ── Render ───────────────────────────────────────────────
+  // ── Render ────────────────────────────────────────────────────────────────────
   document.getElementById("uf-skeleton").style.display = "none";
   const canvas = document.getElementById("uf-canvas");
   canvas.style.display = "block";
@@ -369,6 +513,9 @@
   const yMin = Math.min(...allY);
   const yMax = Math.max(...allY);
   const pad  = (yMax - yMin) * 0.30;
+  const yAxisStep = 100;
+  const yAxisMin = Math.floor((yMin - pad) / yAxisStep) * yAxisStep;
+  const yAxisMax = Math.ceil((yMax + pad) / yAxisStep) * yAxisStep;
 
   new Chart(canvas, {
     type: "line",
@@ -443,8 +590,8 @@
           border: { color: "rgba(255,255,255,0.08)" },
         },
         y: {
-          min: yMin - pad,
-          max: yMax + pad,
+          min: yAxisMin,
+          max: yAxisMax,
           grid: { color: "rgba(255,255,255,0.06)" },
           ticks: {
             color: "rgba(180,210,255,0.65)",

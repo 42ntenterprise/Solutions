@@ -322,7 +322,7 @@ document.addEventListener('DOMContentLoaded', () => {
         successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
 
-      showToast('¡Cotización enviada! Te contactamos en un máximo de 24 horas hábiles.', 'success');
+      showToast('¡Diagnóstico solicitado! Te respondemos en un máximo de 24 horas hábiles.', 'success');
 
     } catch (err) {
       console.error('Error al enviar formulario:', err);
@@ -332,7 +332,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const empresa  = (formData.get('empresa') || '').trim();
       const necesidad = (formData.get('necesidad') || '').trim();
       const waMsg    = encodeURIComponent(
-        `Hola Fortunato, soy ${nombre} de ${empresa}. Quiero cotizar: ${necesidad}.`
+        `Hola equipo 42NT, soy ${nombre} de ${empresa}. Quiero solicitar un diagnóstico BI gratuito para: ${necesidad}.`
       );
 
       showToast(

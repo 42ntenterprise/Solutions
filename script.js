@@ -101,12 +101,23 @@ function getDomainFromEmail(email) {
 function calcLeadScore(formData) {
   let score = 0;
 
+  // Cargo / rol en la decision
+  const cargoRol = formData.get('cargo_rol') || '';
+  if (['CFO', 'Controller', 'Gerente de Finanzas'].includes(cargoRol)) score += 20;
+  if (['Gerente de Operaciones', 'Jefe de Operaciones', 'Supply Chain'].includes(cargoRol)) score += 15;
+  if (cargoRol === 'Gerencia General') score += 8;
+
   // Tamaño empresa
   const tamano = formData.get('tamano_empresa') || '';
   if (tamano === '200+')   score += 35;
   if (tamano === '51-200') score += 25;
   if (tamano === '11-50')  score += 12;
   if (tamano === '1-10')   score += 5;
+
+  // Industria alineada al ICP
+  const industria = formData.get('industria') || '';
+  if (industria === 'Retail' || industria === 'Logística') score += 10;
+  if (industria === 'Finanzas') score += 6;
 
   // Urgencia
   const urgency = formData.get('urgency') || '';
@@ -149,6 +160,33 @@ function getLeadSource() {
   const campaign = p.get('utm_campaign') || '';
   const ref      = document.referrer     || '';
   return { source, medium, campaign, referrer: ref };
+}
+
+/** Envia eventos si existe una capa de analitica ya cargada */
+function trackUiEvent(eventName, detail = {}) {
+  const payload = { ...detail };
+
+  if (Array.isArray(window.dataLayer)) {
+    window.dataLayer.push({ event: eventName, ...payload });
+  }
+
+  if (typeof window.gtag === 'function') {
+    window.gtag('event', eventName, payload);
+  }
+}
+
+/** Determina desde que bloque del sitio se disparo un CTA */
+function resolveCtaSource(trigger) {
+  if (!trigger) return '';
+
+  const explicitSource = trigger.getAttribute('data-cta-source');
+  if (explicitSource) return explicitSource;
+
+  const section = trigger.closest('section[id]');
+  if (section) return section.id;
+
+  const containerWithId = trigger.closest('[id]');
+  return containerWithId?.id || '';
 }
 
 /* ─────────────────────────────────────────────────────────
@@ -238,7 +276,33 @@ function validateForm(form) {
 document.addEventListener('DOMContentLoaded', () => {
   const form      = document.getElementById('quoteForm');
   const submitBtn = document.getElementById('submitBtn');
+  const leadOriginInput = document.getElementById('leadOrigin');
+  const formStartedAtInput = document.getElementById('formStartedAt');
+  const formStartedSourceInput = document.getElementById('formStartedSource');
   if (!form) return;
+
+  let hasTrackedFormStart = false;
+
+  function getTimestampCL() {
+    return new Date().toLocaleString('es-CL', { timeZone: 'America/Santiago' });
+  }
+
+  function markFormStarted(sourceOverride = '') {
+    const resolvedSource = sourceOverride || leadOriginInput?.value || formStartedSourceInput?.value || 'form-directo';
+
+    if (formStartedAtInput && !formStartedAtInput.value) {
+      formStartedAtInput.value = getTimestampCL();
+    }
+
+    if (formStartedSourceInput && !formStartedSourceInput.value) {
+      formStartedSourceInput.value = resolvedSource;
+    }
+
+    if (!hasTrackedFormStart) {
+      hasTrackedFormStart = true;
+      trackUiEvent('form_start', { form_source: resolvedSource });
+    }
+  }
 
   // Limpiar invalid en cambio de valor
   form.querySelectorAll('[required]').forEach(field => {
@@ -246,8 +310,15 @@ document.addEventListener('DOMContentLoaded', () => {
     field.addEventListener('change', () => field.classList.remove('is-invalid'));
   });
 
+  form.querySelectorAll('input, select, textarea').forEach(field => {
+    field.addEventListener('focus', () => markFormStarted(), { passive: true });
+    field.addEventListener('input', () => markFormStarted());
+    field.addEventListener('change', () => markFormStarted());
+  });
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    markFormStarted();
 
     if (!validateForm(form)) {
       const firstInvalid = form.querySelector('.is-invalid');
@@ -260,27 +331,38 @@ document.addEventListener('DOMContentLoaded', () => {
     // ── Construir FormData enriquecido ─────────────────────
     const formData = new FormData(form);
 
+    const nombre          = (formData.get('nombre') || '').trim();
+    const cargoRol        = (formData.get('cargo_rol') || '').trim();
+    const nombreCargo     = [nombre, cargoRol].filter(Boolean).join(' — ');
     const email           = (formData.get('email') || '').trim();
     const empresaDetected = getDomainFromEmail(email);
     const score           = calcLeadScore(formData);
     const label           = scoreLabel(score);
     const tracking        = getLeadSource();
     const timestamp       = new Date().toLocaleString('es-CL', { timeZone: 'America/Santiago' });
+    const caseInterest    = (formData.get('caso_interes') || '').trim();
+    const originCta       = (formData.get('origen_cta') || '').trim();
+    const demoContext     = (formData.get('demo_contexto') || '').trim();
+    const formStartedAt   = (formData.get('form_inicio_ts') || '').trim();
+    const formStartedFrom = (formData.get('form_inicio_origen') || '').trim();
 
     // Campos ocultos enriquecidos
     formData.set('lead_score',        `${score} — ${label}`);
+    formData.set('nombre_cargo',      nombreCargo);
     formData.set('empresa_detectada', empresaDetected);
     formData.set('utm_source',        tracking.source);
     formData.set('utm_medium',        tracking.medium);
     formData.set('utm_campaign',      tracking.campaign);
     formData.set('referrer',          tracking.referrer);
     formData.set('timestamp_cl',      timestamp);
-    formData.set('_subject',          `Nuevo lead 42NT — Score ${score} (${label}) — ${formData.get('empresa') || 'sin empresa'}`);
+    formData.set('_subject',          `Nuevo lead 42NT — ${caseInterest || 'sin caso'} — ${cargoRol || 'sin rol'} — Score ${score} (${label}) — ${formData.get('empresa') || 'sin empresa'}`);
 
     // ── Payload para Google Sheets (JSON plano) ────────────
     const sheetsPayload = {
       timestamp:         timestamp,
-      nombre_cargo:      formData.get('nombre_cargo') || '',
+      nombre:            nombre,
+      cargo_rol:         cargoRol,
+      nombre_cargo:      nombreCargo,
       empresa:           formData.get('empresa') || '',
       empresa_detectada: empresaDetected,
       email:             email,
@@ -288,7 +370,13 @@ document.addEventListener('DOMContentLoaded', () => {
       industria:         formData.get('industria') || '',
       tamano_empresa:    formData.get('tamano_empresa') || '',
       necesidad:         formData.get('necesidad') || '',
+      origen_cta:        originCta,
+      caso_interes:      caseInterest,
+      demo_contexto:     demoContext,
+      form_inicio_ts:    formStartedAt,
+      form_inicio_origen: formStartedFrom,
       fuente_datos:      formData.get('fuente_datos') || '',
+      numero_fuentes:    formData.get('numero_fuentes') || '',
       urgencia:          formData.get('urgency') || '',   // nombre unificado para Apps Script
       descripcion:       formData.get('descripcion') || '',
       lead_score:        score,
@@ -322,17 +410,27 @@ document.addEventListener('DOMContentLoaded', () => {
         successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
 
-      showToast('¡Diagnóstico solicitado! Te respondemos en un máximo de 24 horas hábiles.', 'success');
+      trackUiEvent('form_submit_success', {
+        form_source: originCta || formStartedFrom || 'form-directo',
+        necesidad: formData.get('necesidad') || '',
+        industria: formData.get('industria') || '',
+      });
+
+      showToast('Recibimos tu caso. Te responderemos en un máximo de 24 horas hábiles con revisión inicial y siguiente paso.', 'success');
 
     } catch (err) {
       console.error('Error al enviar formulario:', err);
 
+      trackUiEvent('form_submit_error', {
+        form_source: originCta || formStartedFrom || 'form-directo',
+        necesidad: formData.get('necesidad') || '',
+      });
+
       // Fallback WhatsApp si Formspree falla
-      const nombre   = (formData.get('nombre_cargo') || '').trim();
-      const empresa  = (formData.get('empresa') || '').trim();
+      const empresa   = (formData.get('empresa') || '').trim();
       const necesidad = (formData.get('necesidad') || '').trim();
       const waMsg    = encodeURIComponent(
-        `Hola equipo 42NT, soy ${nombre} de ${empresa}. Quiero solicitar un diagnóstico BI gratuito para: ${necesidad}.`
+        `Hola equipo 42NT, soy ${nombre}, ${cargoRol} en ${empresa}. Quiero solicitar una evaluación inicial para: ${necesidad}.`
       );
 
       showToast(
@@ -370,6 +468,111 @@ document.addEventListener('DOMContentLoaded', () => {
       toggleBtn.setAttribute('aria-expanded', 'true');
       toggleBtn.querySelector('i').className = 'bi bi-dash-circle me-1';
     }
+  });
+});
+
+/* ─────────────────────────────────────────────────────────
+   CTA COMPLEMENTARIO — preselecciona necesidad en formulario
+───────────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  const needSelect = document.querySelector('select[name="necesidad"]');
+  const industrySelect = document.querySelector('select[name="industria"]');
+  const leadOriginInput = document.getElementById('leadOrigin');
+  const caseInterestInput = document.getElementById('caseInterest');
+  const caseContextInput = document.getElementById('caseContextValue');
+  const caseBanner = document.getElementById('formCaseContext');
+  const caseBannerTitle = document.getElementById('formCaseTitle');
+  const caseBannerCopy = document.getElementById('formCaseCopy');
+  const optionalToggle = document.getElementById('toggleOptional');
+  const optionalBlock = document.getElementById('optionalFields');
+
+  function openOptionalFields() {
+    if (!optionalBlock || !optionalToggle) return;
+    optionalBlock.style.display = 'block';
+    optionalBlock.style.padding = '0';
+    optionalToggle.setAttribute('aria-expanded', 'true');
+    const icon = optionalToggle.querySelector('i');
+    if (icon) icon.className = 'bi bi-dash-circle me-1';
+  }
+
+  function resetCaseContext() {
+    if (caseInterestInput) caseInterestInput.value = '';
+    if (caseContextInput) caseContextInput.value = '';
+    if (caseBanner) caseBanner.hidden = true;
+    if (caseBannerTitle) caseBannerTitle.textContent = 'Solicitando demo de un caso real';
+    if (caseBannerCopy) caseBannerCopy.textContent = '';
+  }
+
+  document.querySelectorAll('a[href="#cotizar"], [data-select-necesidad]').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const value = trigger.getAttribute('data-select-necesidad');
+      if (needSelect && value) {
+        needSelect.value = value;
+        needSelect.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+      if (value === 'Proyecto a medida' || value === 'Otro caso / evaluación especial') {
+        openOptionalFields();
+      }
+
+      const resolvedSource = resolveCtaSource(trigger);
+      const caseOrigin = trigger.getAttribute('data-case-origin') || '';
+      const caseIndustry = trigger.getAttribute('data-case-industry') || '';
+      const caseContext = trigger.getAttribute('data-case-context') || '';
+      const formContextTitle = trigger.getAttribute('data-form-context-title') || '';
+      const formContextCopy = trigger.getAttribute('data-form-context-copy') || '';
+      const ctaSource = trigger.getAttribute('data-cta-source') || '';
+
+      trackUiEvent('cta_click', {
+        cta_source: resolvedSource || 'sin_fuente',
+        cta_target: trigger.getAttribute('href') || '',
+        cta_label: (value || trigger.textContent || '').trim().slice(0, 80),
+      });
+
+      if (leadOriginInput) leadOriginInput.value = ctaSource || resolvedSource || '';
+
+      if (!caseOrigin && !formContextTitle && !formContextCopy) {
+        resetCaseContext();
+        return;
+      }
+
+      if (leadOriginInput) leadOriginInput.value = ctaSource || resolvedSource || (caseOrigin ? 'casos' : '');
+      if (caseInterestInput) caseInterestInput.value = caseOrigin;
+      if (caseContextInput) caseContextInput.value = caseContext || formContextCopy;
+      if (industrySelect && caseIndustry) {
+        industrySelect.value = caseIndustry;
+        industrySelect.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+      if (caseBanner) caseBanner.hidden = false;
+      if (caseBannerTitle) {
+        caseBannerTitle.textContent = caseOrigin
+          ? `Solicitando demo del ${caseOrigin}`
+          : formContextTitle || 'Solicitando evaluación inicial';
+      }
+      if (caseBannerCopy) {
+        caseBannerCopy.textContent = caseOrigin ? caseContext : formContextCopy;
+      }
+    });
+  });
+
+  if (needSelect) {
+    needSelect.addEventListener('change', () => {
+      const selectedValue = needSelect.value;
+      if (selectedValue === 'Proyecto a medida' || selectedValue === 'Otro caso / evaluación especial') {
+        openOptionalFields();
+      }
+    });
+  }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('[data-track-event]').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      trackUiEvent(trigger.getAttribute('data-track-event') || 'ui_click', {
+        cta_source: resolveCtaSource(trigger) || 'sin_fuente',
+        cta_target: trigger.getAttribute('href') || '',
+        cta_label: (trigger.textContent || '').trim().slice(0, 80),
+      });
+    });
   });
 });
 
